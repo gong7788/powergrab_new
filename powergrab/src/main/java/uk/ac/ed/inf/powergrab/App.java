@@ -56,20 +56,6 @@ public class App
 		}
         String mapSource = Geomap.getmapSource();
 		
-		FeatureCollection fc = FeatureCollection.fromJson(mapSource);
-        List<Feature> feature_list = fc.features();
-        Feature feature1 = feature_list.get(0);
-        Geometry g = feature1.geometry();
-        Point p = (Point) g;
-		
-		
-		Stateless stateless_drone = new Stateless(longitude, latitude, 5678);
-		stateless_drone.serch_state(Geomap.getstates());
-		stateless_drone.setFeature_list(feature_list);
-		
-		stateless_drone.start();
-		
-		
         // System.out.println(mapSource);
         
     }

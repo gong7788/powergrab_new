@@ -5,13 +5,15 @@ public class State {
 	private double longitude;
 	private double coins;
 	private double power;
+	private String label;
 	private boolean empty;
 	
-	public State(double latitude, double longitude, double coins, double power) {
+	public State(double latitude, double longitude, double coins, double power, String label) {
 		this.latitude = latitude;
 		this.longitude = longitude;
 		this.coins = coins;
 		this.power = power;
+		this.label = label;
 		this.empty = false;
 	}
 
@@ -46,6 +48,10 @@ public class State {
 	public void setPower(double power) {
 		this.power = power;
 	}
+
+	public String getLabel() { return label; }
+
+	public void setLabel(String label) { this.label = label; }
 
 	public boolean isEmpty() {
 		return empty;

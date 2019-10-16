@@ -16,23 +16,24 @@ import com.mapbox.geojson.Point;
 public class MyMap {
 	private String mapString = "http://homepages.inf.ed.ac.uk/stg/powergrab/2019/01/01/powergrabmap.geojson";
 	private String mapSource = "";
-	private double[] states = new double[100];
-	public ArrayList<State> statess = new ArrayList<State>();
+	private double total_coins = 0;
+
+	public ArrayList<State> states = new ArrayList<State>();
 
 	public MyMap() {}
 	
-	public ArrayList<State> getStatess() {
-		return statess;
+	public ArrayList<State> getStates() {
+		return states;
 	}
 	
 	public String getmapSource() {
 		return mapSource;
 	}
 
-	public double[] getstates() {
-		return states;
-		}
-	
+	public double getTotal_coins() {
+		return total_coins;
+	}
+
 	public void downloadMap() throws MalformedURLException, IOException {
 		
 //	    String mapString = getMapString("2019/01/01");
@@ -53,7 +54,7 @@ public class MyMap {
 		
 	}
 	
-	public void getStates() throws MalformedURLException, IOException {
+	public void transfer2States() throws MalformedURLException, IOException {
 		FeatureCollection fc = FeatureCollection.fromJson(mapSource);
         List<Feature> feature_list = fc.features();
 		for(int i = 0; i < 50; i++) {
@@ -63,10 +64,12 @@ public class MyMap {
 			double latitude = p.coordinates().get(1);
 			double coins = f.getProperty("coins").getAsDouble();
 			double power = f.getProperty("power").getAsDouble();
-			//states[2*i] = longitude;
-			//states[2*i+1] = latitude;
-			State state = new State(latitude, longitude, coins, power);
-			statess.add(state);
+			String label = f.getProperty("marker-symbol").getAsString();
+			if (label.equals("lighthouse")){
+				total_coins = total_coins + coins;
+			}
+			State state = new State(latitude, longitude, coins, power, label);
+			states.add(state);
 		}
 	}
 
