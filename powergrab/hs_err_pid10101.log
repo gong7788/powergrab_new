@@ -1,0 +1,1069 @@
+#
+# A fatal error has been detected by the Java Runtime Environment:
+#
+#  Internal Error (javaCalls.cpp:51), pid=10101, tid=0x00007f82b7bfb700
+#  guarantee(thread->is_Java_thread()) failed: crucial check - the VM thread cannot and must not escape to Java code
+#
+# JRE version: OpenJDK Runtime Environment (8.0_222-b10) (build 1.8.0_222-b10)
+# Java VM: OpenJDK 64-Bit Server VM (25.222-b10 mixed mode linux-amd64 compressed oops)
+# Failed to write core dump. Core dumps have been disabled. To enable core dumping, try "ulimit -c unlimited" before starting Java again
+#
+# If you would like to submit a bug report, please visit:
+#   http://bugreport.java.com/bugreport/crash.jsp
+#
+
+---------------  T H R E A D  ---------------
+
+Current thread (0x00007f82d41a0800):  VMThread [stack: 0x00007f82b7afc000,0x00007f82b7bfc000] [id=10112]
+
+Stack: [0x00007f82b7afc000,0x00007f82b7bfc000],  sp=0x00007f82b7bf9310,  free space=1012k
+Native frames: (J=compiled Java code, j=interpreted, Vv=VM code, C=native code)
+V  [libjvm.so+0xaced2d]
+V  [libjvm.so+0x4f43b5]
+V  [libjvm.so+0x67d7af]
+V  [libjvm.so+0x6802b7]
+V  [libjvm.so+0x67e94c]
+V  [libjvm.so+0x5750ca]
+V  [libjvm.so+0x575832]
+V  [libjvm.so+0x5d9d83]
+V  [libjvm.so+0x5db718]
+V  [libjvm.so+0x5dcde4]
+V  [libjvm.so+0x5dec01]
+V  [libjvm.so+0x5def15]
+V  [libjvm.so+0x8b5238]
+V  [libjvm.so+0x8b6dee]
+V  [libjvm.so+0x8b7c3a]
+V  [libjvm.so+0x8b8529]
+V  [libjvm.so+0x63c4ff]
+V  [libjvm.so+0x8588b8]
+V  [libjvm.so+0x75287a]
+V  [libjvm.so+0xad5027]
+V  [libjvm.so+0xad3940]
+V  [libjvm.so+0xad3df9]
+V  [libjvm.so+0xad4262]
+V  [libjvm.so+0x8c3a72]
+
+VM_Operation (0x00007f82b75f1a00): GetOrSetLocal, mode: safepoint, requested by thread 0x00007f82d41f2000
+
+
+---------------  P R O C E S S  ---------------
+
+Java Threads: ( => current thread )
+  0x00007f82d42e2000 JavaThread "Service Thread" daemon [_thread_blocked, id=10129, stack(0x00007f82b6eec000,0x00007f82b6fed000)]
+  0x00007f82d42d5000 JavaThread "C1 CompilerThread2" daemon [_thread_blocked, id=10128, stack(0x00007f82b6fee000,0x00007f82b70ee000)]
+  0x00007f82d42d3000 JavaThread "C2 CompilerThread1" daemon [_thread_blocked, id=10127, stack(0x00007f82b70ef000,0x00007f82b71ef000)]
+  0x00007f82d42d8000 JavaThread "C2 CompilerThread0" daemon [_thread_blocked, id=10126, stack(0x00007f82b71f0000,0x00007f82b72f0000)]
+  0x00007f8290001000 JavaThread "JDWP Command Reader" daemon [_thread_in_native, id=10120, stack(0x00007f82b72f0000,0x00007f82b73f1000)]
+  0x00007f82d41f6000 JavaThread "JDWP Event Helper Thread" daemon [_thread_blocked, id=10119, stack(0x00007f82b73f1000,0x00007f82b74f2000)]
+  0x00007f82d41f2000 JavaThread "JDWP Transport Listener: dt_socket" daemon [_thread_blocked, id=10118, stack(0x00007f82b74f2000,0x00007f82b75f3000)]
+  0x00007f82d41d8800 JavaThread "Signal Dispatcher" daemon [_thread_blocked, id=10116, stack(0x00007f82b77f8000,0x00007f82b78f9000)]
+  0x00007f82d41af000 JavaThread "Finalizer" daemon [_thread_blocked, id=10115, stack(0x00007f82b78f9000,0x00007f82b79fa000)]
+  0x00007f82d41aa800 JavaThread "Reference Handler" daemon [_thread_blocked, id=10114, stack(0x00007f82b79fa000,0x00007f82b7afb000)]
+  0x00007f82d404f800 JavaThread "main" [_thread_blocked, id=10106, stack(0x00007f82dc7a8000,0x00007f82dc8a8000)]
+
+Other Threads:
+=>0x00007f82d41a0800 VMThread [stack: 0x00007f82b7afc000,0x00007f82b7bfc000] [id=10112]
+  0x00007f82d4392800 WatcherThread [stack: 0x00007f82b6dec000,0x00007f82b6eec000] [id=10130]
+
+VM state:at safepoint (normal execution)
+
+VM Mutex/Monitor currently owned by a thread:  ([mutex/lock_event])
+[0x00007f82d404cb20] Threads_lock - owner thread: 0x00007f82d41a0800
+
+heap address: 0x00000006c7200000, size: 3982 MB, Compressed Oops mode: Zero based, Oop shift amount: 3
+Narrow klass base: 0x0000000000000000, Narrow klass shift: 3
+Compressed class space size: 1073741824 Address: 0x00000007c0000000
+
+Heap:
+ PSYoungGen      total 74752K, used 20752K [0x000000076d100000, 0x0000000772400000, 0x00000007c0000000)
+  eden space 64512K, 32% used [0x000000076d100000,0x000000076e5442d0,0x0000000771000000)
+  from space 10240K, 0% used [0x0000000771a00000,0x0000000771a00000,0x0000000772400000)
+  to   space 10240K, 0% used [0x0000000771000000,0x0000000771000000,0x0000000771a00000)
+ ParOldGen       total 171008K, used 0K [0x00000006c7200000, 0x00000006d1900000, 0x000000076d100000)
+  object space 171008K, 0% used [0x00000006c7200000,0x00000006c7200000,0x00000006d1900000)
+ Metaspace       used 8405K, capacity 8618K, committed 8832K, reserved 1056768K
+  class space    used 823K, capacity 889K, committed 896K, reserved 1048576K
+
+Card table byte_map: [0x00007f82be30e000,0x00007f82bead6000] byte_map_base: 0x00007f82bacd5000
+
+Marking Bits: (ParMarkBitMap*) 0x00007f82dba96aa0
+ Begin Bits: [0x00007f82a0390000, 0x00007f82a41c8000)
+ End Bits:   [0x00007f82a41c8000, 0x00007f82a8000000)
+
+Polling page: 0x00007f82dc8e6000
+
+CodeCache: size=245760Kb used=2117Kb max_used=2117Kb free=243642Kb
+ bounds [0x00007f82bead6000, 0x00007f82bed46000, 0x00007f82cdad6000]
+ total_blobs=671 nmethods=364 adapters=230
+ compilation: enabled
+
+Compilation events (250 events):
+Event: 0.980 Thread 0x00007f82d42d5000  231   !   3       java.util.concurrent.ConcurrentHashMap::putVal (362 bytes)
+Event: 0.982 Thread 0x00007f82d42d5000 nmethod 231 0x00007f82bec563d0 code [0x00007f82bec566c0, 0x00007f82bec58218]
+Event: 0.982 Thread 0x00007f82d42d5000  228       3       jdk.internal.org.objectweb.asm.Frame::execute (2252 bytes)
+Event: 0.983 Thread 0x00007f82d42d8000  241       4       jdk.internal.org.objectweb.asm.ByteVector::putUTF8 (142 bytes)
+Event: 0.987 Thread 0x00007f82d42d5000 nmethod 228 0x00007f82bec592d0 code [0x00007f82bec5a080, 0x00007f82bec5f718]
+Event: 0.987 Thread 0x00007f82d42d5000  240  s    3       java.lang.StringBuffer::append (13 bytes)
+Event: 0.987 Thread 0x00007f82d42d5000 nmethod 240 0x00007f82bec630d0 code [0x00007f82bec63280, 0x00007f82bec639b8]
+Event: 0.987 Thread 0x00007f82d42d5000  235   !   3       java.util.AbstractList$Itr::next (45 bytes)
+Event: 0.987 Thread 0x00007f82d42d5000 nmethod 235 0x00007f82bec63dd0 code [0x00007f82bec63fc0, 0x00007f82bec645f8]
+Event: 0.987 Thread 0x00007f82d42d5000  225       3       jdk.internal.org.objectweb.asm.Item::isEqualTo (354 bytes)
+Event: 0.988 Thread 0x00007f82d42d5000 nmethod 225 0x00007f82bec64950 code [0x00007f82bec64b80, 0x00007f82bec65888]
+Event: 0.988 Thread 0x00007f82d42d5000  226       3       java.lang.invoke.MemberName::getMethodOrFieldType (72 bytes)
+Event: 0.989 Thread 0x00007f82d42d5000 nmethod 226 0x00007f82bec65c90 code [0x00007f82bec65f80, 0x00007f82bec676c8]
+Event: 0.989 Thread 0x00007f82d42d5000  239       3       java.util.Collections$UnmodifiableCollection$1::hasNext (10 bytes)
+Event: 0.989 Thread 0x00007f82d42d5000 nmethod 239 0x00007f82bec67f50 code [0x00007f82bec680c0, 0x00007f82bec682e8]
+Event: 0.989 Thread 0x00007f82d42d5000  224       1       java.lang.invoke.MethodHandle::type (5 bytes)
+Event: 0.989 Thread 0x00007f82d42d5000 nmethod 224 0x00007f82bec68390 code [0x00007f82bec684e0, 0x00007f82bec685f0]
+Event: 0.990 Thread 0x00007f82d42d5000  242       3       java.lang.invoke.MemberName::initResolved (53 bytes)
+Event: 0.990 Thread 0x00007f82d42d5000 nmethod 242 0x00007f82bec687d0 code [0x00007f82bec68940, 0x00007f82bec68b10]
+Event: 0.990 Thread 0x00007f82d42d5000  245       3       java.util.Arrays::equals (78 bytes)
+Event: 0.991 Thread 0x00007f82d42d5000 nmethod 245 0x00007f82bec68b90 code [0x00007f82bec68d20, 0x00007f82bec69228]
+Event: 0.991 Thread 0x00007f82d42d5000  247       3       java.lang.invoke.MemberName::getInvocationType (56 bytes)
+Event: 0.991 Thread 0x00007f82d42d5000 nmethod 247 0x00007f82bec6ce90 code [0x00007f82bec6d080, 0x00007f82bec6dc88]
+Event: 0.991 Thread 0x00007f82d42d5000  249       3       sun.invoke.util.VerifyAccess::isTypeVisible (118 bytes)
+Event: 0.991 Thread 0x00007f82d42d8000 nmethod 241 0x00007f82bec6dfd0 code [0x00007f82bec6e160, 0x00007f82bec6e888]
+Event: 0.993 Thread 0x00007f82d42d5000 nmethod 249 0x00007f82bec6ed10 code [0x00007f82bec6f060, 0x00007f82bec71158]
+Event: 0.993 Thread 0x00007f82d42d5000  251       3       jdk.internal.org.objectweb.asm.Type::getType (269 bytes)
+Event: 0.997 Thread 0x00007f82d42d5000 nmethod 251 0x00007f82bec69ad0 code [0x00007f82bec69cc0, 0x00007f82bec6a5d0]
+Event: 0.997 Thread 0x00007f82d42d5000  254       3       java.util.Collections$UnmodifiableCollection$1::next (10 bytes)
+Event: 0.997 Thread 0x00007f82d42d5000 nmethod 254 0x00007f82bec6ca50 code [0x00007f82bec6cbc0, 0x00007f82bec6cde8]
+Event: 0.997 Thread 0x00007f82d42d5000  246       3       java.lang.invoke.LambdaForm$NamedFunction::methodType (23 bytes)
+Event: 0.997 Thread 0x00007f82d42d5000 nmethod 246 0x00007f82bec6c4d0 code [0x00007f82bec6c640, 0x00007f82bec6c948]
+Event: 0.997 Thread 0x00007f82d42d5000  243       1       java.lang.invoke.MethodTypeForm::erasedType (5 bytes)
+Event: 0.997 Thread 0x00007f82d42d5000 nmethod 243 0x00007f82bec697d0 code [0x00007f82bec69920, 0x00007f82bec69a30]
+Event: 0.999 Thread 0x00007f82d42d5000  255       3       java.lang.Math::max (11 bytes)
+Event: 0.999 Thread 0x00007f82d42d5000 nmethod 255 0x00007f82bec6c150 code [0x00007f82bec6c2c0, 0x00007f82bec6c450]
+Event: 0.999 Thread 0x00007f82d42d5000  256       3       java.lang.invoke.LambdaForm$Name::initIndex (26 bytes)
+Event: 0.999 Thread 0x00007f82d42d5000 nmethod 256 0x00007f82bec6bd90 code [0x00007f82bec6bf00, 0x00007f82bec6c0f0]
+Event: 0.999 Thread 0x00007f82d42d5000  257       3       java.lang.invoke.LambdaForm$BasicType::basicTypeSlots (8 bytes)
+Event: 0.999 Thread 0x00007f82d42d5000 nmethod 257 0x00007f82bec6b910 code [0x00007f82bec6ba80, 0x00007f82bec6bcd0]
+Event: 0.999 Thread 0x00007f82d42d5000  258       3       sun.invoke.util.Wrapper::stackSlots (9 bytes)
+Event: 1.000 Thread 0x00007f82d42d5000 nmethod 258 0x00007f82bec6b610 code [0x00007f82bec6b760, 0x00007f82bec6b8b0]
+Event: 1.000 Thread 0x00007f82d42d5000  259       3       java.lang.invoke.MethodType::makeImpl (66 bytes)
+Event: 1.000 Thread 0x00007f82d42d5000 nmethod 259 0x00007f82bec721d0 code [0x00007f82bec723c0, 0x00007f82bec72c48]
+Event: 1.000 Thread 0x00007f82d42d5000  260       3       java.lang.Class::getEnclosingMethodInfo (21 bytes)
+Event: 1.000 Thread 0x00007f82d42d5000 nmethod 260 0x00007f82bec72fd0 code [0x00007f82bec73160, 0x00007f82bec733d8]
+Event: 1.001 Thread 0x00007f82d42d5000  265       3       java.util.Arrays$ArrayList::get (7 bytes)
+Event: 1.001 Thread 0x00007f82d42d5000 nmethod 265 0x00007f82bec737d0 code [0x00007f82bec73940, 0x00007f82bec73ad0]
+Event: 1.001 Thread 0x00007f82d42d5000  266       3       jdk.internal.org.objectweb.asm.MethodWriter::visitVarInsn (292 bytes)
+Event: 1.002 Thread 0x00007f82d42d5000 nmethod 266 0x00007f82bec73bd0 code [0x00007f82bec73e00, 0x00007f82bec74868]
+Event: 1.002 Thread 0x00007f82d42d5000  267       3       java.lang.invoke.InvokerBytecodeGenerator::emitImplicitConversion (159 bytes)
+Event: 1.003 Thread 0x00007f82d42d5000 nmethod 267 0x00007f82bec74c90 code [0x00007f82bec74f60, 0x00007f82bec76278]
+Event: 1.003 Thread 0x00007f82d42d5000  268       3       java.lang.reflect.Array::newInstance (6 bytes)
+Event: 1.003 Thread 0x00007f82d42d5000 nmethod 268 0x00007f82bec76ad0 code [0x00007f82bec76c40, 0x00007f82bec76dc8]
+Event: 1.003 Thread 0x00007f82d42d5000  270       3       jdk.internal.org.objectweb.asm.Frame::push (110 bytes)
+Event: 1.003 Thread 0x00007f82d42d5000 nmethod 270 0x00007f82bec76e50 code [0x00007f82bec76fe0, 0x00007f82bec77508]
+Event: 1.003 Thread 0x00007f82d42d5000  271       3       jdk.internal.org.objectweb.asm.ByteVector::putInt (74 bytes)
+Event: 1.004 Thread 0x00007f82d42d5000 nmethod 271 0x00007f82bec77710 code [0x00007f82bec77880, 0x00007f82bec77b28]
+Event: 1.004 Thread 0x00007f82d42d5000  269       1       java.lang.invoke.LambdaForm::arity (5 bytes)
+Event: 1.004 Thread 0x00007f82d42d5000 nmethod 269 0x00007f82bec77cd0 code [0x00007f82bec77e20, 0x00007f82bec77f30]
+Event: 1.005 Thread 0x00007f82d42d5000  273       3       jdk.internal.org.objectweb.asm.ClassWriter::addType (39 bytes)
+Event: 1.005 Thread 0x00007f82d42d5000 nmethod 273 0x00007f82bec78190 code [0x00007f82bec78320, 0x00007f82bec78648]
+Event: 1.005 Thread 0x00007f82d42d5000  274       3       jdk.internal.org.objectweb.asm.Frame::type (416 bytes)
+Event: 1.006 Thread 0x00007f82d42d5000 nmethod 274 0x00007f82bec78790 code [0x00007f82bec78a20, 0x00007f82bec79bc8]
+Event: 1.006 Thread 0x00007f82d42d5000  276       3       java.lang.invoke.MethodType::checkPtypes (61 bytes)
+Event: 1.006 Thread 0x00007f82d42d3000  277       4       java.lang.String::lastIndexOf (52 bytes)
+Event: 1.007 Thread 0x00007f82d42d5000 nmethod 276 0x00007f82bec7a3d0 code [0x00007f82bec7a640, 0x00007f82bec7b398]
+Event: 1.007 Thread 0x00007f82d42d5000  272  s    3       java.lang.StringBuffer::toString (36 bytes)
+Event: 1.007 Thread 0x00007f82d42d5000 nmethod 272 0x00007f82bec7bc90 code [0x00007f82bec7be20, 0x00007f82bec7c2c8]
+Event: 1.007 Thread 0x00007f82d42d5000  275       3       jdk.internal.org.objectweb.asm.Frame::get (46 bytes)
+Event: 1.007 Thread 0x00007f82d42d5000 nmethod 275 0x00007f82bec7c450 code [0x00007f82bec7c5c0, 0x00007f82bec7c810]
+Event: 1.008 Thread 0x00007f82d42d3000 nmethod 277 0x00007f82bec7f690 code [0x00007f82bec7f7e0, 0x00007f82bec7f978]
+Event: 1.008 Thread 0x00007f82d42d5000  278       3       java.lang.invoke.MethodType::equals (29 bytes)
+Event: 1.008 Thread 0x00007f82d42d5000 nmethod 278 0x00007f82bec7ee90 code [0x00007f82bec7f020, 0x00007f82bec7f568]
+Event: 1.009 Thread 0x00007f82d42d5000  279       3       jdk.internal.org.objectweb.asm.Frame::pop (45 bytes)
+Event: 1.009 Thread 0x00007f82d42d5000 nmethod 279 0x00007f82bec7ea90 code [0x00007f82bec7ec00, 0x00007f82bec7edd0]
+Event: 1.010 Thread 0x00007f82d42d5000  280       3       java.lang.invoke.MethodType$ConcurrentWeakInternSet$WeakEntry::equals (49 bytes)
+Event: 1.010 Thread 0x00007f82d42d5000 nmethod 280 0x00007f82bec7e150 code [0x00007f82bec7e2e0, 0x00007f82bec7e968]
+Event: 1.010 Thread 0x00007f82d42d5000  281       3       java.lang.invoke.LambdaForm$BasicType::basicType (172 bytes)
+Event: 1.011 Thread 0x00007f82d42d5000 nmethod 281 0x00007f82bec7c8d0 code [0x00007f82bec7cb40, 0x00007f82bec7d998]
+Event: 1.011 Thread 0x00007f82d42d3000  282       4       java.lang.String::indexOf (166 bytes)
+Event: 1.019 Thread 0x00007f82d42d5000  283       3       jdk.internal.org.objectweb.asm.ClassWriter::newClassItem (70 bytes)
+Event: 1.020 Thread 0x00007f82d42d5000 nmethod 283 0x00007f82bec82f50 code [0x00007f82bec83120, 0x00007f82bec83578]
+Event: 1.020 Thread 0x00007f82d42d3000 nmethod 282 0x00007f82bec83750 code [0x00007f82bec838c0, 0x00007f82bec83f58]
+Event: 1.020 Thread 0x00007f82d42d5000  284       3       java.lang.invoke.InvokerBytecodeGenerator::emitPushArgument (28 bytes)
+Event: 1.020 Thread 0x00007f82d42d5000 nmethod 284 0x00007f82bec82550 code [0x00007f82bec82700, 0x00007f82bec82c38]
+Event: 1.020 Thread 0x00007f82d42d5000  285       3       java.lang.invoke.InvokerBytecodeGenerator::emitPushArgument (120 bytes)
+Event: 1.021 Thread 0x00007f82d42d5000 nmethod 285 0x00007f82bec80b50 code [0x00007f82bec80de0, 0x00007f82bec81df8]
+Event: 1.021 Thread 0x00007f82d42d5000  286       3       java.lang.invoke.InvokerBytecodeGenerator::emitLoadInsn (21 bytes)
+Event: 1.021 Thread 0x00007f82d42d5000 nmethod 286 0x00007f82bec805d0 code [0x00007f82bec80760, 0x00007f82bec809f8]
+Event: 1.021 Thread 0x00007f82d42d5000  287       3       java.lang.invoke.InvokerBytecodeGenerator::loadInsnOpcode (86 bytes)
+Event: 1.022 Thread 0x00007f82d42d5000 nmethod 287 0x00007f82bec84290 code [0x00007f82bec844a0, 0x00007f82bec85018]
+Event: 1.025 Thread 0x00007f82d42d5000  288       3       sun.reflect.misc.ReflectUtil::isVMAnonymousClass (19 bytes)
+Event: 1.025 Thread 0x00007f82d42d5000 nmethod 288 0x00007f82bec85510 code [0x00007f82bec856c0, 0x00007f82bec85c18]
+Event: 1.026 Thread 0x00007f82d42d5000  290       3       java.lang.StringCoding::scale (7 bytes)
+Event: 1.026 Thread 0x00007f82d42d5000 nmethod 290 0x00007f82bec80290 code [0x00007f82bec80400, 0x00007f82bec80570]
+Event: 1.026 Thread 0x00007f82d42d5000  289       3       java.util.LinkedHashMap::get (33 bytes)
+Event: 1.027 Thread 0x00007f82d42d5000 nmethod 289 0x00007f82bec85e90 code [0x00007f82bec86040, 0x00007f82bec86548]
+Event: 1.027 Thread 0x00007f82d42d5000  291  s    3       java.util.Hashtable::put (104 bytes)
+Event: 1.028 Thread 0x00007f82d42d5000 nmethod 291 0x00007f82bec866d0 code [0x00007f82bec868a0, 0x00007f82bec87058]
+Event: 1.029 Thread 0x00007f82d42d5000  292       3       java.util.HashMap::putVal (300 bytes)
+Event: 1.030 Thread 0x00007f82d42d5000 nmethod 292 0x00007f82bec87410 code [0x00007f82bec87680, 0x00007f82bec889b8]
+Event: 1.036 Thread 0x00007f82d42d5000  293       3       java.net.URI$Parser::charAt (9 bytes)
+Event: 1.036 Thread 0x00007f82d42d5000 nmethod 293 0x00007f82bec89150 code [0x00007f82bec892e0, 0x00007f82bec89648]
+Event: 1.036 Thread 0x00007f82d42d5000  296       3       java.lang.String::toLowerCase (439 bytes)
+Event: 1.037 Thread 0x00007f82d42d5000 nmethod 296 0x00007f82bec89810 code [0x00007f82bec89b40, 0x00007f82bec8b438]
+Event: 1.037 Thread 0x00007f82d42d5000  294       3       java.net.URI::access$300 (7 bytes)
+Event: 1.037 Thread 0x00007f82d42d5000 nmethod 294 0x00007f82bec7ff10 code [0x00007f82bec80080, 0x00007f82bec80208]
+Event: 1.037 Thread 0x00007f82d42d5000  295       3       java.net.URI::match (56 bytes)
+Event: 1.037 Thread 0x00007f82d42d5000 nmethod 295 0x00007f82bec8c410 code [0x00007f82bec8c580, 0x00007f82bec8c890]
+Event: 1.042 Thread 0x00007f82d42d5000  297       3       java.lang.ThreadLocal::get (38 bytes)
+Event: 1.042 Thread 0x00007f82d42d5000 nmethod 297 0x00007f82bec8c910 code [0x00007f82bec8caa0, 0x00007f82bec8ce68]
+Event: 1.043 Thread 0x00007f82d42d5000  298       3       java.lang.ThreadLocal$ThreadLocalMap::getEntry (42 bytes)
+Event: 1.043 Thread 0x00007f82d42d5000 nmethod 298 0x00007f82bec8d010 code [0x00007f82bec8d180, 0x00007f82bec8d4a8]
+Event: 1.059 Thread 0x00007f82d42d5000  299       3       java.lang.String::equalsIgnoreCase (48 bytes)
+Event: 1.060 Thread 0x00007f82d42d5000 nmethod 299 0x00007f82bec8da10 code [0x00007f82bec8db80, 0x00007f82bec8dee8]
+Event: 1.060 Thread 0x00007f82d42d5000  300  s    1       java.util.Vector::size (5 bytes)
+Event: 1.060 Thread 0x00007f82d42d5000 nmethod 300 0x00007f82bec8e010 code [0x00007f82bec8e160, 0x00007f82bec8e3d0]
+Event: 1.063 Thread 0x00007f82d42d5000  301       3       java.io.BufferedInputStream::getBufIfOpen (21 bytes)
+Event: 1.063 Thread 0x00007f82d42d5000 nmethod 301 0x00007f82bec8e450 code [0x00007f82bec8e5e0, 0x00007f82bec8e848]
+Event: 1.068 Thread 0x00007f82d42d5000  302       3       java.util.HashMap::newNode (13 bytes)
+Event: 1.068 Thread 0x00007f82d42d5000 nmethod 302 0x00007f82bec8e950 code [0x00007f82bec8eac0, 0x00007f82bec8ed70]
+Event: 1.068 Thread 0x00007f82d42d5000  303       3       java.util.HashMap::afterNodeInsertion (1 bytes)
+Event: 1.068 Thread 0x00007f82d42d5000 nmethod 303 0x00007f82bec8eed0 code [0x00007f82bec8f020, 0x00007f82bec8f170]
+Event: 1.071 Thread 0x00007f82d42d5000  304   !   3       org.eclipse.jdt.launching.internal.javaagent.Premain$1::transform (103 bytes)
+Event: 1.072 Thread 0x00007f82d42d5000 nmethod 304 0x00007f82bec8f1d0 code [0x00007f82bec8f3e0, 0x00007f82bec90108]
+Event: 1.091 Thread 0x00007f82d42d5000  305       3       java.lang.ThreadLocal::getMap (5 bytes)
+Event: 1.091 Thread 0x00007f82d42d5000 nmethod 305 0x00007f82bec90910 code [0x00007f82bec90a80, 0x00007f82bec90bd0]
+Event: 1.094 Thread 0x00007f82d42d5000  306       3       sun.util.locale.LocaleUtils::isUpper (18 bytes)
+Event: 1.094 Thread 0x00007f82d42d5000 nmethod 306 0x00007f82bec90c90 code [0x00007f82bec90e00, 0x00007f82bec90fd0]
+Event: 1.100 Thread 0x00007f82d42d5000  307       3       java.util.concurrent.ConcurrentHashMap::addCount (292 bytes)
+Event: 1.101 Thread 0x00007f82d42d5000 nmethod 307 0x00007f82bec91050 code [0x00007f82bec91260, 0x00007f82bec91e28]
+Event: 1.102 Thread 0x00007f82d42d5000  308  s    3       java.io.BufferedInputStream::read (49 bytes)
+Event: 1.102 Thread 0x00007f82d42d5000 nmethod 308 0x00007f82bec92250 code [0x00007f82bec92400, 0x00007f82bec92978]
+Event: 1.102 Thread 0x00007f82d42d5000  309       3       java.io.DataInputStream::readInt (72 bytes)
+Event: 1.103 Thread 0x00007f82d42d5000 nmethod 309 0x00007f82bec92bd0 code [0x00007f82bec92da0, 0x00007f82bec93328]
+Event: 1.105 Thread 0x00007f82d42d5000  311       3       java.util.StringTokenizer::skipDelimiters (116 bytes)
+Event: 1.105 Thread 0x00007f82d42d5000 nmethod 311 0x00007f82bec93590 code [0x00007f82bec937c0, 0x00007f82bec94398]
+Event: 1.105 Thread 0x00007f82d42d5000  310       3       java.util.HashSet::add (20 bytes)
+Event: 1.106 Thread 0x00007f82d42d5000 nmethod 310 0x00007f82bec948d0 code [0x00007f82bec94a60, 0x00007f82bec94f78]
+Event: 30.451 Thread 0x00007f82d42d5000  312       3       org.eclipse.jdt.launching.internal.org.objectweb.asm.SymbolTable::get (13 bytes)
+Event: 30.451 Thread 0x00007f82d42d3000  313       4       java.util.Arrays::copyOfRange (63 bytes)
+Event: 30.451 Thread 0x00007f82d42d5000 nmethod 312 0x00007f82bec95dd0 code [0x00007f82bec95f40, 0x00007f82bec960f0]
+Event: 30.451 Thread 0x00007f82d42d5000  314       3       org.eclipse.jdt.launching.internal.org.objectweb.asm.ByteVector::putShort (52 bytes)
+Event: 30.451 Thread 0x00007f82d42d5000 nmethod 314 0x00007f82bec961d0 code [0x00007f82bec96340, 0x00007f82bec965a8]
+Event: 30.453 Thread 0x00007f82d42d3000 nmethod 313 0x00007f82bec99510 code [0x00007f82bec99660, 0x00007f82bec99838]
+Event: 50.494 Thread 0x00007f82d42d5000  315       3       org.eclipse.jdt.launching.internal.org.objectweb.asm.ClassReader::readUTF (161 bytes)
+Event: 50.494 Thread 0x00007f82d42d5000 nmethod 315 0x00007f82bec98a10 code [0x00007f82bec98bc0, 0x00007f82bec99088]
+Event: 50.494 Thread 0x00007f82d42d5000  316       3       org.eclipse.jdt.launching.internal.org.objectweb.asm.SymbolTable::hash (10 bytes)
+Event: 50.496 Thread 0x00007f82d42d5000 nmethod 316 0x00007f82bec985d0 code [0x00007f82bec98740, 0x00007f82bec98948]
+Event: 50.496 Thread 0x00007f82d42d5000  317       3       org.eclipse.jdt.launching.internal.org.objectweb.asm.Symbol::<init> (38 bytes)
+Event: 50.496 Thread 0x00007f82d42d5000 nmethod 317 0x00007f82bec98190 code [0x00007f82bec98300, 0x00007f82bec98510]
+Event: 96.086 Thread 0x00007f82d42d5000  318       3       org.eclipse.jdt.launching.internal.org.objectweb.asm.ByteVector::putByte (39 bytes)
+Event: 96.087 Thread 0x00007f82d42d5000 nmethod 318 0x00007f82bec97590 code [0x00007f82bec97700, 0x00007f82bec97948]
+Event: 96.087 Thread 0x00007f82d42d5000  321       1       org.eclipse.jdt.launching.internal.org.objectweb.asm.SymbolTable::get (13 bytes)
+Event: 96.087 Thread 0x00007f82d42d5000 nmethod 321 0x00007f82bec97210 code [0x00007f82bec97360, 0x00007f82bec974b0]
+Event: 96.087 Thread 0x00007f82d42d5000  319       3       org.eclipse.jdt.launching.internal.org.objectweb.asm.ByteVector::putUTF8 (142 bytes)
+Event: 96.088 Thread 0x00007f82d42d3000  323       4       org.eclipse.jdt.launching.internal.org.objectweb.asm.ByteVector::putShort (52 bytes)
+Event: 96.092 Thread 0x00007f82d42d3000 nmethod 323 0x00007f82bec96bd0 code [0x00007f82bec96d20, 0x00007f82bec97058]
+Event: 96.092 Thread 0x00007f82d42d5000 nmethod 319 0x00007f82bec9b910 code [0x00007f82bec9bb00, 0x00007f82bec9c398]
+Event: 96.092 Thread 0x00007f82d42d5000  324       3       org.eclipse.jdt.launching.internal.org.objectweb.asm.SymbolTable::put (150 bytes)
+Event: 96.092 Thread 0x00007f82d42d5000 nmethod 324 0x00007f82bec9ab90 code [0x00007f82bec9ad40, 0x00007f82bec9b4b0]
+Event: 96.092 Thread 0x00007f82d42d5000  327       3       org.eclipse.jdt.launching.internal.org.objectweb.asm.SymbolTable::addConstantUtf8 (98 bytes)
+Event: 96.093 Thread 0x00007f82d42d5000 nmethod 327 0x00007f82bec99d90 code [0x00007f82bec99f80, 0x00007f82bec9a738]
+Event: 96.093 Thread 0x00007f82d42d5000  322       3       org.eclipse.jdt.launching.internal.org.objectweb.asm.SymbolTable$Entry::<init> (17 bytes)
+Event: 96.093 Thread 0x00007f82d42d5000 nmethod 322 0x00007f82bec99990 code [0x00007f82bec99b00, 0x00007f82bec99ce8]
+Event: 96.093 Thread 0x00007f82d42d5000  320       3       org.eclipse.jdt.launching.internal.org.objectweb.asm.ClassReader::createDebugLabel (23 bytes)
+Event: 96.093 Thread 0x00007f82d42d5000 nmethod 320 0x00007f82bec9c8d0 code [0x00007f82bec9ca60, 0x00007f82bec9cf50]
+Event: 96.093 Thread 0x00007f82d42d5000  325       3       org.eclipse.jdt.launching.internal.org.objectweb.asm.ClassReader::readClass (7 bytes)
+Event: 96.094 Thread 0x00007f82d42d5000 nmethod 325 0x00007f82bec9d290 code [0x00007f82bec9d440, 0x00007f82bec9d968]
+Event: 96.094 Thread 0x00007f82d42d5000  326       3       org.eclipse.jdt.launching.internal.org.objectweb.asm.ClassReader::readStringish (16 bytes)
+Event: 96.094 Thread 0x00007f82d42d5000 nmethod 326 0x00007f82bec9ddd0 code [0x00007f82bec9df60, 0x00007f82bec9e428]
+Event: 311.922 Thread 0x00007f82d42d8000  328       4       org.eclipse.jdt.launching.internal.org.objectweb.asm.ClassReader::readUnsignedShort (26 bytes)
+Event: 311.922 Thread 0x00007f82d42d5000  329       3       org.eclipse.jdt.launching.internal.org.objectweb.asm.ClassReader::readCode (5071 bytes)
+Event: 311.923 Thread 0x00007f82d42d8000 nmethod 328 0x00007f82bec96890 code [0x00007f82bec969e0, 0x00007f82bec96af8]
+Event: 311.958 Thread 0x00007f82d42d5000 nmethod 329 0x00007f82beca1490 code [0x00007f82beca2920, 0x00007f82becb40e8]
+Event: 311.958 Thread 0x00007f82d42d5000  330       3       org.eclipse.jdt.launching.internal.org.objectweb.asm.MethodWriter::visitFieldInsn (258 bytes)
+Event: 311.959 Thread 0x00007f82d42d5000 nmethod 330 0x00007f82beca0390 code [0x00007f82beca0580, 0x00007f82beca0fd8]
+Event: 311.959 Thread 0x00007f82d42d5000  331       3       org.eclipse.jdt.launching.internal.org.objectweb.asm.SymbolTable::addConstantFieldref (10 bytes)
+Event: 311.959 Thread 0x00007f82d42d5000 nmethod 331 0x00007f82bec9ff90 code [0x00007f82beca0100, 0x00007f82beca02c8]
+Event: 436.636 Thread 0x00007f82d42d5000  332       3       org.eclipse.jdt.launching.internal.org.objectweb.asm.ClassReader::readUTF (44 bytes)
+Event: 436.636 Thread 0x00007f82d42d5000 nmethod 332 0x00007f82bec9f5d0 code [0x00007f82bec9f760, 0x00007f82bec9fbe8]
+Event: 436.636 Thread 0x00007f82d42d5000  334       3       org.eclipse.jdt.launching.internal.org.objectweb.asm.SymbolTable::addConstantClass (8 bytes)
+Event: 436.639 Thread 0x00007f82d42d5000 nmethod 334 0x00007f82bec9f210 code [0x00007f82bec9f380, 0x00007f82bec9f528]
+Event: 436.640 Thread 0x00007f82d42d5000  335       3       org.eclipse.jdt.launching.internal.org.objectweb.asm.ByteVector::put122 (93 bytes)
+Event: 436.640 Thread 0x00007f82d42d5000 nmethod 335 0x00007f82bec9eb90 code [0x00007f82bec9ed00, 0x00007f82bec9efe8]
+Event: 436.640 Thread 0x00007f82d42d5000  333       3       org.eclipse.jdt.launching.internal.org.objectweb.asm.ByteVector::enlarge (51 bytes)
+Event: 436.640 Thread 0x00007f82d42d5000 nmethod 333 0x00007f82becd0d90 code [0x00007f82becd0f00, 0x00007f82becd1228]
+Event: 480.104 Thread 0x00007f82d42d5000  336       3       org.eclipse.jdt.launching.internal.org.objectweb.asm.MethodWriter::visitVarInsn (303 bytes)
+Event: 480.106 Thread 0x00007f82d42d5000 nmethod 336 0x00007f82becd1350 code [0x00007f82becd1560, 0x00007f82becd2108]
+Event: 480.106 Thread 0x00007f82d42d5000  338       3       org.eclipse.jdt.launching.internal.org.objectweb.asm.Label::resolve (209 bytes)
+Event: 480.107 Thread 0x00007f82d42d5000 nmethod 338 0x00007f82becd2490 code [0x00007f82becd2620, 0x00007f82becd2b30]
+Event: 480.107 Thread 0x00007f82d42d5000  339       3       org.eclipse.jdt.launching.internal.org.objectweb.asm.Handler::getExceptionTableLength (21 bytes)
+Event: 480.107 Thread 0x00007f82d42d5000 nmethod 339 0x00007f82becd3010 code [0x00007f82becd3180, 0x00007f82becd3370]
+Event: 480.107 Thread 0x00007f82d42d5000  337       3       org.eclipse.jdt.launching.internal.org.objectweb.asm.MethodWriter::visitLabel (305 bytes)
+Event: 480.108 Thread 0x00007f82d42d5000 nmethod 337 0x00007f82becd3450 code [0x00007f82becd3640, 0x00007f82becd40d8]
+Event: 509.584 Thread 0x00007f82d42d3000  343       4       org.eclipse.jdt.launching.internal.org.objectweb.asm.ClassReader::readUTF (161 bytes)
+Event: 509.584 Thread 0x00007f82d42d5000  340       3       org.eclipse.jdt.launching.internal.org.objectweb.asm.ByteVector::encodeUTF8 (335 bytes)
+Event: 509.585 Thread 0x00007f82d42d5000 nmethod 340 0x00007f82becd44d0 code [0x00007f82becd4720, 0x00007f82becd5478]
+Event: 509.586 Thread 0x00007f82d42d5000  341       3       org.eclipse.jdt.launching.internal.org.objectweb.asm.SymbolTable::addConstantNameAndType (137 bytes)
+Event: 509.586 Thread 0x00007f82d42d5000 nmethod 341 0x00007f82becd5f10 code [0x00007f82becd6140, 0x00007f82becd6ca8]
+Event: 509.586 Thread 0x00007f82d42d5000  344       3       org.eclipse.jdt.launching.internal.org.objectweb.asm.ByteVector::putInt (74 bytes)
+Event: 509.586 Thread 0x00007f82d42d5000 nmethod 344 0x00007f82becd7250 code [0x00007f82becd73c0, 0x00007f82becd7668]
+Event: 509.588 Thread 0x00007f82d42d5000  342       3       org.eclipse.jdt.launching.internal.org.objectweb.asm.SymbolTable::hash (15 bytes)
+Event: 509.588 Thread 0x00007f82d42d5000 nmethod 342 0x00007f82becd7810 code [0x00007f82becd7980, 0x00007f82becd7c58]
+Event: 509.600 Thread 0x00007f82d42d3000 nmethod 343 0x00007f82becdb3d0 code [0x00007f82becdb560, 0x00007f82becdbf98]
+Event: 522.505 Thread 0x00007f82d42d5000  345       3       org.eclipse.jdt.launching.internal.org.objectweb.asm.ClassReader::<init> (305 bytes)
+Event: 522.508 Thread 0x00007f82d42d5000 nmethod 345 0x00007f82becd9210 code [0x00007f82becd94a0, 0x00007f82becda5e8]
+Event: 522.508 Thread 0x00007f82d42d5000  346       3       org.eclipse.jdt.launching.internal.org.objectweb.asm.ByteVector::put12 (64 bytes)
+Event: 522.508 Thread 0x00007f82d42d5000 nmethod 346 0x00007f82becd8c50 code [0x00007f82becd8dc0, 0x00007f82becd9048]
+Event: 522.508 Thread 0x00007f82d42d5000  347       3       org.eclipse.jdt.launching.internal.org.objectweb.asm.SymbolTable$Entry::<init> (20 bytes)
+Event: 522.509 Thread 0x00007f82d42d5000 nmethod 347 0x00007f82becd8810 code [0x00007f82becd8980, 0x00007f82becd8b68]
+Event: 827.061 Thread 0x00007f82d42d5000  348       3       org.eclipse.jdt.launching.internal.org.objectweb.asm.SymbolTable::hash (20 bytes)
+Event: 827.061 Thread 0x00007f82d42d5000 nmethod 348 0x00007f82becd8150 code [0x00007f82becd82e0, 0x00007f82becd8668]
+Event: 827.061 Thread 0x00007f82d42d5000  353       3       org.eclipse.jdt.launching.internal.org.objectweb.asm.SymbolTable::addConstantUtf8Reference (101 bytes)
+Event: 827.064 Thread 0x00007f82d42d5000 nmethod 353 0x00007f82becdc510 code [0x00007f82becdc700, 0x00007f82becdcfd8]
+Event: 827.064 Thread 0x00007f82d42d5000  350       3       org.eclipse.jdt.launching.internal.org.objectweb.asm.ClassReader::readLabel (20 bytes)
+Event: 827.065 Thread 0x00007f82d42d5000 nmethod 350 0x00007f82becdd410 code [0x00007f82becdd5a0, 0x00007f82becdd9f0]
+Event: 827.065 Thread 0x00007f82d42d5000  349       3       org.eclipse.jdt.launching.internal.org.objectweb.asm.MethodWriter::visitLineNumber (50 bytes)
+Event: 827.065 Thread 0x00007f82d42d5000 nmethod 349 0x00007f82becddc10 code [0x00007f82becddda0, 0x00007f82becde1d8]
+Event: 827.065 Thread 0x00007f82d42d5000  351       3       org.eclipse.jdt.launching.internal.org.objectweb.asm.MethodWriter::visitMethodInsn (191 bytes)
+Event: 827.066 Thread 0x00007f82d42d5000 nmethod 351 0x00007f82becde410 code [0x00007f82becde620, 0x00007f82becdf148]
+Event: 827.066 Thread 0x00007f82d42d5000  352       3       org.eclipse.jdt.launching.internal.org.objectweb.asm.SymbolTable::addConstantMethodref (24 bytes)
+Event: 827.066 Thread 0x00007f82d42d5000 nmethod 352 0x00007f82becdf690 code [0x00007f82becdf800, 0x00007f82becdfa28]
+Event: 843.383 Thread 0x00007f82d42d5000  354       3       org.eclipse.jdt.launching.internal.org.objectweb.asm.ClassReader::readInt (52 bytes)
+Event: 843.383 Thread 0x00007f82d42d5000 nmethod 354 0x00007f82becdfad0 code [0x00007f82becdfc40, 0x00007f82becdfe50]
+Event: 856.696 Thread 0x00007f82d42d5000  356       3       org.eclipse.jdt.launching.internal.org.objectweb.asm.SymbolTable::addConstantMemberReference (147 bytes)
+Event: 856.696 Thread 0x00007f82d42d3000  359       4       org.eclipse.jdt.launching.internal.org.objectweb.asm.Symbol::<init> (38 bytes)
+Event: 856.698 Thread 0x00007f82d42d5000 nmethod 356 0x00007f82becdff90 code [0x00007f82bece01e0, 0x00007f82bece0fa8]
+Event: 856.698 Thread 0x00007f82d42d3000 nmethod 359 0x00007f82bebe6e10 code [0x00007f82bebe6f60, 0x00007f82bebe6ff8]
+Event: 856.698 Thread 0x00007f82d42d5000  357       3       org.eclipse.jdt.launching.internal.org.objectweb.asm.Label::accept (65 bytes)
+Event: 856.698 Thread 0x00007f82d42d5000 nmethod 357 0x00007f82bece3a50 code [0x00007f82bece3c00, 0x00007f82bece4188]
+Event: 856.699 Thread 0x00007f82d42d5000  355       3       org.eclipse.jdt.launching.internal.org.objectweb.asm.Label::addLineNumber (90 bytes)
+Event: 856.699 Thread 0x00007f82d42d5000 nmethod 355 0x00007f82bebe5350 code [0x00007f82bebe54e0, 0x00007f82bebe5988]
+Event: 856.699 Thread 0x00007f82d42d5000  360       1       org.eclipse.jdt.launching.internal.org.objectweb.asm.SymbolTable::getMajorVersion (5 bytes)
+Event: 856.699 Thread 0x00007f82d42d5000 nmethod 360 0x00007f82becd7e90 code [0x00007f82becd7fe0, 0x00007f82becd80f0]
+Event: 856.699 Thread 0x00007f82d42d5000  358       3       org.eclipse.jdt.launching.internal.org.objectweb.asm.MethodWriter::visitLocalVariable (222 bytes)
+Event: 856.700 Thread 0x00007f82d42d5000 nmethod 358 0x00007f82bece1c90 code [0x00007f82bece1f60, 0x00007f82bece2ea8]
+Event: 938.746 Thread 0x00007f82d42d5000  362       3       org.eclipse.jdt.launching.internal.org.objectweb.asm.ByteVector::putByteArray (49 bytes)
+Event: 938.748 Thread 0x00007f82d42d5000 nmethod 362 0x00007f82bece4390 code [0x00007f82bece4520, 0x00007f82bece4858]
+Event: 938.748 Thread 0x00007f82d42d5000  361       3       org.eclipse.jdt.launching.internal.org.objectweb.asm.MethodWriter::visitJumpInsn (475 bytes)
+Event: 938.749 Thread 0x00007f82d42d5000 nmethod 361 0x00007f82bece4950 code [0x00007f82bece4c80, 0x00007f82bece6228]
+Event: 946.937 Thread 0x00007f82d42d5000  363       3       org.eclipse.jdt.launching.internal.org.objectweb.asm.Handler::getExceptionTableSize (10 bytes)
+Event: 946.937 Thread 0x00007f82d42d5000 nmethod 363 0x00007f82bece1710 code [0x00007f82bece1880, 0x00007f82bece1ad0]
+Event: 1027.750 Thread 0x00007f82d42d5000  364       3       org.eclipse.jdt.launching.internal.org.objectweb.asm.SymbolTable::addConstantString (8 bytes)
+Event: 1027.750 Thread 0x00007f82d42d5000 nmethod 364 0x00007f82bec9e790 code [0x00007f82bec9e900, 0x00007f82bec9eaa8]
+Event: 1178.366 Thread 0x00007f82d42d5000  365       3       org.eclipse.jdt.launching.internal.org.objectweb.asm.MethodWriter::visitInsn (115 bytes)
+Event: 1178.366 Thread 0x00007f82d42d5000 nmethod 365 0x00007f82bece6d90 code [0x00007f82bece6f40, 0x00007f82bece7408]
+Event: 1677.685 Thread 0x00007f82d42d5000  366  s    3       java.lang.StringBuffer::append (13 bytes)
+Event: 1677.686 Thread 0x00007f82d42d5000 nmethod 366 0x00007f82bece75d0 code [0x00007f82bece7740, 0x00007f82bece7a68]
+
+GC Heap History (0 events):
+No events
+
+Deoptimization events (0 events):
+No events
+
+Classes redefined (14 events):
+Event: 50.496 Thread 0x00007f82d41a0800 redefined class name=uk.ac.ed.inf.powergrab.App, count=1
+Event: 96.088 Thread 0x00007f82d41a0800 redefined class name=uk.ac.ed.inf.powergrab.App, count=2
+Event: 311.924 Thread 0x00007f82d41a0800 redefined class name=uk.ac.ed.inf.powergrab.App, count=3
+Event: 436.638 Thread 0x00007f82d41a0800 redefined class name=uk.ac.ed.inf.powergrab.App, count=4
+Event: 480.106 Thread 0x00007f82d41a0800 redefined class name=uk.ac.ed.inf.powergrab.App, count=5
+Event: 509.590 Thread 0x00007f82d41a0800 redefined class name=uk.ac.ed.inf.powergrab.App, count=6
+Event: 522.508 Thread 0x00007f82d41a0800 redefined class name=uk.ac.ed.inf.powergrab.App, count=7
+Event: 827.064 Thread 0x00007f82d41a0800 redefined class name=uk.ac.ed.inf.powergrab.App, count=8
+Event: 843.382 Thread 0x00007f82d41a0800 redefined class name=uk.ac.ed.inf.powergrab.App, count=9
+Event: 856.698 Thread 0x00007f82d41a0800 redefined class name=uk.ac.ed.inf.powergrab.App, count=10
+Event: 938.747 Thread 0x00007f82d41a0800 redefined class name=uk.ac.ed.inf.powergrab.App, count=11
+Event: 946.937 Thread 0x00007f82d41a0800 redefined class name=uk.ac.ed.inf.powergrab.App, count=12
+Event: 1027.750 Thread 0x00007f82d41a0800 redefined class name=uk.ac.ed.inf.powergrab.App, count=13
+Event: 1178.368 Thread 0x00007f82d41a0800 redefined class name=uk.ac.ed.inf.powergrab.App, count=14
+
+Internal exceptions (10 events):
+Event: 0.106 Thread 0x00007f82d404f800 Exception <a 'java/lang/NoSuchMethodError': Method sun.misc.Unsafe.defineClass(Ljava/lang/String;[BII)Ljava/lang/Class; name or signature does not match> (0x000000076d107cb8) thrown at [/builddir/build/BUILD/java-1.8.0-openjdk-1.8.0.222.b10-0.el7_6.x86_64
+Event: 0.106 Thread 0x00007f82d404f800 Exception <a 'java/lang/NoSuchMethodError': Method sun.misc.Unsafe.prefetchRead(Ljava/lang/Object;J)V name or signature does not match> (0x000000076d107fa0) thrown at [/builddir/build/BUILD/java-1.8.0-openjdk-1.8.0.222.b10-0.el7_6.x86_64/openjdk/hotspot/s
+Event: 0.983 Thread 0x00007f82d404f800 Exception <a 'java/lang/NoSuchFieldError': method resolution failed> (0x000000076d9a5170) thrown at [/builddir/build/BUILD/java-1.8.0-openjdk-1.8.0.222.b10-0.el7_6.x86_64/openjdk/hotspot/src/share/vm/prims/methodHandles.cpp, line 1167]
+Event: 0.992 Thread 0x00007f82d404f800 Exception <a 'java/lang/NoSuchFieldError': method resolution failed> (0x000000076d9b3070) thrown at [/builddir/build/BUILD/java-1.8.0-openjdk-1.8.0.222.b10-0.el7_6.x86_64/openjdk/hotspot/src/share/vm/prims/methodHandles.cpp, line 1167]
+Event: 1.090 Thread 0x00007f82d404f800 Exception <a 'java/security/PrivilegedActionException'> (0x000000076db0ac50) thrown at [/builddir/build/BUILD/java-1.8.0-openjdk-1.8.0.222.b10-0.el7_6.x86_64/openjdk/hotspot/src/share/vm/prims/jvm.cpp, line 1512]
+Event: 1.090 Thread 0x00007f82d404f800 Exception <a 'java/security/PrivilegedActionException'> (0x000000076db0b048) thrown at [/builddir/build/BUILD/java-1.8.0-openjdk-1.8.0.222.b10-0.el7_6.x86_64/openjdk/hotspot/src/share/vm/prims/jvm.cpp, line 1512]
+Event: 1.091 Thread 0x00007f82d404f800 Exception <a 'java/security/PrivilegedActionException'> (0x000000076db0db20) thrown at [/builddir/build/BUILD/java-1.8.0-openjdk-1.8.0.222.b10-0.el7_6.x86_64/openjdk/hotspot/src/share/vm/prims/jvm.cpp, line 1512]
+Event: 1.091 Thread 0x00007f82d404f800 Exception <a 'java/security/PrivilegedActionException'> (0x000000076db0df18) thrown at [/builddir/build/BUILD/java-1.8.0-openjdk-1.8.0.222.b10-0.el7_6.x86_64/openjdk/hotspot/src/share/vm/prims/jvm.cpp, line 1512]
+Event: 1.091 Thread 0x00007f82d404f800 Exception <a 'java/security/PrivilegedActionException'> (0x000000076db0edf8) thrown at [/builddir/build/BUILD/java-1.8.0-openjdk-1.8.0.222.b10-0.el7_6.x86_64/openjdk/hotspot/src/share/vm/prims/jvm.cpp, line 1512]
+Event: 1.091 Thread 0x00007f82d404f800 Exception <a 'java/security/PrivilegedActionException'> (0x000000076db0f1f0) thrown at [/builddir/build/BUILD/java-1.8.0-openjdk-1.8.0.222.b10-0.el7_6.x86_64/openjdk/hotspot/src/share/vm/prims/jvm.cpp, line 1512]
+
+Events (250 events):
+Event: 96.203 Executing VM operation: GetCurrentContendedMonitor done
+Event: 150.458 Executing VM operation: ChangeBreakpoints
+Event: 150.458 Executing VM operation: ChangeBreakpoints done
+Event: 152.232 Executing VM operation: GetCurrentContendedMonitor
+Event: 152.232 Executing VM operation: GetCurrentContendedMonitor done
+Event: 152.232 Executing VM operation: GetOwnedMonitorInfo
+Event: 152.232 Executing VM operation: GetOwnedMonitorInfo done
+Event: 152.779 Executing VM operation: GetOwnedMonitorInfo
+Event: 152.779 Executing VM operation: GetOwnedMonitorInfo done
+Event: 152.779 Executing VM operation: GetCurrentContendedMonitor
+Event: 152.780 Executing VM operation: GetCurrentContendedMonitor done
+Event: 152.781 Executing VM operation: GetCurrentContendedMonitor
+Event: 152.781 Executing VM operation: GetCurrentContendedMonitor done
+Event: 152.781 Executing VM operation: GetOwnedMonitorInfo
+Event: 152.781 Executing VM operation: GetOwnedMonitorInfo done
+Event: 155.820 Executing VM operation: GetCurrentContendedMonitor
+Event: 155.820 Executing VM operation: GetCurrentContendedMonitor done
+Event: 155.821 Executing VM operation: GetOwnedMonitorInfo
+Event: 155.821 Executing VM operation: GetOwnedMonitorInfo done
+Event: 156.707 Executing VM operation: GetCurrentContendedMonitor
+Event: 156.707 Executing VM operation: GetCurrentContendedMonitor done
+Event: 156.708 Executing VM operation: GetOwnedMonitorInfo
+Event: 156.708 Executing VM operation: GetOwnedMonitorInfo done
+Event: 311.923 Executing VM operation: RedefineClasses
+Event: 311.924 Executing VM operation: RedefineClasses done
+Event: 311.932 Executing VM operation: ChangeBreakpoints
+Event: 311.932 Executing VM operation: ChangeBreakpoints done
+Event: 312.080 Executing VM operation: GetOwnedMonitorInfo
+Event: 312.080 Executing VM operation: GetOwnedMonitorInfo done
+Event: 312.081 Executing VM operation: GetCurrentContendedMonitor
+Event: 312.081 Executing VM operation: GetCurrentContendedMonitor done
+Event: 436.636 Executing VM operation: RedefineClasses
+Event: 436.638 Executing VM operation: RedefineClasses done
+Event: 436.673 Executing VM operation: ChangeBreakpoints
+Event: 436.673 Executing VM operation: ChangeBreakpoints done
+Event: 436.795 Executing VM operation: GetOwnedMonitorInfo
+Event: 436.795 Executing VM operation: GetOwnedMonitorInfo done
+Event: 436.795 Executing VM operation: GetCurrentContendedMonitor
+Event: 436.795 Executing VM operation: GetCurrentContendedMonitor done
+Event: 480.104 Executing VM operation: RedefineClasses
+Event: 480.106 Executing VM operation: RedefineClasses done
+Event: 480.113 Executing VM operation: ChangeBreakpoints
+Event: 480.113 Executing VM operation: ChangeBreakpoints done
+Event: 480.251 Executing VM operation: GetOwnedMonitorInfo
+Event: 480.251 Executing VM operation: GetOwnedMonitorInfo done
+Event: 480.252 Executing VM operation: GetCurrentContendedMonitor
+Event: 480.252 Executing VM operation: GetCurrentContendedMonitor done
+Event: 509.584 Executing VM operation: RevokeBias
+Event: 509.584 Executing VM operation: RevokeBias done
+Event: 509.586 Executing VM operation: RevokeBias
+Event: 509.587 Executing VM operation: RevokeBias done
+Event: 509.588 Executing VM operation: RedefineClasses
+Event: 509.590 Executing VM operation: RedefineClasses done
+Event: 509.597 Executing VM operation: ChangeBreakpoints
+Event: 509.598 Executing VM operation: ChangeBreakpoints done
+Event: 509.760 Executing VM operation: GetOwnedMonitorInfo
+Event: 509.760 Executing VM operation: GetOwnedMonitorInfo done
+Event: 509.760 Executing VM operation: GetCurrentContendedMonitor
+Event: 509.760 Executing VM operation: GetCurrentContendedMonitor done
+Event: 522.506 Executing VM operation: RedefineClasses
+Event: 522.508 Executing VM operation: RedefineClasses done
+Event: 522.513 Executing VM operation: ChangeBreakpoints
+Event: 522.514 Executing VM operation: ChangeBreakpoints done
+Event: 522.624 Executing VM operation: GetOwnedMonitorInfo
+Event: 522.624 Executing VM operation: GetOwnedMonitorInfo done
+Event: 522.624 Executing VM operation: GetCurrentContendedMonitor
+Event: 522.624 Executing VM operation: GetCurrentContendedMonitor done
+Event: 532.535 Executing VM operation: ChangeBreakpoints
+Event: 532.535 Executing VM operation: ChangeBreakpoints done
+Event: 827.062 Executing VM operation: RedefineClasses
+Event: 827.064 Executing VM operation: RedefineClasses done
+Event: 827.183 Executing VM operation: GetOwnedMonitorInfo
+Event: 827.183 Executing VM operation: GetOwnedMonitorInfo done
+Event: 827.183 Executing VM operation: GetCurrentContendedMonitor
+Event: 827.183 Executing VM operation: GetCurrentContendedMonitor done
+Event: 843.381 Executing VM operation: RedefineClasses
+Event: 843.382 Executing VM operation: RedefineClasses done
+Event: 843.473 Executing VM operation: GetOwnedMonitorInfo
+Event: 843.473 Executing VM operation: GetOwnedMonitorInfo done
+Event: 843.473 Executing VM operation: GetCurrentContendedMonitor
+Event: 843.474 Executing VM operation: GetCurrentContendedMonitor done
+Event: 856.696 Executing VM operation: RedefineClasses
+Event: 856.698 Executing VM operation: RedefineClasses done
+Event: 856.698 Thread 0x00007f82d42d5000 flushing nmethod 0x00007f82bebe5350
+Event: 856.698 Thread 0x00007f82d42d5000 flushing nmethod 0x00007f82bebe6d10
+Event: 856.766 Executing VM operation: GetOwnedMonitorInfo
+Event: 856.767 Executing VM operation: GetOwnedMonitorInfo done
+Event: 856.767 Executing VM operation: GetCurrentContendedMonitor
+Event: 856.767 Executing VM operation: GetCurrentContendedMonitor done
+Event: 873.642 Executing VM operation: ChangeBreakpoints
+Event: 873.642 Executing VM operation: ChangeBreakpoints done
+Event: 875.853 Executing VM operation: GetCurrentContendedMonitor
+Event: 875.853 Executing VM operation: GetCurrentContendedMonitor done
+Event: 875.853 Executing VM operation: GetOwnedMonitorInfo
+Event: 875.854 Executing VM operation: GetOwnedMonitorInfo done
+Event: 876.630 Executing VM operation: GetCurrentContendedMonitor
+Event: 876.630 Executing VM operation: GetCurrentContendedMonitor done
+Event: 876.631 Executing VM operation: GetOwnedMonitorInfo
+Event: 876.631 Executing VM operation: GetOwnedMonitorInfo done
+Event: 880.779 Executing VM operation: GetOwnedMonitorInfo
+Event: 880.779 Executing VM operation: GetOwnedMonitorInfo done
+Event: 880.780 Executing VM operation: GetCurrentContendedMonitor
+Event: 880.780 Executing VM operation: GetCurrentContendedMonitor done
+Event: 885.690 Executing VM operation: GetCurrentContendedMonitor
+Event: 885.690 Executing VM operation: GetCurrentContendedMonitor done
+Event: 885.690 Executing VM operation: GetOwnedMonitorInfo
+Event: 885.690 Executing VM operation: GetOwnedMonitorInfo done
+Event: 890.450 Executing VM operation: GetCurrentContendedMonitor
+Event: 890.450 Executing VM operation: GetCurrentContendedMonitor done
+Event: 890.450 Executing VM operation: GetOwnedMonitorInfo
+Event: 890.450 Executing VM operation: GetOwnedMonitorInfo done
+Event: 938.746 Executing VM operation: RedefineClasses
+Event: 938.748 Executing VM operation: RedefineClasses done
+Event: 938.764 Executing VM operation: ChangeBreakpoints
+Event: 938.765 Executing VM operation: ChangeBreakpoints done
+Event: 938.814 Executing VM operation: GetOwnedMonitorInfo
+Event: 938.814 Executing VM operation: GetOwnedMonitorInfo done
+Event: 938.815 Executing VM operation: GetCurrentContendedMonitor
+Event: 938.815 Executing VM operation: GetCurrentContendedMonitor done
+Event: 938.883 Executing VM operation: GetCurrentContendedMonitor
+Event: 938.883 Executing VM operation: GetCurrentContendedMonitor done
+Event: 938.884 Executing VM operation: GetOwnedMonitorInfo
+Event: 938.884 Executing VM operation: GetOwnedMonitorInfo done
+Event: 939.645 Executing VM operation: GetCurrentContendedMonitor
+Event: 939.646 Executing VM operation: GetCurrentContendedMonitor done
+Event: 939.646 Executing VM operation: GetOwnedMonitorInfo
+Event: 939.646 Executing VM operation: GetOwnedMonitorInfo done
+Event: 946.935 Executing VM operation: RedefineClasses
+Event: 946.937 Executing VM operation: RedefineClasses done
+Event: 946.943 Executing VM operation: ChangeBreakpoints
+Event: 946.944 Executing VM operation: ChangeBreakpoints done
+Event: 947.124 Executing VM operation: GetOwnedMonitorInfo
+Event: 947.124 Executing VM operation: GetOwnedMonitorInfo done
+Event: 947.125 Executing VM operation: GetCurrentContendedMonitor
+Event: 947.125 Executing VM operation: GetCurrentContendedMonitor done
+Event: 949.481 Executing VM operation: GetCurrentContendedMonitor
+Event: 949.481 Executing VM operation: GetCurrentContendedMonitor done
+Event: 949.481 Executing VM operation: GetOwnedMonitorInfo
+Event: 949.482 Executing VM operation: GetOwnedMonitorInfo done
+Event: 950.257 Executing VM operation: GetCurrentContendedMonitor
+Event: 950.257 Executing VM operation: GetCurrentContendedMonitor done
+Event: 950.257 Executing VM operation: GetOwnedMonitorInfo
+Event: 950.257 Executing VM operation: GetOwnedMonitorInfo done
+Event: 952.825 Executing VM operation: GetCurrentContendedMonitor
+Event: 952.825 Executing VM operation: GetCurrentContendedMonitor done
+Event: 952.825 Executing VM operation: GetOwnedMonitorInfo
+Event: 952.825 Executing VM operation: GetOwnedMonitorInfo done
+Event: 958.230 Executing VM operation: GetCurrentContendedMonitor
+Event: 958.230 Executing VM operation: GetCurrentContendedMonitor done
+Event: 958.230 Executing VM operation: GetOwnedMonitorInfo
+Event: 958.230 Executing VM operation: GetOwnedMonitorInfo done
+Event: 1027.748 Executing VM operation: RedefineClasses
+Event: 1027.750 Executing VM operation: RedefineClasses done
+Event: 1027.754 Executing VM operation: ChangeBreakpoints
+Event: 1027.754 Executing VM operation: ChangeBreakpoints done
+Event: 1027.810 Executing VM operation: GetOwnedMonitorInfo
+Event: 1027.810 Executing VM operation: GetOwnedMonitorInfo done
+Event: 1027.811 Executing VM operation: GetCurrentContendedMonitor
+Event: 1027.811 Executing VM operation: GetCurrentContendedMonitor done
+Event: 1027.847 Executing VM operation: GetCurrentContendedMonitor
+Event: 1027.847 Executing VM operation: GetCurrentContendedMonitor done
+Event: 1027.848 Executing VM operation: GetOwnedMonitorInfo
+Event: 1027.848 Executing VM operation: GetOwnedMonitorInfo done
+Event: 1028.617 Executing VM operation: GetCurrentContendedMonitor
+Event: 1028.617 Executing VM operation: GetCurrentContendedMonitor done
+Event: 1028.617 Executing VM operation: GetOwnedMonitorInfo
+Event: 1028.617 Executing VM operation: GetOwnedMonitorInfo done
+Event: 1031.951 Executing VM operation: GetCurrentContendedMonitor
+Event: 1031.951 Executing VM operation: GetCurrentContendedMonitor done
+Event: 1031.951 Executing VM operation: GetOwnedMonitorInfo
+Event: 1031.952 Executing VM operation: GetOwnedMonitorInfo done
+Event: 1037.399 Executing VM operation: GetCurrentContendedMonitor
+Event: 1037.399 Executing VM operation: GetCurrentContendedMonitor done
+Event: 1037.399 Executing VM operation: GetOwnedMonitorInfo
+Event: 1037.400 Executing VM operation: GetOwnedMonitorInfo done
+Event: 1164.988 Executing VM operation: ChangeBreakpoints
+Event: 1164.988 Executing VM operation: ChangeBreakpoints done
+Event: 1170.302 Executing VM operation: ChangeBreakpoints
+Event: 1170.303 Executing VM operation: ChangeBreakpoints done
+Event: 1171.875 Executing VM operation: ChangeBreakpoints
+Event: 1171.875 Executing VM operation: ChangeBreakpoints done
+Event: 1172.918 Executing VM operation: ChangeBreakpoints
+Event: 1172.919 Executing VM operation: ChangeBreakpoints done
+Event: 1178.366 Executing VM operation: RedefineClasses
+Event: 1178.368 Executing VM operation: RedefineClasses done
+Event: 1178.377 Executing VM operation: ChangeBreakpoints
+Event: 1178.377 Executing VM operation: ChangeBreakpoints done
+Event: 1178.457 Executing VM operation: GetCurrentContendedMonitor
+Event: 1178.457 Executing VM operation: GetCurrentContendedMonitor done
+Event: 1178.457 Executing VM operation: GetOwnedMonitorInfo
+Event: 1178.457 Executing VM operation: GetOwnedMonitorInfo done
+Event: 1178.461 Executing VM operation: GetOwnedMonitorInfo
+Event: 1178.461 Executing VM operation: GetOwnedMonitorInfo done
+Event: 1178.462 Executing VM operation: GetCurrentContendedMonitor
+Event: 1178.462 Executing VM operation: GetCurrentContendedMonitor done
+Event: 1179.453 Executing VM operation: GetCurrentContendedMonitor
+Event: 1179.453 Executing VM operation: GetCurrentContendedMonitor done
+Event: 1179.454 Executing VM operation: GetOwnedMonitorInfo
+Event: 1179.455 Executing VM operation: GetOwnedMonitorInfo done
+Event: 1190.398 Executing VM operation: GetCurrentContendedMonitor
+Event: 1190.398 Executing VM operation: GetCurrentContendedMonitor done
+Event: 1190.399 Executing VM operation: GetOwnedMonitorInfo
+Event: 1190.399 Executing VM operation: GetOwnedMonitorInfo done
+Event: 1190.443 Executing VM operation: GetCurrentContendedMonitor
+Event: 1190.443 Executing VM operation: GetCurrentContendedMonitor done
+Event: 1190.443 Executing VM operation: GetOwnedMonitorInfo
+Event: 1190.443 Executing VM operation: GetOwnedMonitorInfo done
+Event: 1659.209 Executing VM operation: GetOwnedMonitorInfo
+Event: 1659.209 Executing VM operation: GetOwnedMonitorInfo done
+Event: 1659.209 Executing VM operation: GetCurrentContendedMonitor
+Event: 1659.209 Executing VM operation: GetCurrentContendedMonitor done
+Event: 1677.946 Executing VM operation: GetOwnedMonitorInfo
+Event: 1677.946 Executing VM operation: GetOwnedMonitorInfo done
+Event: 1677.946 Executing VM operation: GetCurrentContendedMonitor
+Event: 1677.947 Executing VM operation: GetCurrentContendedMonitor done
+Event: 1690.816 Executing VM operation: GetCurrentContendedMonitor
+Event: 1690.816 Executing VM operation: GetCurrentContendedMonitor done
+Event: 1690.816 Executing VM operation: GetOwnedMonitorInfo
+Event: 1690.817 Executing VM operation: GetOwnedMonitorInfo done
+Event: 1691.768 Executing VM operation: GetCurrentContendedMonitor
+Event: 1691.768 Executing VM operation: GetCurrentContendedMonitor done
+Event: 1691.768 Executing VM operation: GetOwnedMonitorInfo
+Event: 1691.768 Executing VM operation: GetOwnedMonitorInfo done
+Event: 1691.808 Executing VM operation: GetOwnedMonitorInfo
+Event: 1691.808 Executing VM operation: GetOwnedMonitorInfo done
+Event: 1691.808 Executing VM operation: GetCurrentContendedMonitor
+Event: 1691.808 Executing VM operation: GetCurrentContendedMonitor done
+Event: 1696.202 Executing VM operation: GetCurrentContendedMonitor
+Event: 1696.202 Executing VM operation: GetCurrentContendedMonitor done
+Event: 1696.203 Executing VM operation: GetOwnedMonitorInfo
+Event: 1696.203 Executing VM operation: GetOwnedMonitorInfo done
+Event: 1696.245 Executing VM operation: GetCurrentContendedMonitor
+Event: 1696.245 Executing VM operation: GetCurrentContendedMonitor done
+Event: 1696.245 Executing VM operation: GetOwnedMonitorInfo
+Event: 1696.245 Executing VM operation: GetOwnedMonitorInfo done
+Event: 2618.142 Executing VM operation: ChangeBreakpoints
+Event: 2618.142 Executing VM operation: ChangeBreakpoints done
+Event: 2619.387 Executing VM operation: ChangeBreakpoints
+Event: 2619.387 Executing VM operation: ChangeBreakpoints done
+Event: 2620.374 Executing VM operation: ChangeBreakpoints
+Event: 2620.374 Executing VM operation: ChangeBreakpoints done
+Event: 2624.409 Executing VM operation: GetCurrentContendedMonitor
+Event: 2624.409 Executing VM operation: GetCurrentContendedMonitor done
+Event: 2624.409 Executing VM operation: GetOwnedMonitorInfo
+Event: 2624.410 Executing VM operation: GetOwnedMonitorInfo done
+Event: 2641.717 Executing VM operation: GetCurrentContendedMonitor
+Event: 2641.718 Executing VM operation: GetCurrentContendedMonitor done
+Event: 2641.720 Executing VM operation: GetOwnedMonitorInfo
+Event: 2641.720 Executing VM operation: GetOwnedMonitorInfo done
+Event: 2650.458 Executing VM operation: GetOrSetLocal
+
+
+Dynamic libraries:
+00400000-00401000 r-xp 00000000 08:01 7231438                            /usr/lib/jvm/java-1.8.0-openjdk-1.8.0.222.b10-0.el7_6.x86_64/bin/java
+00600000-00601000 r--p 00000000 08:01 7231438                            /usr/lib/jvm/java-1.8.0-openjdk-1.8.0.222.b10-0.el7_6.x86_64/bin/java
+00601000-00602000 rw-p 00001000 08:01 7231438                            /usr/lib/jvm/java-1.8.0-openjdk-1.8.0.222.b10-0.el7_6.x86_64/bin/java
+017c5000-017e6000 rw-p 00000000 00:00 0                                  [heap]
+6c7200000-6d1900000 rw-p 00000000 00:00 0 
+6d1900000-76d100000 ---p 00000000 00:00 0 
+76d100000-772400000 rw-p 00000000 00:00 0 
+772400000-7c0000000 ---p 00000000 00:00 0 
+7c0000000-7c00e0000 rw-p 00000000 00:00 0 
+7c00e0000-800000000 ---p 00000000 00:00 0 
+7f826c000000-7f826c021000 rw-p 00000000 00:00 0 
+7f826c021000-7f8270000000 ---p 00000000 00:00 0 
+7f8270000000-7f8270021000 rw-p 00000000 00:00 0 
+7f8270021000-7f8274000000 ---p 00000000 00:00 0 
+7f8274000000-7f827487c000 rw-p 00000000 00:00 0 
+7f827487c000-7f8278000000 ---p 00000000 00:00 0 
+7f8278000000-7f8278021000 rw-p 00000000 00:00 0 
+7f8278021000-7f827c000000 ---p 00000000 00:00 0 
+7f827c000000-7f827c10a000 rw-p 00000000 00:00 0 
+7f827c10a000-7f8280000000 ---p 00000000 00:00 0 
+7f8280000000-7f8280140000 rw-p 00000000 00:00 0 
+7f8280140000-7f8284000000 ---p 00000000 00:00 0 
+7f8284000000-7f8284021000 rw-p 00000000 00:00 0 
+7f8284021000-7f8288000000 ---p 00000000 00:00 0 
+7f8288000000-7f8288021000 rw-p 00000000 00:00 0 
+7f8288021000-7f828c000000 ---p 00000000 00:00 0 
+7f828c000000-7f828c021000 rw-p 00000000 00:00 0 
+7f828c021000-7f8290000000 ---p 00000000 00:00 0 
+7f8290000000-7f8290035000 rw-p 00000000 00:00 0 
+7f8290035000-7f8294000000 ---p 00000000 00:00 0 
+7f8294000000-7f8294021000 rw-p 00000000 00:00 0 
+7f8294021000-7f8298000000 ---p 00000000 00:00 0 
+7f8298000000-7f8298021000 rw-p 00000000 00:00 0 
+7f8298021000-7f829c000000 ---p 00000000 00:00 0 
+7f829c000000-7f829c021000 rw-p 00000000 00:00 0 
+7f829c021000-7f82a0000000 ---p 00000000 00:00 0 
+7f82a0390000-7f82a8000000 rw-p 00000000 00:00 0 
+7f82a8000000-7f82a8021000 rw-p 00000000 00:00 0 
+7f82a8021000-7f82ac000000 ---p 00000000 00:00 0 
+7f82ac000000-7f82ac021000 rw-p 00000000 00:00 0 
+7f82ac021000-7f82b0000000 ---p 00000000 00:00 0 
+7f82b0000000-7f82b0021000 rw-p 00000000 00:00 0 
+7f82b0021000-7f82b4000000 ---p 00000000 00:00 0 
+7f82b6678000-7f82b667b000 ---p 00000000 00:00 0 
+7f82b667b000-7f82b6779000 rw-p 00000000 00:00 0 
+7f82b6779000-7f82b678f000 r-xp 00000000 08:01 6161370                    /usr/lib64/libresolv-2.17.so
+7f82b678f000-7f82b698e000 ---p 00016000 08:01 6161370                    /usr/lib64/libresolv-2.17.so
+7f82b698e000-7f82b698f000 r--p 00015000 08:01 6161370                    /usr/lib64/libresolv-2.17.so
+7f82b698f000-7f82b6990000 rw-p 00016000 08:01 6161370                    /usr/lib64/libresolv-2.17.so
+7f82b6990000-7f82b6992000 rw-p 00000000 00:00 0 
+7f82b6992000-7f82b6998000 r-xp 00000000 08:01 6161358                    /usr/lib64/libnss_dns-2.17.so
+7f82b6998000-7f82b6b97000 ---p 00006000 08:01 6161358                    /usr/lib64/libnss_dns-2.17.so
+7f82b6b97000-7f82b6b98000 r--p 00005000 08:01 6161358                    /usr/lib64/libnss_dns-2.17.so
+7f82b6b98000-7f82b6b99000 rw-p 00006000 08:01 6161358                    /usr/lib64/libnss_dns-2.17.so
+7f82b6bd3000-7f82b6bea000 r-xp 00000000 08:01 7492615                    /usr/lib/jvm/java-1.8.0-openjdk-1.8.0.222.b10-0.el7_6.x86_64/jre/lib/amd64/libnet.so
+7f82b6bea000-7f82b6de9000 ---p 00017000 08:01 7492615                    /usr/lib/jvm/java-1.8.0-openjdk-1.8.0.222.b10-0.el7_6.x86_64/jre/lib/amd64/libnet.so
+7f82b6de9000-7f82b6dea000 r--p 00016000 08:01 7492615                    /usr/lib/jvm/java-1.8.0-openjdk-1.8.0.222.b10-0.el7_6.x86_64/jre/lib/amd64/libnet.so
+7f82b6dea000-7f82b6deb000 rw-p 00017000 08:01 7492615                    /usr/lib/jvm/java-1.8.0-openjdk-1.8.0.222.b10-0.el7_6.x86_64/jre/lib/amd64/libnet.so
+7f82b6deb000-7f82b6dec000 ---p 00000000 00:00 0 
+7f82b6dec000-7f82b6eec000 rw-p 00000000 00:00 0 
+7f82b6eec000-7f82b6eef000 ---p 00000000 00:00 0 
+7f82b6eef000-7f82b6fed000 rw-p 00000000 00:00 0 
+7f82b6fed000-7f82b6ff1000 ---p 00000000 00:00 0 
+7f82b6ff1000-7f82b70ee000 rw-p 00000000 00:00 0 
+7f82b70ee000-7f82b70f2000 ---p 00000000 00:00 0 
+7f82b70f2000-7f82b71ef000 rw-p 00000000 00:00 0 
+7f82b71ef000-7f82b71f3000 ---p 00000000 00:00 0 
+7f82b71f3000-7f82b72f0000 rw-p 00000000 00:00 0 
+7f82b72f0000-7f82b72f3000 ---p 00000000 00:00 0 
+7f82b72f3000-7f82b73f1000 rw-p 00000000 00:00 0 
+7f82b73f1000-7f82b73f4000 ---p 00000000 00:00 0 
+7f82b73f4000-7f82b74f2000 rw-p 00000000 00:00 0 
+7f82b74f2000-7f82b74f5000 ---p 00000000 00:00 0 
+7f82b74f5000-7f82b75f3000 rw-p 00000000 00:00 0 
+7f82b75f3000-7f82b75f7000 r-xp 00000000 08:01 7492597                    /usr/lib/jvm/java-1.8.0-openjdk-1.8.0.222.b10-0.el7_6.x86_64/jre/lib/amd64/libdt_socket.so
+7f82b75f7000-7f82b77f6000 ---p 00004000 08:01 7492597                    /usr/lib/jvm/java-1.8.0-openjdk-1.8.0.222.b10-0.el7_6.x86_64/jre/lib/amd64/libdt_socket.so
+7f82b77f6000-7f82b77f7000 r--p 00003000 08:01 7492597                    /usr/lib/jvm/java-1.8.0-openjdk-1.8.0.222.b10-0.el7_6.x86_64/jre/lib/amd64/libdt_socket.so
+7f82b77f7000-7f82b77f8000 rw-p 00004000 08:01 7492597                    /usr/lib/jvm/java-1.8.0-openjdk-1.8.0.222.b10-0.el7_6.x86_64/jre/lib/amd64/libdt_socket.so
+7f82b77f8000-7f82b77fb000 ---p 00000000 00:00 0 
+7f82b77fb000-7f82b78f9000 rw-p 00000000 00:00 0 
+7f82b78f9000-7f82b78fc000 ---p 00000000 00:00 0 
+7f82b78fc000-7f82b79fa000 rw-p 00000000 00:00 0 
+7f82b79fa000-7f82b79fd000 ---p 00000000 00:00 0 
+7f82b79fd000-7f82b7afb000 rw-p 00000000 00:00 0 
+7f82b7afb000-7f82b7afc000 ---p 00000000 00:00 0 
+7f82b7afc000-7f82b8000000 rw-p 00000000 00:00 0 
+7f82b8000000-7f82b8021000 rw-p 00000000 00:00 0 
+7f82b8021000-7f82bc000000 ---p 00000000 00:00 0 
+7f82bc01d000-7f82bcb76000 rw-p 00000000 00:00 0 
+7f82bcb76000-7f82bcd46000 r--s 04445000 08:01 7492642                    /usr/lib/jvm/java-1.8.0-openjdk-1.8.0.222.b10-0.el7_6.x86_64/jre/lib/rt.jar
+7f82bcd46000-7f82bd5d7000 rw-p 00000000 00:00 0 
+7f82bd5d7000-7f82bd617000 ---p 00000000 00:00 0 
+7f82bd617000-7f82bde32000 rw-p 00000000 00:00 0 
+7f82bde32000-7f82be30e000 ---p 00000000 00:00 0 
+7f82be30e000-7f82be362000 rw-p 00000000 00:00 0 
+7f82be362000-7f82be83d000 ---p 00000000 00:00 0 
+7f82be83d000-7f82be867000 rw-p 00000000 00:00 0 
+7f82be867000-7f82bead5000 ---p 00000000 00:00 0 
+7f82bead5000-7f82bead6000 rw-p 00000000 00:00 0 
+7f82bead6000-7f82bed46000 rwxp 00000000 00:00 0 
+7f82bed46000-7f82cdad6000 ---p 00000000 00:00 0 
+7f82cdad6000-7f82d4000000 r--p 00000000 08:01 6161390                    /usr/lib/locale/locale-archive
+7f82d4000000-7f82d440c000 rw-p 00000000 00:00 0 
+7f82d440c000-7f82d8000000 ---p 00000000 00:00 0 
+7f82d8029000-7f82d802a000 ---p 00000000 00:00 0 
+7f82d802a000-7f82d812a000 rw-p 00000000 00:00 0 
+7f82d812a000-7f82d812b000 ---p 00000000 00:00 0 
+7f82d812b000-7f82d822b000 rw-p 00000000 00:00 0 
+7f82d822b000-7f82d822c000 ---p 00000000 00:00 0 
+7f82d822c000-7f82d832c000 rw-p 00000000 00:00 0 
+7f82d832c000-7f82d832d000 ---p 00000000 00:00 0 
+7f82d832d000-7f82d8437000 rw-p 00000000 00:00 0 
+7f82d8437000-7f82d87ed000 ---p 00000000 00:00 0 
+7f82d87ed000-7f82d87f5000 r-xp 00000000 08:01 7492623                    /usr/lib/jvm/java-1.8.0-openjdk-1.8.0.222.b10-0.el7_6.x86_64/jre/lib/amd64/libzip.so
+7f82d87f5000-7f82d89f4000 ---p 00008000 08:01 7492623                    /usr/lib/jvm/java-1.8.0-openjdk-1.8.0.222.b10-0.el7_6.x86_64/jre/lib/amd64/libzip.so
+7f82d89f4000-7f82d89f5000 r--p 00007000 08:01 7492623                    /usr/lib/jvm/java-1.8.0-openjdk-1.8.0.222.b10-0.el7_6.x86_64/jre/lib/amd64/libzip.so
+7f82d89f5000-7f82d89f6000 rw-p 00008000 08:01 7492623                    /usr/lib/jvm/java-1.8.0-openjdk-1.8.0.222.b10-0.el7_6.x86_64/jre/lib/amd64/libzip.so
+7f82d89f6000-7f82d91fb000 r--s 00000000 08:01 2381618                    /var/lib/sss/mc/passwd
+7f82d91fb000-7f82d9203000 r-xp 00000000 08:01 6167812                    /usr/lib64/libnss_sss.so.2
+7f82d9203000-7f82d9402000 ---p 00008000 08:01 6167812                    /usr/lib64/libnss_sss.so.2
+7f82d9402000-7f82d9403000 r--p 00007000 08:01 6167812                    /usr/lib64/libnss_sss.so.2
+7f82d9403000-7f82d9404000 rw-p 00008000 08:01 6167812                    /usr/lib64/libnss_sss.so.2
+7f82d9404000-7f82d9410000 r-xp 00000000 08:01 6161360                    /usr/lib64/libnss_files-2.17.so
+7f82d9410000-7f82d960f000 ---p 0000c000 08:01 6161360                    /usr/lib64/libnss_files-2.17.so
+7f82d960f000-7f82d9610000 r--p 0000b000 08:01 6161360                    /usr/lib64/libnss_files-2.17.so
+7f82d9610000-7f82d9611000 rw-p 0000c000 08:01 6161360                    /usr/lib64/libnss_files-2.17.so
+7f82d9611000-7f82d9617000 rw-p 00000000 00:00 0 
+7f82d9617000-7f82d9621000 r-xp 00000000 08:01 7492600                    /usr/lib/jvm/java-1.8.0-openjdk-1.8.0.222.b10-0.el7_6.x86_64/jre/lib/amd64/libinstrument.so
+7f82d9621000-7f82d9820000 ---p 0000a000 08:01 7492600                    /usr/lib/jvm/java-1.8.0-openjdk-1.8.0.222.b10-0.el7_6.x86_64/jre/lib/amd64/libinstrument.so
+7f82d9820000-7f82d9821000 r--p 00009000 08:01 7492600                    /usr/lib/jvm/java-1.8.0-openjdk-1.8.0.222.b10-0.el7_6.x86_64/jre/lib/amd64/libinstrument.so
+7f82d9821000-7f82d9822000 rw-p 0000a000 08:01 7492600                    /usr/lib/jvm/java-1.8.0-openjdk-1.8.0.222.b10-0.el7_6.x86_64/jre/lib/amd64/libinstrument.so
+7f82d9822000-7f82d9824000 r-xp 00000000 08:01 7492617                    /usr/lib/jvm/java-1.8.0-openjdk-1.8.0.222.b10-0.el7_6.x86_64/jre/lib/amd64/libnpt.so
+7f82d9824000-7f82d9a24000 ---p 00002000 08:01 7492617                    /usr/lib/jvm/java-1.8.0-openjdk-1.8.0.222.b10-0.el7_6.x86_64/jre/lib/amd64/libnpt.so
+7f82d9a24000-7f82d9a25000 r--p 00002000 08:01 7492617                    /usr/lib/jvm/java-1.8.0-openjdk-1.8.0.222.b10-0.el7_6.x86_64/jre/lib/amd64/libnpt.so
+7f82d9a25000-7f82d9a26000 rw-p 00003000 08:01 7492617                    /usr/lib/jvm/java-1.8.0-openjdk-1.8.0.222.b10-0.el7_6.x86_64/jre/lib/amd64/libnpt.so
+7f82d9a26000-7f82d9a60000 r-xp 00000000 08:01 7492608                    /usr/lib/jvm/java-1.8.0-openjdk-1.8.0.222.b10-0.el7_6.x86_64/jre/lib/amd64/libjdwp.so
+7f82d9a60000-7f82d9c60000 ---p 0003a000 08:01 7492608                    /usr/lib/jvm/java-1.8.0-openjdk-1.8.0.222.b10-0.el7_6.x86_64/jre/lib/amd64/libjdwp.so
+7f82d9c60000-7f82d9c61000 r--p 0003a000 08:01 7492608                    /usr/lib/jvm/java-1.8.0-openjdk-1.8.0.222.b10-0.el7_6.x86_64/jre/lib/amd64/libjdwp.so
+7f82d9c61000-7f82d9c62000 rw-p 0003b000 08:01 7492608                    /usr/lib/jvm/java-1.8.0-openjdk-1.8.0.222.b10-0.el7_6.x86_64/jre/lib/amd64/libjdwp.so
+7f82d9c62000-7f82d9c8b000 r-xp 00000000 08:01 7492605                    /usr/lib/jvm/java-1.8.0-openjdk-1.8.0.222.b10-0.el7_6.x86_64/jre/lib/amd64/libjava.so
+7f82d9c8b000-7f82d9e8a000 ---p 00029000 08:01 7492605                    /usr/lib/jvm/java-1.8.0-openjdk-1.8.0.222.b10-0.el7_6.x86_64/jre/lib/amd64/libjava.so
+7f82d9e8a000-7f82d9e8b000 r--p 00028000 08:01 7492605                    /usr/lib/jvm/java-1.8.0-openjdk-1.8.0.222.b10-0.el7_6.x86_64/jre/lib/amd64/libjava.so
+7f82d9e8b000-7f82d9e8d000 rw-p 00029000 08:01 7492605                    /usr/lib/jvm/java-1.8.0-openjdk-1.8.0.222.b10-0.el7_6.x86_64/jre/lib/amd64/libjava.so
+7f82d9e8d000-7f82d9e9a000 r-xp 00000000 08:01 7492622                    /usr/lib/jvm/java-1.8.0-openjdk-1.8.0.222.b10-0.el7_6.x86_64/jre/lib/amd64/libverify.so
+7f82d9e9a000-7f82da099000 ---p 0000d000 08:01 7492622                    /usr/lib/jvm/java-1.8.0-openjdk-1.8.0.222.b10-0.el7_6.x86_64/jre/lib/amd64/libverify.so
+7f82da099000-7f82da09b000 r--p 0000c000 08:01 7492622                    /usr/lib/jvm/java-1.8.0-openjdk-1.8.0.222.b10-0.el7_6.x86_64/jre/lib/amd64/libverify.so
+7f82da09b000-7f82da09c000 rw-p 0000e000 08:01 7492622                    /usr/lib/jvm/java-1.8.0-openjdk-1.8.0.222.b10-0.el7_6.x86_64/jre/lib/amd64/libverify.so
+7f82da09c000-7f82da0a3000 r-xp 00000000 08:01 6161372                    /usr/lib64/librt-2.17.so
+7f82da0a3000-7f82da2a2000 ---p 00007000 08:01 6161372                    /usr/lib64/librt-2.17.so
+7f82da2a2000-7f82da2a3000 r--p 00006000 08:01 6161372                    /usr/lib64/librt-2.17.so
+7f82da2a3000-7f82da2a4000 rw-p 00007000 08:01 6161372                    /usr/lib64/librt-2.17.so
+7f82da2a4000-7f82da2b9000 r-xp 00000000 08:01 6160403                    /usr/lib64/libgcc_s-4.8.5-20150702.so.1
+7f82da2b9000-7f82da4b8000 ---p 00015000 08:01 6160403                    /usr/lib64/libgcc_s-4.8.5-20150702.so.1
+7f82da4b8000-7f82da4b9000 r--p 00014000 08:01 6160403                    /usr/lib64/libgcc_s-4.8.5-20150702.so.1
+7f82da4b9000-7f82da4ba000 rw-p 00015000 08:01 6160403                    /usr/lib64/libgcc_s-4.8.5-20150702.so.1
+7f82da4ba000-7f82da5bb000 r-xp 00000000 08:01 6161350                    /usr/lib64/libm-2.17.so
+7f82da5bb000-7f82da7ba000 ---p 00101000 08:01 6161350                    /usr/lib64/libm-2.17.so
+7f82da7ba000-7f82da7bb000 r--p 00100000 08:01 6161350                    /usr/lib64/libm-2.17.so
+7f82da7bb000-7f82da7bc000 rw-p 00101000 08:01 6161350                    /usr/lib64/libm-2.17.so
+7f82da7bc000-7f82da8a5000 r-xp 00000000 08:01 6161395                    /usr/lib64/libstdc++.so.6.0.19
+7f82da8a5000-7f82daaa4000 ---p 000e9000 08:01 6161395                    /usr/lib64/libstdc++.so.6.0.19
+7f82daaa4000-7f82daaac000 r--p 000e8000 08:01 6161395                    /usr/lib64/libstdc++.so.6.0.19
+7f82daaac000-7f82daaae000 rw-p 000f0000 08:01 6161395                    /usr/lib64/libstdc++.so.6.0.19
+7f82daaae000-7f82daac3000 rw-p 00000000 00:00 0 
+7f82daac3000-7f82db7ab000 r-xp 00000000 08:01 1053866                    /usr/lib/jvm/java-1.8.0-openjdk-1.8.0.222.b10-0.el7_6.x86_64/jre/lib/amd64/server/libjvm.so
+7f82db7ab000-7f82db9ab000 ---p 00ce8000 08:01 1053866                    /usr/lib/jvm/java-1.8.0-openjdk-1.8.0.222.b10-0.el7_6.x86_64/jre/lib/amd64/server/libjvm.so
+7f82db9ab000-7f82dba57000 r--p 00ce8000 08:01 1053866                    /usr/lib/jvm/java-1.8.0-openjdk-1.8.0.222.b10-0.el7_6.x86_64/jre/lib/amd64/server/libjvm.so
+7f82dba57000-7f82dba81000 rw-p 00d94000 08:01 1053866                    /usr/lib/jvm/java-1.8.0-openjdk-1.8.0.222.b10-0.el7_6.x86_64/jre/lib/amd64/server/libjvm.so
+7f82dba81000-7f82dbab4000 rw-p 00000000 00:00 0 
+7f82dbab4000-7f82dbc77000 r-xp 00000000 08:01 6161342                    /usr/lib64/libc-2.17.so
+7f82dbc77000-7f82dbe77000 ---p 001c3000 08:01 6161342                    /usr/lib64/libc-2.17.so
+7f82dbe77000-7f82dbe7b000 r--p 001c3000 08:01 6161342                    /usr/lib64/libc-2.17.so
+7f82dbe7b000-7f82dbe7d000 rw-p 001c7000 08:01 6161342                    /usr/lib64/libc-2.17.so
+7f82dbe7d000-7f82dbe82000 rw-p 00000000 00:00 0 
+7f82dbe82000-7f82dbe84000 r-xp 00000000 08:01 6161348                    /usr/lib64/libdl-2.17.so
+7f82dbe84000-7f82dc084000 ---p 00002000 08:01 6161348                    /usr/lib64/libdl-2.17.so
+7f82dc084000-7f82dc085000 r--p 00002000 08:01 6161348                    /usr/lib64/libdl-2.17.so
+7f82dc085000-7f82dc086000 rw-p 00003000 08:01 6161348                    /usr/lib64/libdl-2.17.so
+7f82dc086000-7f82dc093000 r-xp 00000000 08:01 7497363                    /usr/lib/jvm/java-1.8.0-openjdk-1.8.0.222.b10-0.el7_6.x86_64/lib/amd64/jli/libjli.so
+7f82dc093000-7f82dc293000 ---p 0000d000 08:01 7497363                    /usr/lib/jvm/java-1.8.0-openjdk-1.8.0.222.b10-0.el7_6.x86_64/lib/amd64/jli/libjli.so
+7f82dc293000-7f82dc294000 r--p 0000d000 08:01 7497363                    /usr/lib/jvm/java-1.8.0-openjdk-1.8.0.222.b10-0.el7_6.x86_64/lib/amd64/jli/libjli.so
+7f82dc294000-7f82dc295000 rw-p 0000e000 08:01 7497363                    /usr/lib/jvm/java-1.8.0-openjdk-1.8.0.222.b10-0.el7_6.x86_64/lib/amd64/jli/libjli.so
+7f82dc295000-7f82dc2aa000 r-xp 00000000 08:01 6161536                    /usr/lib64/libz.so.1.2.7
+7f82dc2aa000-7f82dc4a9000 ---p 00015000 08:01 6161536                    /usr/lib64/libz.so.1.2.7
+7f82dc4a9000-7f82dc4aa000 r--p 00014000 08:01 6161536                    /usr/lib64/libz.so.1.2.7
+7f82dc4aa000-7f82dc4ab000 rw-p 00015000 08:01 6161536                    /usr/lib64/libz.so.1.2.7
+7f82dc4ab000-7f82dc4c2000 r-xp 00000000 08:01 6161368                    /usr/lib64/libpthread-2.17.so
+7f82dc4c2000-7f82dc6c1000 ---p 00017000 08:01 6161368                    /usr/lib64/libpthread-2.17.so
+7f82dc6c1000-7f82dc6c2000 r--p 00016000 08:01 6161368                    /usr/lib64/libpthread-2.17.so
+7f82dc6c2000-7f82dc6c3000 rw-p 00017000 08:01 6161368                    /usr/lib64/libpthread-2.17.so
+7f82dc6c3000-7f82dc6c7000 rw-p 00000000 00:00 0 
+7f82dc6c7000-7f82dc6e9000 r-xp 00000000 08:01 6161335                    /usr/lib64/ld-2.17.so
+7f82dc717000-7f82dc7a7000 rw-p 00000000 00:00 0 
+7f82dc7a7000-7f82dc7ab000 ---p 00000000 00:00 0 
+7f82dc7ab000-7f82dc8ad000 rw-p 00000000 00:00 0 
+7f82dc8ad000-7f82dc8af000 r--s 00019000 08:01 7492631                    /usr/lib/jvm/java-1.8.0-openjdk-1.8.0.222.b10-0.el7_6.x86_64/jre/lib/jce.jar
+7f82dc8af000-7f82dc8b3000 r--s 000bd000 08:01 7492633                    /usr/lib/jvm/java-1.8.0-openjdk-1.8.0.222.b10-0.el7_6.x86_64/jre/lib/jsse.jar
+7f82dc8b3000-7f82dc8b6000 r--s 0001d000 00:28 1596176014                 /afs/inf.ed.ac.uk/user/s17/s1756255/.eclipse/org.eclipse.platform_4.8.0_1665050590_linux_gtk_x86_64/configuration/org.eclipse.osgi/232/0/.cp/lib/javaagent-shaded.jar
+7f82dc8b6000-7f82dc8bb000 r--s 00036000 00:28 1596439744                 /afs/inf.ed.ac.uk/user/s17/s1756255/.m2/repository/com/google/code/gson/gson/2.8.5/gson-2.8.5.jar
+7f82dc8bb000-7f82dc8be000 r--s 00011000 00:28 1596439652                 /afs/inf.ed.ac.uk/user/s17/s1756255/.m2/repository/com/mapbox/mapboxsdk/mapbox-sdk-geojson/4.9.0/mapbox-sdk-geojson-4.9.0.jar
+7f82dc8be000-7f82dc8c4000 r--s 00309000 08:01 7492625                    /usr/lib/jvm/java-1.8.0-openjdk-1.8.0.222.b10-0.el7_6.x86_64/jre/lib/charsets.jar
+7f82dc8c4000-7f82dc8c6000 r--s 00019000 08:01 7492631                    /usr/lib/jvm/java-1.8.0-openjdk-1.8.0.222.b10-0.el7_6.x86_64/jre/lib/jce.jar
+7f82dc8c6000-7f82dc8ca000 r--s 000bd000 08:01 7492633                    /usr/lib/jvm/java-1.8.0-openjdk-1.8.0.222.b10-0.el7_6.x86_64/jre/lib/jsse.jar
+7f82dc8ca000-7f82dc8dd000 r--s 00346000 08:01 7492641                    /usr/lib/jvm/java-1.8.0-openjdk-1.8.0.222.b10-0.el7_6.x86_64/jre/lib/resources.jar
+7f82dc8dd000-7f82dc8e5000 rw-s 00000000 fd:01 235256                     /tmp/hsperfdata_s1756255/10101
+7f82dc8e5000-7f82dc8e6000 rw-p 00000000 00:00 0 
+7f82dc8e6000-7f82dc8e7000 ---p 00000000 00:00 0 
+7f82dc8e7000-7f82dc8e8000 rw-p 00000000 00:00 0 
+7f82dc8e8000-7f82dc8e9000 r--p 00021000 08:01 6161335                    /usr/lib64/ld-2.17.so
+7f82dc8e9000-7f82dc8ea000 rw-p 00022000 08:01 6161335                    /usr/lib64/ld-2.17.so
+7f82dc8ea000-7f82dc8eb000 rw-p 00000000 00:00 0 
+7ffd145c2000-7ffd145e4000 rw-p 00000000 00:00 0                          [stack]
+7ffd145fb000-7ffd145fd000 r-xp 00000000 00:00 0                          [vdso]
+ffffffffff600000-ffffffffff601000 r-xp 00000000 00:00 0                  [vsyscall]
+
+VM Arguments:
+jvm_args: -agentlib:jdwp=transport=dt_socket,suspend=y,address=localhost:46233 -javaagent:/afs/inf.ed.ac.uk/user/s17/s1756255/.eclipse/org.eclipse.platform_4.8.0_1665050590_linux_gtk_x86_64/configuration/org.eclipse.osgi/232/0/.cp/lib/javaagent-shaded.jar -Dfile.encoding=UTF-8 
+java_command: uk.ac.ed.inf.powergrab.App
+java_class_path (initial): /usr/lib/jvm/java-1.8.0-openjdk-1.8.0.222.b10-0.el7_6.x86_64/jre/lib/resources.jar:/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.222.b10-0.el7_6.x86_64/jre/lib/rt.jar:/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.222.b10-0.el7_6.x86_64/jre/lib/jsse.jar:/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.222.b10-0.el7_6.x86_64/jre/lib/jce.jar:/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.222.b10-0.el7_6.x86_64/jre/lib/charsets.jar:/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.222.b10-0.el7_6.x86_64/jre/lib/ext/dnsns.jar:/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.222.b10-0.el7_6.x86_64/jre/lib/ext/localedata.jar:/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.222.b10-0.el7_6.x86_64/jre/lib/ext/sunpkcs11.jar:/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.222.b10-0.el7_6.x86_64/jre/lib/ext/cldrdata.jar:/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.222.b10-0.el7_6.x86_64/jre/lib/ext/zipfs.jar:/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.222.b10-0.el7_6.x86_64/jre/lib/ext/jaccess.jar:/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.222.b10-0.el7_6.x86_64/jre/lib/ext/sunec.jar:/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.222.b10-0.el7_6.x86_64/jre/lib/ext/sunjce_provider.jar:/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.222.b10-0.el7_6.x86_64/jre/lib/ext/nashorn.jar:/afs/inf.ed.ac.uk/user/s17/s1756255/eclipse-workspace/powergrab/target/classes:/afs/inf.ed.ac.uk/user/s17/s1756255/.m2/repository/com/mapbox/mapboxsdk/mapbox-sdk-geojson/4.9.0/mapbox-sdk-geojson-4.9.0.jar:/afs/inf.ed.ac.uk/user/s17/s1756255/.m2/repository/com/google/code/gson/gson/2.8.5/gson-2.8.5.jar:/afs/inf.ed.ac.uk/user/s17/s1756255/.eclipse/org.eclipse.platform_4.8.0_1665050590_linux_gtk_x86_64/configuration/org.eclipse.osgi/232/0/.cp/lib/javaagent-shaded.jar
+Launcher Type: SUN_STANDARD
+
+Environment Variables:
+PATH=/usr/lib64/qt-3.3/bin:/opt/mendeleydesktop/bin:/usr/local/bin/:/usr/lib/jvm/java-1.8.0/bin/:/opt/texlive/2019/bin/x86_64-linux:/opt/matlab-R2018a/bin/:/usr/local/sbin:/usr/bin:/sbin:/usr/pgsql-9/bin:/opt/sicstus-4.0.1/bin
+SHELL=/bin/bash
+DISPLAY=:0
+
+Signal Handlers:
+SIGSEGV: [libjvm.so+0xacf850], sa_mask[0]=11111111011111111101111111111110, sa_flags=SA_RESTART|SA_SIGINFO
+SIGBUS: [libjvm.so+0xacf850], sa_mask[0]=11111111011111111101111111111110, sa_flags=SA_RESTART|SA_SIGINFO
+SIGFPE: [libjvm.so+0x8c1cb0], sa_mask[0]=11111111011111111101111111111110, sa_flags=SA_RESTART|SA_SIGINFO
+SIGPIPE: [libjvm.so+0x8c1cb0], sa_mask[0]=11111111011111111101111111111110, sa_flags=SA_RESTART|SA_SIGINFO
+SIGXFSZ: [libjvm.so+0x8c1cb0], sa_mask[0]=11111111011111111101111111111110, sa_flags=SA_RESTART|SA_SIGINFO
+SIGILL: [libjvm.so+0x8c1cb0], sa_mask[0]=11111111011111111101111111111110, sa_flags=SA_RESTART|SA_SIGINFO
+SIGUSR1: SIG_DFL, sa_mask[0]=00000000000000000000000000000000, sa_flags=none
+SIGUSR2: [libjvm.so+0x8c1b60], sa_mask[0]=00100000000000000000000000000000, sa_flags=SA_RESTART|SA_SIGINFO
+SIGHUP: [libjvm.so+0x8c1d70], sa_mask[0]=11111111011111111101111111111110, sa_flags=SA_RESTART|SA_SIGINFO
+SIGINT: [libjvm.so+0x8c1d70], sa_mask[0]=11111111011111111101111111111110, sa_flags=SA_RESTART|SA_SIGINFO
+SIGTERM: [libjvm.so+0x8c1d70], sa_mask[0]=11111111011111111101111111111110, sa_flags=SA_RESTART|SA_SIGINFO
+SIGQUIT: [libjvm.so+0x8c1d70], sa_mask[0]=11111111011111111101111111111110, sa_flags=SA_RESTART|SA_SIGINFO
+
+
+---------------  S Y S T E M  ---------------
+
+OS:Scientific Linux release 7.6 (Nitrogen)
+
+uname:Linux 3.10.0-1062.1.1.el7.x86_64 #1 SMP Tue Sep 3 10:41:00 CDT 2019 x86_64
+libc:glibc 2.17 NPTL 2.17 
+rlimit: STACK 8192k, CORE 0k, NPROC 4096, NOFILE 4096, AS infinity
+load average:0.83 0.60 0.65
+
+/proc/meminfo:
+MemTotal:       16309692 kB
+MemFree:          349672 kB
+MemAvailable:   11601692 kB
+Buffers:          600108 kB
+Cached:         10076728 kB
+SwapCached:            8 kB
+Active:          8514060 kB
+Inactive:        5884152 kB
+Active(anon):    3250132 kB
+Inactive(anon):   783684 kB
+Active(file):    5263928 kB
+Inactive(file):  5100468 kB
+Unevictable:       31232 kB
+Mlocked:              64 kB
+SwapTotal:       8154620 kB
+SwapFree:        8153588 kB
+Dirty:               140 kB
+Writeback:             0 kB
+AnonPages:       3753252 kB
+Mapped:           524456 kB
+Shmem:            312152 kB
+Slab:            1300912 kB
+SReclaimable:    1225924 kB
+SUnreclaim:        74988 kB
+KernelStack:       14064 kB
+PageTables:        59548 kB
+NFS_Unstable:          0 kB
+Bounce:                0 kB
+WritebackTmp:          0 kB
+CommitLimit:    16309464 kB
+Committed_AS:    9902080 kB
+VmallocTotal:   34359738367 kB
+VmallocUsed:      388208 kB
+VmallocChunk:   34358947836 kB
+HardwareCorrupted:     0 kB
+AnonHugePages:    458752 kB
+CmaTotal:              0 kB
+CmaFree:               0 kB
+HugePages_Total:       0
+HugePages_Free:        0
+HugePages_Rsvd:        0
+HugePages_Surp:        0
+Hugepagesize:       2048 kB
+DirectMap4k:      535536 kB
+DirectMap2M:    10876928 kB
+DirectMap1G:     5242880 kB
+
+container (cgroup) information:
+container_type: cgroupv1
+cpu_cpuset_cpus: 0-3
+cpu_memory_nodes: 0
+active_processor_count: 4
+cpu_quota: -1
+cpu_period: 100000
+cpu_shares: -1
+memory_limit_in_bytes: -1
+memory_and_swap_limit_in_bytes: -1
+memory_soft_limit_in_bytes: -1
+memory_usage_in_bytes: 14776659968
+memory_max_usage_in_bytes: 0
+
+
+CPU:total 4 (initial active 4) (4 cores per cpu, 1 threads per core) family 6 model 94 stepping 3, cmov, cx8, fxsr, mmx, sse, sse2, sse3, ssse3, sse4.1, sse4.2, popcnt, avx, avx2, aes, clmul, erms, rtm, 3dnowpref, lzcnt, tsc, tscinvbit, bmi1, bmi2, adx
+
+/proc/cpuinfo:
+processor	: 0
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 94
+model name	: Intel(R) Core(TM) i5-6500 CPU @ 3.20GHz
+stepping	: 3
+microcode	: 0xcc
+cpu MHz		: 3344.531
+cache size	: 6144 KB
+physical id	: 0
+siblings	: 4
+core id		: 0
+cpu cores	: 4
+apicid		: 0
+initial apicid	: 0
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 22
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc art arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc aperfmperf eagerfpu pni pclmulqdq dtes64 monitor ds_cpl vmx smx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm 3dnowprefetch epb invpcid_single intel_pt ssbd ibrs ibpb stibp tpr_shadow vnmi flexpriority ept vpid fsgsbase tsc_adjust bmi1 hle avx2 smep bmi2 erms invpcid rtm mpx rdseed adx smap clflushopt xsaveopt xsavec xgetbv1 dtherm ida arat pln pts hwp hwp_notify hwp_act_window hwp_epp md_clear spec_ctrl intel_stibp flush_l1d
+bogomips	: 6384.00
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 39 bits physical, 48 bits virtual
+power management:
+
+processor	: 1
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 94
+model name	: Intel(R) Core(TM) i5-6500 CPU @ 3.20GHz
+stepping	: 3
+microcode	: 0xcc
+cpu MHz		: 3334.765
+cache size	: 6144 KB
+physical id	: 0
+siblings	: 4
+core id		: 1
+cpu cores	: 4
+apicid		: 2
+initial apicid	: 2
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 22
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc art arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc aperfmperf eagerfpu pni pclmulqdq dtes64 monitor ds_cpl vmx smx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm 3dnowprefetch epb invpcid_single intel_pt ssbd ibrs ibpb stibp tpr_shadow vnmi flexpriority ept vpid fsgsbase tsc_adjust bmi1 hle avx2 smep bmi2 erms invpcid rtm mpx rdseed adx smap clflushopt xsaveopt xsavec xgetbv1 dtherm ida arat pln pts hwp hwp_notify hwp_act_window hwp_epp md_clear spec_ctrl intel_stibp flush_l1d
+bogomips	: 6384.00
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 39 bits physical, 48 bits virtual
+power management:
+
+processor	: 2
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 94
+model name	: Intel(R) Core(TM) i5-6500 CPU @ 3.20GHz
+stepping	: 3
+microcode	: 0xcc
+cpu MHz		: 3363.281
+cache size	: 6144 KB
+physical id	: 0
+siblings	: 4
+core id		: 2
+cpu cores	: 4
+apicid		: 4
+initial apicid	: 4
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 22
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc art arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc aperfmperf eagerfpu pni pclmulqdq dtes64 monitor ds_cpl vmx smx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm 3dnowprefetch epb invpcid_single intel_pt ssbd ibrs ibpb stibp tpr_shadow vnmi flexpriority ept vpid fsgsbase tsc_adjust bmi1 hle avx2 smep bmi2 erms invpcid rtm mpx rdseed adx smap clflushopt xsaveopt xsavec xgetbv1 dtherm ida arat pln pts hwp hwp_notify hwp_act_window hwp_epp md_clear spec_ctrl intel_stibp flush_l1d
+bogomips	: 6384.00
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 39 bits physical, 48 bits virtual
+power management:
+
+processor	: 3
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 94
+model name	: Intel(R) Core(TM) i5-6500 CPU @ 3.20GHz
+stepping	: 3
+microcode	: 0xcc
+cpu MHz		: 3489.257
+cache size	: 6144 KB
+physical id	: 0
+siblings	: 4
+core id		: 3
+cpu cores	: 4
+apicid		: 6
+initial apicid	: 6
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 22
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc art arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc aperfmperf eagerfpu pni pclmulqdq dtes64 monitor ds_cpl vmx smx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm 3dnowprefetch epb invpcid_single intel_pt ssbd ibrs ibpb stibp tpr_shadow vnmi flexpriority ept vpid fsgsbase tsc_adjust bmi1 hle avx2 smep bmi2 erms invpcid rtm mpx rdseed adx smap clflushopt xsaveopt xsavec xgetbv1 dtherm ida arat pln pts hwp hwp_notify hwp_act_window hwp_epp md_clear spec_ctrl intel_stibp flush_l1d
+bogomips	: 6384.00
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 39 bits physical, 48 bits virtual
+power management:
+
+
+
+Memory: 4k page, physical 16309692k(349672k free), swap 8154620k(8153588k free)
+
+vm_info: OpenJDK 64-Bit Server VM (25.222-b10) for linux-amd64 JRE (1.8.0_222-b10), built on Jul 22 2019 09:28:44 by "mockbuild" with gcc 4.8.5 20150623 (Red Hat 4.8.5-36)
+
+time: Tue Oct  8 15:16:23 2019
+timezone: BST
+elapsed time: 2650 seconds (0d 0h 44m 10s)
+
