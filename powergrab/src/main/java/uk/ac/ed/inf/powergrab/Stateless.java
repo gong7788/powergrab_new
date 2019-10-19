@@ -3,7 +3,6 @@ package uk.ac.ed.inf.powergrab;
  * @author s1756255
  */
 import java.util.*;
-import com.mapbox.geojson.Feature;
 
 
 public class Stateless {
@@ -93,7 +92,7 @@ public class Stateless {
 				double lat_p = nextP.latitude;
 				double lon_p = nextP.longitude;
 				double dist = distance(lon_s, lat_s, lon_p, lat_p);
-				if (dist <= 0.00025){
+				if (dist <= 0.00025 && !state_list.contains(s)){
 					state_list.add(s);
 				}
 			}
@@ -107,7 +106,7 @@ public class Stateless {
 		}
 		else return false; 
 	}
-	
+	//TODO Delete
 	public Direction findDirec(State state) {
 		/**
 		 * finds direction of given state relative to the current position
@@ -131,6 +130,23 @@ public class Stateless {
 			}
 		}
 		return dir;
+	}
+
+	public ArrayList<Direction> findAllDirection(State state) {
+		ArrayList<Direction> allDirection = new ArrayList<Direction>();
+		double lat_s = state.getLatitude();
+		double long_s = state.getLongitude();
+
+		for (Direction direction : Direction.values()) {
+			Position nextP = current_position.nextPosition(direction);
+			double lat = nextP.latitude;
+			double lon = nextP.longitude;
+			double dist = distance(lon, lat, long_s, lat_s);
+			if (dist < 0.00025) {
+				allDirection.add(direction);
+			}
+		}
+		return allDirection;
 	}
 
 	public void move_one_step() {
@@ -170,12 +186,16 @@ public class Stateless {
 			// find all direction
 			for (int i = 0; i < danger_state.size(); i++) {
 				State s = danger_state.get(i);
-				Direction d = findDirec(s);
-				danger_direction.add(d);
+				for (Direction d : findAllDirection(s)){
+					if (!danger_direction.contains(d)){
+						danger_direction.add(d);
+					}
+				}
 			}
 			
 			Direction next_direction = getRandomDirection();
-			while (danger_direction.contains(next_direction)||!current_position.nextPosition(next_direction).inPlayArea()) {
+			while (danger_direction.contains(next_direction) ||
+					!current_position.nextPosition(next_direction).inPlayArea()) {
 				// if this direction has danger state, generate a new one
 				next_direction = getRandomDirection();
 			}
@@ -198,8 +218,50 @@ public class Stateless {
 					power_state = s;
 				}
 			}
+
+			for (int i = 0; i < danger_state.size(); i++) {
+				State s = danger_state.get(i);
+				for (Direction d : findAllDirection(s)){
+					if (!danger_direction.contains(d)){
+						danger_direction.add(d);
+					}
+				}
+			}
 			// move to the state has most power
-			Direction dirc = findDirec(power_state);
+			Direction dirc = null;
+			label:
+			for (Direction d : findAllDirection(power_state)){
+				Position nextP = current_position.nextPosition(d);
+				double lat = nextP.latitude;
+				double lon = nextP.longitude;
+				double lat_power = power_state.getLatitude();
+				double lon_power = power_state.getLongitude();
+				double dist2safe = distance(lon, lat, lon_power, lat_power);
+				if (!danger_state.isEmpty()) {
+					for (State danger_s : danger_state) {
+						double lat_danger = danger_s.getLatitude();
+						double lon_danger = danger_s.getLongitude();
+						double dist2danger = distance(lon, lat, lon_danger, lat_danger);
+						if (dist2safe > dist2danger) { //if there is one danger state is closer then skip this direction
+							continue label;
+						}
+					}
+					// there is one direction, safe state is closer
+					dirc = d;
+					break;
+				}
+				// case wo only have safe states
+				dirc = d;
+				break;
+			}
+
+			if (dirc==null) {
+				do {
+					dirc = getRandomDirection();
+
+				} while (danger_direction.contains(dirc) ||
+						!current_position.nextPosition(dirc).inPlayArea());
+			}
 			Position nextP = current_position.nextPosition(dirc);
 			charged(power_state);
 			power = power - cost;

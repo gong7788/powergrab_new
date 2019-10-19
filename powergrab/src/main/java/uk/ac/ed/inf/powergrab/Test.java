@@ -29,7 +29,7 @@ public class Test {
 //        Geometry g = feature1.geometry();
 //        Point p = (Point) g;
 
-		String head = mapSource.substring(0, mapSource.length()-2) + ",";
+
         Geomap.transfer2States();
 		ArrayList<State> states = Geomap.getStates();
 		
@@ -42,7 +42,10 @@ public class Test {
 //		}
 		System.out.println("Collected: " + stateless_drone.getCoins());
 		System.out.println("Total: " + Geomap.getTotal_coins());
+		String head = Geomap.getHead();
+
 //		DrawLines drawer = new DrawLines(path, head);
+
 //		System.out.println(drawer.output());
 
 //		for (int i = 0; i < 50; i++) {

@@ -34,7 +34,12 @@ public class MyMap {
 		return total_coins;
 	}
 
-	public void downloadMap() throws MalformedURLException, IOException {
+	public String getHead(){
+		String head = mapSource.substring(0, mapSource.length()-2) + ",";
+		return head;
+	}
+
+	public void downloadMap() throws IOException {
 		
 //	    String mapString = getMapString("2019/01/01");
 		
@@ -51,10 +56,10 @@ public class MyMap {
 		while (reader.hasNext()) {
 			mapSource = mapSource + reader.nextLine();
 		}
-		
+		inputStream.close();
 	}
 	
-	public void transfer2States() throws MalformedURLException, IOException {
+	public void transfer2States() {
 		FeatureCollection fc = FeatureCollection.fromJson(mapSource);
         List<Feature> feature_list = fc.features();
 		for(int i = 0; i < 50; i++) {
