@@ -164,4 +164,20 @@ public class Position {
 			return true;
 	}
 
+
+	public boolean equals(Position p) {
+		return this.latitude == p.latitude && this.longitude == p.longitude;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (obj == null || getClass() != obj.getClass()) {
+			return false;
+		}
+		Position position = (Position) obj;
+		return this.latitude == position.latitude && this.longitude == position.longitude;
+	}
 }
