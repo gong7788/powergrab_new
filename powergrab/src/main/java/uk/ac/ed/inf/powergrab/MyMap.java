@@ -14,7 +14,7 @@ import com.mapbox.geojson.FeatureCollection;
 import com.mapbox.geojson.Point;
 
 public class MyMap {
-	private String mapString = "http://homepages.inf.ed.ac.uk/stg/powergrab/2019/01/01/powergrabmap.geojson";
+	private String mapString = "http://homepages.inf.ed.ac.uk/stg/powergrab/2019/03/03/powergrabmap.geojson";
 	private String mapSource = "";
 	private double total_coins = 0;
 

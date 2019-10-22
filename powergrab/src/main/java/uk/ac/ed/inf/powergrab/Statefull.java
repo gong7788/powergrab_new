@@ -75,17 +75,11 @@ public class Statefull {
         }
     }
 
-    public void start(){
-        //FIXME
-        while (!is_gameover()) {
-            greedy();
-        }
-    }
 
     // Baseline Algorithm: Greedy
     public void greedy(){
         path.add(current_position);
-
+        // Step 1
         double min = Double.MAX_VALUE;
         double max = 0;
         int init_index = 0;
@@ -113,6 +107,7 @@ public class Statefull {
             move_to_next_state(next_state);
             current_state = next_state;
         }
+        randomMove();
 
     }
 
@@ -142,10 +137,11 @@ public class Statefull {
     public void move_to_next_state(State target){
         double lat_t = target.getLatitude();
         double lon_t = target.getLongitude();
-        double lat1 = current_position.latitude;
-        double lon1 = current_position.longitude;
-        double dist = distance(lon1, lat1, lon_t, lat_t);
-        while (dist > 0.00025) {
+        //double lat1 = current_position.latitude;
+        //double lon1 = current_position.longitude;
+        //double dist = distance(lon1, lat1, lon_t, lat_t);
+        double dist;
+        do {
             Position nextP = move_one_step(target);
             power = power - cost;
             path.add(nextP);
@@ -154,7 +150,7 @@ public class Statefull {
             double lat_p = nextP.latitude;
             double lon_p = nextP.longitude;
             dist = distance(lon_t, lat_t, lon_p, lat_p);
-        }
+        }while (dist > 0.00025);
         // arrive the target state
         //Fixme charge between two stations
         charged(target);
@@ -170,7 +166,7 @@ public class Statefull {
             double lat = nextP.latitude;
             double lon = nextP.longitude;
             double dist = distance(lon, lat, lon_t, lat_t);
-            if (dist < min && noDangerAround(nextP)) {
+            if (dist < min && noDangerAround(nextP) && nextP.inPlayArea()) {
                 min = dist;
                 next_step = nextP;
             }
@@ -204,10 +200,23 @@ public class Statefull {
         power_state.setEmpty(true);
     }
 
-    public boolean is_gameover() {
+    public boolean gameover() {
         if (step <= 0 || power <= 0) {
             return true;
         }
         else return false;
+    }
+
+    public void randomMove(){
+        while(!gameover()){
+            Position nextP = current_position.nextPosition(getRandomDirection());
+            while (!nextP.inPlayArea() || !noDangerAround(nextP)) {
+                nextP = current_position.nextPosition(getRandomDirection());
+            }
+            power = power - cost;
+            path.add(nextP);
+            current_position = nextP;
+            step -= 1;
+        }
     }
 }
