@@ -44,9 +44,9 @@ public class Test {
 		System.out.println("Total: " + Geomap.getTotal_coins());
 		String head = Geomap.getHead();
 
-//		DrawLines drawer = new DrawLines(path, head);
+		DrawLines drawer = new DrawLines(path, head);
 
-//		System.out.println(drawer.output());
+		System.out.println(drawer.output());
 
 //		for (int i = 0; i < 50; i++) {
 //			Direction d = stateless_drone.getRandomDirection();

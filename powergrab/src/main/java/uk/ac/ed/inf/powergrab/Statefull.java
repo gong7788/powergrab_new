@@ -102,7 +102,7 @@ public class Statefull {
         search_list.remove(init_index);
         move_to_next_state(first);
         State current_state = first;
-        while (!search_list.isEmpty()){
+        while (!search_list.isEmpty() && !gameover()){
             State next_state = findNext(current_state);
             move_to_next_state(next_state);
             current_state = next_state;
@@ -150,7 +150,7 @@ public class Statefull {
             double lat_p = nextP.latitude;
             double lon_p = nextP.longitude;
             dist = distance(lon_t, lat_t, lon_p, lat_p);
-        }while (dist > 0.00025);
+        }while (dist > 0.00025 && !gameover());
         // arrive the target state
         //Fixme charge between two stations
         charged(target);
@@ -166,7 +166,7 @@ public class Statefull {
             double lat = nextP.latitude;
             double lon = nextP.longitude;
             double dist = distance(lon, lat, lon_t, lat_t);
-            if (dist < min && noDangerAround(nextP) && nextP.inPlayArea()) {
+            if (dist < min && noDangerAround(nextP) && nextP.inPlayArea() && !contain(nextP)) {
                 min = dist;
                 next_step = nextP;
             }
@@ -218,5 +218,14 @@ public class Statefull {
             current_position = nextP;
             step -= 1;
         }
+    }
+
+    public boolean contain(Position nextP){
+        for (Position p : path){
+            if (nextP.equals(p)) {
+                return true;
+            }
+        }
+        return false;
     }
 }
