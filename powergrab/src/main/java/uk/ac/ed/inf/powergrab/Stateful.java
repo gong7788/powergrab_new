@@ -3,7 +3,7 @@ package uk.ac.ed.inf.powergrab;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class Statefull {
+public class Stateful {
     private int seed;
     private int step;
     private double coins;
@@ -11,19 +11,25 @@ public class Statefull {
     private double cost = 1.25;
 
     private Position current_position;
+    private State initial;
     private ArrayList<State> states = new ArrayList<State>();
     private ArrayList<State> safe_states = new ArrayList<State>();
     private ArrayList<State> search_list = new ArrayList<State>();
     private ArrayList<State> danger_states = new ArrayList<State>();
     private ArrayList<Position> path = new ArrayList<Position>();
 
-    public Statefull(double longitude, double latitude, int seed) {
+    public Stateful(double longitude, double latitude, int seed) {
         this.current_position = new Position(latitude, longitude);
         this.seed = seed;
         this.step = 250;
         this.coins = 0;
+        this.initial = new State(latitude, longitude);
         //TODO check initial power
         this.power = 250;
+    }
+
+    public ArrayList<State> getSafe_states() {
+        return safe_states;
     }
 
     public void setStates(ArrayList<State> states) {
@@ -73,42 +79,6 @@ public class Statefull {
                 danger_states.add(s);
             }
         }
-    }
-
-
-    // Baseline Algorithm: Greedy
-    public void greedy(){
-        path.add(current_position);
-        // Step 1
-        double min = Double.MAX_VALUE;
-        double max = 0;
-        int init_index = 0;
-        for (int i = 0; i < search_list.size(); i++){
-            State first = search_list.get(i);
-            double lat1 = first.getLatitude();
-            double lon1 = first.getLongitude();
-            double lat_init = current_position.latitude;
-            double lon_init = current_position.longitude;
-            double dist_init = distance(lon1, lat1, lon_init, lat_init);
-            //TODO mark dist - min, power - max
-            double weight = first.getPower() - cost*dist_init/0.0003;
-            if (dist_init < min) {
-                min = dist_init;
-                init_index = i;
-            }
-        }
-
-        State first = search_list.get(init_index);
-        search_list.remove(init_index);
-        move_to_next_state(first);
-        State current_state = first;
-        while (!search_list.isEmpty() && !gameover()){
-            State next_state = findNext(current_state);
-            move_to_next_state(next_state);
-            current_state = next_state;
-        }
-        randomMove();
-
     }
 
     public State findNext(State current_state){
@@ -228,4 +198,70 @@ public class Statefull {
         }
         return false;
     }
+
+    // Baseline Algorithm: Greedy
+    public void greedy(){
+        path.add(current_position);
+        // First step
+        double min = Double.MAX_VALUE;
+        double max = 0;
+        int init_index = 0;
+        for (int i = 0; i < search_list.size(); i++){
+            State first = search_list.get(i);
+            double lat1 = first.getLatitude();
+            double lon1 = first.getLongitude();
+            double lat_init = current_position.latitude;
+            double lon_init = current_position.longitude;
+            double dist_init = distance(lon1, lat1, lon_init, lat_init);
+            //TODO mark dist - min, power - max
+            double weight = first.getPower() - cost*dist_init/0.0003;
+            if (dist_init < min) {
+                min = dist_init;
+                init_index = i;
+            }
+        }
+
+        State first = search_list.get(init_index);
+        search_list.remove(init_index);
+        move_to_next_state(first);
+        State current_state = first;
+        while (!search_list.isEmpty() && !gameover()){
+            State next_state = findNext(current_state);
+            move_to_next_state(next_state);
+            current_state = next_state;
+        }
+        randomMove();
+
+    }
+
+    public void ACS(){
+        ArrayList<State> search_list_ = new ArrayList<State>(search_list);
+        search_list_.add(0, initial);
+
+        for (int i = 0; i < search_list_.size(); i++) {
+            search_list_.get(i).code = i;
+        }
+
+        int stationNum = search_list_.size();
+
+        ACS acs = new ACS(stationNum, 40, 100, 5.0, 5.0,
+                0.8, 10, 0, search_list_);
+        acs.init();
+        acs.solve();
+
+        ArrayList<State> ACS_station_order = acs.findPath();
+        int i = 1;
+
+        //State current_state = ACS_station_order.get(0);
+        while (i < ACS_station_order.size() && !gameover()){
+            State next_state = findNext(ACS_station_order.get(i));
+            i++;
+            move_to_next_state(next_state);
+            //current_state = next_state;
+        }
+        randomMove();
+
+    }
+
+
 }

@@ -17,11 +17,23 @@ public class TestStateful {
 
         Geomap.transfer2States();
         ArrayList<State> states = Geomap.getStates();
-        Statefull drone_stateful = new Statefull(longitude, latitude, 5678);
+        Stateful drone_stateful = new Stateful(longitude, latitude, 5678);
         drone_stateful.setStates(states);
         drone_stateful.divide_safe_danger();
-        drone_stateful.greedy();
+        // Greedy
+//        drone_stateful.greedy();
+//
+//        ArrayList<Position> path = drone_stateful.getPath();
+//        String head = Geomap.getHead();
+//		DrawLines drawer = new DrawLines(path, head);
+//		System.out.println(drawer.output());
+//
+//        System.out.printf("Collected: %.4f\n",drone_stateful.getCoins());
+//        System.out.printf("Total: %.4f\n", Geomap.getTotal_coins());
 
+
+        // ACS
+        drone_stateful.ACS();
         ArrayList<Position> path = drone_stateful.getPath();
         String head = Geomap.getHead();
 		DrawLines drawer = new DrawLines(path, head);
@@ -29,13 +41,5 @@ public class TestStateful {
 
         System.out.printf("Collected: %.4f\n",drone_stateful.getCoins());
         System.out.printf("Total: %.4f\n", Geomap.getTotal_coins());
-
-//        for (Position point : path) {
-//			System.out.printf("Position: [%f, %f]\n", point.longitude, point.latitude);
-//		}
-
-//        Position p1 = new Position(latitude, longitude);
-//        Position p2 = new Position(latitude, longitude);
-//        System.out.printf("p1 equals p2 : %b\n", p1.equals(p2));
     }
 }

@@ -7,6 +7,7 @@ public class State {
 	private double power;
 	private String label;
 	private boolean empty;
+	public int code;
 	
 	public State(double latitude, double longitude, double coins, double power, String label) {
 		this.latitude = latitude;
@@ -15,6 +16,12 @@ public class State {
 		this.power = power;
 		this.label = label;
 		this.empty = false;
+	}
+
+	public State(double latitude, double longitude){
+		this.latitude = latitude;
+		this.longitude = longitude;
+		code = -1;
 	}
 
 	public double getLatitude() {
