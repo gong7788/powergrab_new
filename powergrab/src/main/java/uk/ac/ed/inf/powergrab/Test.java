@@ -14,11 +14,14 @@ import com.mapbox.geojson.Point;
 public class Test {
 
 	public static void main(String[] args) throws MalformedURLException, IOException {
-		// TODO Auto-generated method stub
-		double longitude = -3.1870;
-		double latitude = 55.9426;
+		int day = Integer.parseInt(args[0]);
+		int month = Integer.parseInt(args[1]);
+		int year = Integer.parseInt(args[2]);
+		double latitude = Double.parseDouble(args[3]);
+		double longitude = Double.parseDouble(args[4]);
+		int seed = Integer.parseInt(args[5]);
 
-		MyMap Geomap = new MyMap();
+		MyMap Geomap = new MyMap(day, month, year);
         Geomap.downloadMap();
         String mapSource = Geomap.getmapSource();
 //		System.out.println(mapSource);

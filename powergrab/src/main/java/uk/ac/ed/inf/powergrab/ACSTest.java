@@ -5,10 +5,14 @@ import java.util.ArrayList;
 
 public class ACSTest {
     public static void main(String[] args) {
-        double longitude = -3.1870;
-        double latitude = 55.9426;
+        int day = Integer.parseInt(args[0]);
+        int month = Integer.parseInt(args[1]);
+        int year = Integer.parseInt(args[2]);
+        double latitude = Double.parseDouble(args[3]);
+        double longitude = Double.parseDouble(args[4]);
+        int seed = Integer.parseInt(args[5]);
 
-        MyMap Geomap = new MyMap();
+        MyMap Geomap = new MyMap(day, month, year);
         try {
             Geomap.downloadMap();
         } catch (IOException e) {
@@ -30,8 +34,8 @@ public class ACSTest {
         int stationNum = search_list.size();
 
         long startTime = System.currentTimeMillis();
-        ACS acs = new ACS(stationNum, 40, 100, 5.0, 5.0,
-                0.8, 10, 0, search_list);
+        ACS acs = new ACS(stationNum, 40, 100, 5.0, 10.0,
+                0.5, 10, 0, search_list);
         acs.init();
         acs.solve();
         long endTime = System.currentTimeMillis();

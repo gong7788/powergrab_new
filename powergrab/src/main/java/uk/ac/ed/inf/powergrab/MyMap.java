@@ -14,13 +14,16 @@ import com.mapbox.geojson.FeatureCollection;
 import com.mapbox.geojson.Point;
 
 public class MyMap {
-	private String mapString = "http://homepages.inf.ed.ac.uk/stg/powergrab/2019/08/08/powergrabmap.geojson";
+	private String mapString;
 	private String mapSource = "";
 	private double total_coins = 0;
 
 	public ArrayList<State> states = new ArrayList<State>();
 
-	public MyMap() {}
+	public MyMap(int day, int month, int year) {
+		mapString = String.format("http://homepages.inf.ed.ac.uk/stg/powergrab/%02d/%02d/%02d/powergrabmap.geojson",
+				year, month, day);
+	}
 	
 	public ArrayList<State> getStates() {
 		return states;
@@ -35,14 +38,10 @@ public class MyMap {
 	}
 
 	public String getHead(){
-		String head = mapSource.substring(0, mapSource.length()-2) + ",";
-		return head;
+		return mapSource.substring(0, mapSource.length()-2) + ",";
 	}
 
 	public void downloadMap() throws IOException {
-		
-//	    String mapString = getMapString("2019/01/01");
-		
 		URL mapURL = new URL(mapString);
 		
 		HttpURLConnection conn = (HttpURLConnection) mapURL.openConnection();
@@ -62,7 +61,7 @@ public class MyMap {
 	public void transfer2States() {
 		FeatureCollection fc = FeatureCollection.fromJson(mapSource);
         List<Feature> feature_list = fc.features();
-		for(int i = 0; i < 50; i++) {
+		for(int i = 0; i < feature_list.size(); i++) {
 			Feature f = feature_list.get(i);
 			Point p =(Point) f.geometry();
 			double longitude = p.coordinates().get(0);

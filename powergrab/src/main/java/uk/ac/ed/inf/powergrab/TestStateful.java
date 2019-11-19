@@ -5,10 +5,14 @@ import java.util.ArrayList;
 
 public class TestStateful {
     public static void main(String[] args) {
-        double longitude = -3.1870;
-        double latitude = 55.9426;
+        int day = Integer.parseInt(args[0]);
+        int month = Integer.parseInt(args[1]);
+        int year = Integer.parseInt(args[2]);
+        double latitude = Double.parseDouble(args[3]);
+        double longitude = Double.parseDouble(args[4]);
+        int seed = Integer.parseInt(args[5]);
 
-        MyMap Geomap = new MyMap();
+        MyMap Geomap = new MyMap(day, month, year);
         try {
             Geomap.downloadMap();
         } catch (IOException e) {
@@ -17,7 +21,7 @@ public class TestStateful {
 
         Geomap.transfer2States();
         ArrayList<State> states = Geomap.getStates();
-        Stateful drone_stateful = new Stateful(longitude, latitude, 5678);
+        Stateful drone_stateful = new Stateful(longitude, latitude, seed);
         drone_stateful.setStates(states);
         drone_stateful.divide_safe_danger();
         // Greedy

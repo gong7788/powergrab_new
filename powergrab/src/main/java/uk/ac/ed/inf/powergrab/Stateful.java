@@ -16,7 +16,12 @@ public class Stateful {
     private ArrayList<State> safe_states = new ArrayList<State>();
     private ArrayList<State> search_list = new ArrayList<State>();
     private ArrayList<State> danger_states = new ArrayList<State>();
+    private static Direction[] Values = Direction.values();
+    private Random rand = new Random(seed);
+
     private ArrayList<Position> path = new ArrayList<Position>();
+    private ArrayList<Double> coins_list = new ArrayList<Double>();
+    private ArrayList<Double> power_list = new ArrayList<Double>();
 
     public Stateful(double longitude, double latitude, int seed) {
         this.current_position = new Position(latitude, longitude);
@@ -44,31 +49,39 @@ public class Stateful {
         return coins;
     }
 
-    Direction[] Values = Direction.values();
-    int Size = Values.length;
-    Random rand = new Random(seed);
-
+    /**
+     *
+     * @return          a random direction
+     */
     public Direction getRandomDirection() {
-        return Values[rand.nextInt(Size)];
+        return Values[rand.nextInt(Values.length)];
     }
 
+    public void update(Position p){
+        path.add(p);
+        coins_list.add(coins);
+        power_list.add(power);
+    }
+
+    /**
+     * Calculates distance between two positions
+     *
+     * @param longitude1    longitude of first position
+     * @param latitude1     latitude of first position
+     * @param longitude2    longitude of second position
+     * @param latitude2     latitude of second position
+     * @return              the distance between two positions
+     */
     public double distance(double longitude1, double latitude1, double longitude2, double latitude2) {
-        /**
-         * Calculates distance between two positions
-         *
-         * @param longitude1    longitude of first position
-         * @param latitude1     latitude of first position
-         * @param longitude2   longitude of second position
-         * @param latitude2     latitude of second position
-         * @return              the distance between two positions
-         */
-        double dist_sq = 0;
-        dist_sq = (longitude1 - longitude2)*(longitude1 - longitude2) +
+        double dist_sq = (longitude1 - longitude2)*(longitude1 - longitude2) +
                 (latitude1 - latitude2)*(latitude1 - latitude2);
 
         return Math.sqrt(dist_sq);
     }
 
+    /**
+     *  Divide stations into two groups (safe stations and danger stations)
+     */
     public void divide_safe_danger(){
         for (State s: states) {
             if (s.getLabel().equals("lighthouse")){
@@ -81,9 +94,14 @@ public class Stateful {
         }
     }
 
+    /**
+     * Find the next station that drone will fly
+     *
+     * @param current_state  the current state
+     * @return               the target station
+     */
     public State findNext(State current_state){
         double min = Double.MAX_VALUE;
-        double max = 0;
         int index = 0;
         for (int i = 0; i < search_list.size(); i++){
             State s = search_list.get(i);
@@ -92,8 +110,6 @@ public class Stateful {
             double lat_c = current_state.getLatitude();
             double lon_c = current_state.getLongitude();
             double dist_c = distance(lon1, lat1, lon_c, lat_c);
-            //TODO mark
-            double weight = s.getPower() - cost*dist_c/0.0003;
             if (dist_c < min) {
                 min = dist_c;
                 index = i;
@@ -104,28 +120,35 @@ public class Stateful {
         return s;
     }
 
+    /**
+     * Moves to the next station, use {@link #move_one_step(State)} to move step by step,
+     * changed drone when it arrives the target station
+     *
+     * @param target   the target station that will be reached.
+     */
     public void move_to_next_state(State target){
         double lat_t = target.getLatitude();
         double lon_t = target.getLongitude();
-        //double lat1 = current_position.latitude;
-        //double lon1 = current_position.longitude;
-        //double dist = distance(lon1, lat1, lon_t, lat_t);
         double dist;
         do {
             Position nextP = move_one_step(target);
             power = power - cost;
-            path.add(nextP);
+            update(nextP);
             current_position = nextP;
             step -= 1;
             double lat_p = nextP.latitude;
             double lon_p = nextP.longitude;
             dist = distance(lon_t, lat_t, lon_p, lat_p);
         }while (dist > 0.00025 && !gameover());
-        // arrive the target state
-        //Fixme charge between two stations
+
         charged(target);
     }
 
+    /**
+     *
+     * @param target
+     * @return
+     */
     public Position move_one_step(State target){
         double lat_t = target.getLatitude();
         double lon_t = target.getLongitude();
@@ -184,7 +207,7 @@ public class Stateful {
                 nextP = current_position.nextPosition(getRandomDirection());
             }
             power = power - cost;
-            path.add(nextP);
+            update(nextP);
             current_position = nextP;
             step -= 1;
         }
@@ -201,10 +224,9 @@ public class Stateful {
 
     // Baseline Algorithm: Greedy
     public void greedy(){
-        path.add(current_position);
+        update(current_position);
         // First step
         double min = Double.MAX_VALUE;
-        double max = 0;
         int init_index = 0;
         for (int i = 0; i < search_list.size(); i++){
             State first = search_list.get(i);
@@ -213,8 +235,6 @@ public class Stateful {
             double lat_init = current_position.latitude;
             double lon_init = current_position.longitude;
             double dist_init = distance(lon1, lat1, lon_init, lat_init);
-            //TODO mark dist - min, power - max
-            double weight = first.getPower() - cost*dist_init/0.0003;
             if (dist_init < min) {
                 min = dist_init;
                 init_index = i;
@@ -259,6 +279,7 @@ public class Stateful {
             move_to_next_state(next_state);
             //current_state = next_state;
         }
+        // Starting random moving
         randomMove();
 
     }
