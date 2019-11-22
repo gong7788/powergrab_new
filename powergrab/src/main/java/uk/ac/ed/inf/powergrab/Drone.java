@@ -97,11 +97,11 @@ class Drone {
      */
     void update(Position p, Direction d){
         path.add(p);
-        coins_list.add(coins);
-        power_list.add(power);
         direction_list.add(d);
         step -= 1;
         power -= 1.25;
+        coins_list.add(coins);
+        power_list.add(power);
     }
 
 

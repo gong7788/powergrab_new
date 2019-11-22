@@ -1,5 +1,6 @@
 package uk.ac.ed.inf.powergrab;
 
+import java.io.FileWriter;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
@@ -40,9 +41,7 @@ public class Test {
 		stateless_drone.setStates(states);
 		stateless_drone.start();
 		ArrayList<Position> path = stateless_drone.getPath();
-//		for (Position point : path) {
-//			System.out.printf("Position: [%f, %f]\n", point.longitude, point.latitude);
-//		}
+
 
 		String head = Geomap.getHead();
 
@@ -51,18 +50,35 @@ public class Test {
 		System.out.println(drawer.output());
 		System.out.println("Collected: " + stateless_drone.getCoins());
 		System.out.println("Total: " + Geomap.getTotal_coins());
-//		for (int i = 0; i < 50; i++) {
-//			Direction d = stateless_drone.getRandomDirection();
-//			System.out.println(d);
-//		}
-		
-		//Direction d = stateless_drone.findDirec(p);
-//		Position Drone = new Position(latitude, longitude);
-//		Position next_step = Drone.nextPosition(Direction.SSE);
-//		Direction d = stateless_drone.findDirec_test(next_step);
-//		System.out.println(d);
-		// stateless_drone.start();
-		
+
+		int coin_list = stateless_drone.coins_list.size();
+        int power_list = stateless_drone.power_list.size();
+        int dir_list = stateless_drone.direction_list.size();
+        int path_len = path.size();
+        System.out.printf("Coin size: %d, power: %d, dir: %d, path_len: %d \n",
+                coin_list, power_list, dir_list, path_len);
+
+        for (int i = 0; i < 250; i++){
+        	Double pre_lat = path.get(i).latitude;
+        	Double pre_long = path.get(i).longitude;
+        	Double lat = path.get(i+1).latitude;
+        	Double lon = path.get(i+1).longitude;
+        	Direction d = stateless_drone.direction_list.get(i);
+        	Double power = stateless_drone.power_list.get(i);
+        	Double coin = stateless_drone.coins_list.get(i);
+        	String msg = pre_lat +","+ pre_long +","+ d +","+ lat +","+ lon +","+ coin +","+ power +"\r\n";
+
+        	String name = String.format("D:\\output\\stateless-%02d-%02d-%d.txt", day, month, year);
+			try {
+				FileWriter fw = new FileWriter(name, true);
+				fw.write(msg);
+				fw.close();
+			}
+			catch (Exception e){
+				System.out.print(e);
+				System.err.print("Success...");
+			}
+		}
 	}
 
 }

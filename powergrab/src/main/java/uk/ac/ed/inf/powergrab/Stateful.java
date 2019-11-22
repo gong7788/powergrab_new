@@ -106,6 +106,21 @@ class Stateful extends Drone{
                 nextd = d;
             }
         }
+        //if all 16 direction are not valid, choose
+        if (nextd == null){
+            for (Direction d : Direction.values()){
+                Position nextP = current_position.nextPosition(d);
+                double lat = nextP.latitude;
+                double lon = nextP.longitude;
+                double dist = distance(lon, lat, lon_t, lat_t);
+                if (dist < min && noDangerAround(nextP) && nextP.inPlayArea()) {
+                    min = dist;
+                    next_step = nextP;
+                    nextd = d;
+                }
+            }
+        }
+
         update(next_step, nextd);
         return next_step;
     }
@@ -196,6 +211,7 @@ class Stateful extends Drone{
 
     // Ant Colony System algorithm
     void ACS(){
+        path.add(current_position);
         ArrayList<State> search_list_ = new ArrayList<State>(search_list);
         search_list_.add(0, initial);
 
