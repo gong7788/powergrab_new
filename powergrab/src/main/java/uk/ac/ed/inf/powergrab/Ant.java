@@ -97,34 +97,17 @@ public class Ant {
         return length;
     }
 
-    public ArrayList<State> getAllowedStation() {
-        return allowedStation;
-    }
-
-    public void setAllowedStation(ArrayList<State> allowedStation) {
-        this.allowedStation = allowedStation;
-    }
-
     public double getTourLength() {
         tourLength = calculateTourLength();
         return tourLength;
     }
 
-    public int getStationNum() {
-        return stationNum;
-    }
-
-    public void setStationNum(int stationNum) {
-        this.stationNum = stationNum;
-    }
 
     public ArrayList<State> getPassedStation() {
         return passedStation;
     }
 
-    public void setPassedStation(ArrayList<State> passedStation) {
-        this.passedStation = passedStation;
-    }
+
 
     public double[][] getDelta() {
         return delta;
@@ -134,11 +117,4 @@ public class Ant {
         this.delta = delta;
     }
 
-//    public ArrayList<State> getSearch_list() {
-//        return search_list;
-//    }
-
-//    public void setSearch_list(ArrayList<State> search_list) {
-//        this.search_list = search_list;
-//    }
 }

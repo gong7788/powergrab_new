@@ -36,29 +36,29 @@ public class Test {
         Geomap.transfer2States();
 		ArrayList<State> states = Geomap.getStates();
 		
-		Stateless stateless_drone = new Stateless(longitude, latitude, 5678);
+		Stateless stateless_drone = new Stateless(longitude, latitude, seed);
 		stateless_drone.setStates(states);
 		stateless_drone.start();
 		ArrayList<Position> path = stateless_drone.getPath();
 //		for (Position point : path) {
 //			System.out.printf("Position: [%f, %f]\n", point.longitude, point.latitude);
 //		}
-		System.out.println("Collected: " + stateless_drone.getCoins());
-		System.out.println("Total: " + Geomap.getTotal_coins());
+
 		String head = Geomap.getHead();
 
 		DrawLines drawer = new DrawLines(path, head);
 
 		System.out.println(drawer.output());
-
+		System.out.println("Collected: " + stateless_drone.getCoins());
+		System.out.println("Total: " + Geomap.getTotal_coins());
 //		for (int i = 0; i < 50; i++) {
 //			Direction d = stateless_drone.getRandomDirection();
 //			System.out.println(d);
 //		}
 		
 		//Direction d = stateless_drone.findDirec(p);
-//		Position drone = new Position(latitude, longitude);
-//		Position next_step = drone.nextPosition(Direction.SSE);
+//		Position Drone = new Position(latitude, longitude);
+//		Position next_step = Drone.nextPosition(Direction.SSE);
 //		Direction d = stateless_drone.findDirec_test(next_step);
 //		System.out.println(d);
 		// stateless_drone.start();

@@ -21,7 +21,7 @@ public class ACSTest {
 
         Geomap.transfer2States();
         ArrayList<State> states = Geomap.getStates();
-        Stateful drone_stateful = new Stateful(longitude, latitude, 5678);
+        Stateful drone_stateful = new Stateful(longitude, latitude, seed);
         drone_stateful.setStates(states);
         drone_stateful.divide_safe_danger();
         ArrayList<State> search_list = drone_stateful.getSafe_states();

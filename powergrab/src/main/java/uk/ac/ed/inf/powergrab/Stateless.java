@@ -1,81 +1,28 @@
 package uk.ac.ed.inf.powergrab;
-/**
- * @author s1756255
- */
+
 import java.util.*;
 
+class Stateless extends Drone {
 
-public class Stateless {
-	private int seed;
-	private int step;
-	private double coins;
-	private double power;
-	private double cost = 1.25;
-
-	private Position current_position;
-	private ArrayList<State> states = new ArrayList<State>();
-	private ArrayList<Position> path = new ArrayList<Position>();
-
-	public Stateless(double longitude, double latitude, int seed) {
-		this.current_position = new Position(latitude, longitude);
-		this.seed = seed;
-		this.step = 250;
-		this.coins = 0;
-		//TODO check initial power
-		this.power = 250;
+	Stateless(double longitude, double latitude, int seed) {
+		super(longitude, latitude, seed);
 	}
 
-	public void setStates(ArrayList<State> states) {
-		this.states = states;
-	}
-
-	public ArrayList<Position> getPath() {
-		return path;
-	}
-
-	public double getCoins() {
-		return coins;
-	}
-
-	Direction[] Values = Direction.values();
-    int Size = Values.length;
-    Random rand = new Random(seed);
-
-    public Direction getRandomDirection() {
-    	return Values[rand.nextInt(Size)];
-    }
-    
-	public double distance(double longitude1, double latitude1, double longitude2, double latitude2) {
-		/**
-		 * Calculates distance between two positions
-		 *
-		 * @param longitude1    longitude of first position
-		 * @param latitude1     latitude of first position
-		 * @param longitude2   longitude of second position
-		 * @param latitude2     latitude of second position
-		 * @return              the distance between two positions
-		 */
-		double dist_sq = 0;
-		dist_sq = (longitude1 - longitude2)*(longitude1 - longitude2) + 
-				(latitude1 - latitude2)*(latitude1 - latitude2);
-		
-		return Math.sqrt(dist_sq);
-	}
-
-	public ArrayList<State> serch_state(ArrayList<State> statess) {
-		/**
-		 * finds all states that in the search area
-		 *
-		 * @param states   an ArrayList stores 50 states
-		 * @return         states that in the search area
-		 */
+	/**
+	 * Searches all stations around the drone (0.00025)
+	 * This methods searches all stations that can be charged in one step(0.00055), then finds
+	 * stations around the next steps (0.00025)
+	 * @param states   an ArrayList stores 50 states
+	 * @return         stations that in the search area
+	 */
+	 private ArrayList<State> search_state(ArrayList<State> states) {
 		ArrayList<State> in_big_circle = new ArrayList<State>();
 		ArrayList<State> state_list = new ArrayList<State>();
 
 		double lat1 = current_position.latitude;
 		double lon1 = current_position.longitude;
 		for(int i = 0; i < 50; i++) {
-			State s = statess.get(i);
+			State s = states.get(i);
 			double longitude_state = s.getLongitude();
 			double latitude_state = s.getLatitude();
 			double dist = distance(longitude_state, latitude_state, lon1, lat1);
@@ -99,40 +46,13 @@ public class Stateless {
 		}
 		return state_list;
 	}
-	
-	public boolean is_gameover() {
-		if (step <= 0 || power <= 0) {
-			return true; 
-		}
-		else return false; 
-	}
-	//TODO Delete
-	public Direction findDirec(State state) {
-		/**
-		 * finds direction of given state relative to the current position
-		 *
-		 * @param state    the given state
-		 * @return         direction of the state relative to the current position
-		 */
-		Direction dir = null;
-		double min = Double.MAX_VALUE;
-		double lat_s = state.getLatitude();
-		double long_s = state.getLongitude();
-		
-		for(Direction direction : Direction.values()) {
-			Position nextP = current_position.nextPosition(direction);
-			double lat = nextP.latitude;
-			double lon = nextP.longitude;
-			double dist = distance(lon, lat, long_s, lat_s);
-			if (dist < min) {
-				min = dist;
-				dir = direction;
-			}
-		}
-		return dir;
-	}
 
-	public ArrayList<Direction> findAllDirection(State state) {
+	/**
+	 * Finds all direction that can reach the target state in one step
+	 * @param state    the target state
+	 * @return         list of directions
+	 */
+	private ArrayList<Direction> findAllDirection(State state) {
 		ArrayList<Direction> allDirection = new ArrayList<Direction>();
 		double lat_s = state.getLatitude();
 		double long_s = state.getLongitude();
@@ -149,8 +69,11 @@ public class Stateless {
 		return allDirection;
 	}
 
-	public void move_one_step() {
-		ArrayList<State> state_list = serch_state(states); // states in search area
+	/**
+	 * Moves one step
+	 */
+	private void move_one_step() {
+		ArrayList<State> state_list = search_state(states); // states in search area
 		ArrayList<State> safe_state = new ArrayList<State>();
 		ArrayList<State> danger_state = new ArrayList<State>();
 		ArrayList<Direction> danger_direction = new ArrayList<Direction>();
@@ -169,23 +92,22 @@ public class Stateless {
 			}
 		}
 		
-		// move function
+		// Case 1: Doesn't find any station in checking area, moves in a random direction
 		if (state_list.isEmpty()) {
-			// No find states in checking area, move to a random direction
-			Position nextP = current_position.nextPosition(getRandomDirection());
+			Direction nextd = getRandomDirection();
+			Position nextP = current_position.nextPosition(nextd);
 			while (!nextP.inPlayArea()) {
-				nextP = current_position.nextPosition(getRandomDirection());
+				nextd = getRandomDirection();
+				nextP = current_position.nextPosition(nextd);
 			}
-			power = power - cost;
-			path.add(nextP);
+
 			current_position = nextP;
-			step -= 1;
-		} 
+			update(nextP, nextd);
+		}
+		//Case 2: all nearby states are danger station
 		else if(safe_state.isEmpty()) {
-			// all states are danger state
-			// find all direction
-			for (int i = 0; i < danger_state.size(); i++) {
-				State s = danger_state.get(i);
+			// find all direction that will goes into a danger station
+			for (State s: danger_state) {
 				for (Direction d : findAllDirection(s)){
 					if (!danger_direction.contains(d)){
 						danger_direction.add(d);
@@ -196,31 +118,29 @@ public class Stateless {
 			Direction next_direction = getRandomDirection();
 			while (danger_direction.contains(next_direction) ||
 					!current_position.nextPosition(next_direction).inPlayArea()) {
-				// if this direction has danger state, generate a new one
+				// if this direction has danger station, generate a new one
 				next_direction = getRandomDirection();
 			}
 			// move
 			Position nextP = current_position.nextPosition(next_direction);
-			power = power - cost;
-			path.add(nextP);
+
 			current_position = nextP;
-			step -= 1;
+			update(nextP, next_direction);
 		}
+		// Case 3: there is a safe station in next step
 		else {
 			// choose the state have max power
 			double max = 0;
 			State power_state = safe_state.get(0);// default: first one
-			for(int i = 0; i < safe_state.size(); i++) {
-				State s = safe_state.get(i);
+			for(State s : safe_state) {
 				double state_power = s.getPower();
 				if (state_power > max) {
 					max = state_power;
 					power_state = s;
 				}
 			}
-
-			for (int i = 0; i < danger_state.size(); i++) {
-				State s = danger_state.get(i);
+			// adds all danger direction into list
+			for (State s: danger_state) {
 				for (Direction d : findAllDirection(s)){
 					if (!danger_direction.contains(d)){
 						danger_direction.add(d);
@@ -264,66 +184,13 @@ public class Stateless {
 			}
 			Position nextP = current_position.nextPosition(dirc);
 			charged(power_state);
-			power = power - cost;
-			path.add(nextP);
+
 			current_position = nextP;
-			step -= 1;
+			update(nextP, dirc);
 		}
 	}
-	//TODO delete
-//	public void fly_to_next(){
-//		//get 16 next position with weight
-//		get_weighted_state();
-//	}
-	//TODO delete
-//	public void get_weighted_state(){
-//		ArrayList<Integer> around_states = serch_state(states);
-//		HashMap<Direction, Double> DW = new HashMap<Direction, Double>();
-//		for(Direction direction : Direction.values()) {
-//			Position nextP = current_position.nextPosition(direction);
-//			double weight = calWeight(nextP, around_states);
-//			DW.put(direction, weight);
-//		}
-//		// sort DW by weight by decreasing order
-//		List<Map.Entry<Direction, Double>> list = new ArrayList<Map.Entry<Direction, Double>>(DW.entrySet());
-//		Collections.sort(list, new Comparator<Map.Entry<Direction, Double>>() {
-//			public int compare(Map.Entry<Direction, Double> o1, Map.Entry<Direction, Double> o2) {
-//				return o2.getValue().compareTo(o1.getValue());
-//			}
-//		});
-//
-//	}
-//  TODO delete
-//	public double calWeight(Position p, ArrayList<Integer> around_states){
-//		// the weight of next position (safe state power + danger state power)
-//		double weight = 0;
-//		double lat1 = p.latitude;
-//		double lon1 = p.longitude;
-//		for(Integer i : around_states){
-//			double longitude_state = states[2*i];
-//			double latitude_state = states[2*i+1];
-//			double dist = distance(lon1, lat1, longitude_state, latitude_state);
-//			if (dist <= 0.0025){
-//				double power = feature_list.get(i).getProperty("power").getAsDouble();
-//				weight = weight + power;
-//			}
-//		}
-//		return weight;
-//	}
-//	
-	public void charged(State power_state) {
-		double coins_s = power_state.getCoins();
-		double power_s = power_state.getPower();
-		// add coins/power into drone
-		coins = coins + coins_s;
-		power = power + power_s;
-		// subtract coins/power from state
-		power_state.setCoins(0);
-		power_state.setPower(0);
-		power_state.setEmpty(true);
-	}
 
-	public void start() {
+	void start() {
 		path.add(current_position);
 		while (!is_gameover()) {
 			move_one_step();

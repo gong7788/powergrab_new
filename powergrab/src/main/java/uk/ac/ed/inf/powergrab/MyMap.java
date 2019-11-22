@@ -13,35 +13,41 @@ import com.mapbox.geojson.Feature;
 import com.mapbox.geojson.FeatureCollection;
 import com.mapbox.geojson.Point;
 
-public class MyMap {
+class MyMap {
 	private String mapString;
 	private String mapSource = "";
 	private double total_coins = 0;
 
-	public ArrayList<State> states = new ArrayList<State>();
+	private ArrayList<State> states = new ArrayList<State>();
 
-	public MyMap(int day, int month, int year) {
+	MyMap(int day, int month, int year) {
 		mapString = String.format("http://homepages.inf.ed.ac.uk/stg/powergrab/%02d/%02d/%02d/powergrabmap.geojson",
 				year, month, day);
 	}
-	
-	public ArrayList<State> getStates() {
+
+	//-----------------------Setters and Getters-------------------------------------
+	ArrayList<State> getStates() {
 		return states;
 	}
 	
-	public String getmapSource() {
+	String getmapSource() {
 		return mapSource;
 	}
 
-	public double getTotal_coins() {
+	double getTotal_coins() {
 		return total_coins;
 	}
 
-	public String getHead(){
+	String getHead(){
 		return mapSource.substring(0, mapSource.length()-2) + ",";
 	}
 
-	public void downloadMap() throws IOException {
+	//------------------------------Methods------------------------------------------
+
+	/**
+	 * Downloads map and get String form
+	 */
+	void downloadMap() throws IOException {
 		URL mapURL = new URL(mapString);
 		
 		HttpURLConnection conn = (HttpURLConnection) mapURL.openConnection();
@@ -57,12 +63,14 @@ public class MyMap {
 		}
 		inputStream.close();
 	}
-	
-	public void transfer2States() {
+
+	/**
+	 * Transfer all features into State, and add to a list
+	 */
+	void transfer2States() {
 		FeatureCollection fc = FeatureCollection.fromJson(mapSource);
         List<Feature> feature_list = fc.features();
-		for(int i = 0; i < feature_list.size(); i++) {
-			Feature f = feature_list.get(i);
+		for(Feature f : feature_list) {
 			Point p =(Point) f.geometry();
 			double longitude = p.coordinates().get(0);
 			double latitude = p.coordinates().get(1);

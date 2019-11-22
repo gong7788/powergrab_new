@@ -1,10 +1,11 @@
 package uk.ac.ed.inf.powergrab;
 
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
 public class TestStateful {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         int day = Integer.parseInt(args[0]);
         int month = Integer.parseInt(args[1]);
         int year = Integer.parseInt(args[2]);
@@ -41,9 +42,32 @@ public class TestStateful {
         ArrayList<Position> path = drone_stateful.getPath();
         String head = Geomap.getHead();
 		DrawLines drawer = new DrawLines(path, head);
-		System.out.println(drawer.output());
+		String output = drawer.output();
+		System.out.println(output);
 
         System.out.printf("Collected: %.4f\n",drone_stateful.getCoins());
         System.out.printf("Total: %.4f\n", Geomap.getTotal_coins());
+
+        int coin_list = drone_stateful.coins_list.size();
+        int power_list = drone_stateful.power_list.size();
+        int dir_list = drone_stateful.direction_list.size();
+        int path_len = path.size();
+        System.out.printf("Coin size: %d, power: %d, dir: %d, path_len: %d",
+                coin_list, power_list, dir_list, path_len);
+
+        // File Writer
+//        String name = String.format("D:\\output\\stateful-%02d-%02d-2019.geojson", day, month);
+//        try {
+//            FileWriter fw = new FileWriter(name);
+//            fw.write(output);
+//            fw.close();
+//        }
+//        catch (Exception e){
+//            System.out.print(e);
+//            System.err.print("Success...");
+//        }
+
+
+
     }
 }

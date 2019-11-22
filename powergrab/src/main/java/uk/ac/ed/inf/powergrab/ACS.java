@@ -2,7 +2,7 @@ package uk.ac.ed.inf.powergrab;
 
 import java.util.ArrayList;
 
-public class ACS {
+class ACS {
     private Ant[] ants;
     private int stationNum;
 
@@ -22,7 +22,7 @@ public class ACS {
 
     private ArrayList<State> search_list;
 
-    public ACS(int stationNum, int antNum, int generation, double alpha, double beta, double rho, int Q, int deltaType, ArrayList<State> search_list){
+    ACS(int stationNum, int antNum, int generation, double alpha, double beta, double rho, int Q, int deltaType, ArrayList<State> search_list){
         this.stationNum = stationNum;
         this.antNum = antNum;
         this.generation = generation;
@@ -36,7 +36,7 @@ public class ACS {
         ants = new Ant[antNum];
     }
 
-    public void init(){
+    void init(){
         getDistance(search_list);
 
         pheromone = new double[stationNum][stationNum];
@@ -56,7 +56,7 @@ public class ACS {
         }
     }
 
-    public void getDistance(ArrayList<State> search_list){
+    private void getDistance(ArrayList<State> search_list){
         distance = new double[stationNum][stationNum];
         for (int i = 0; i < stationNum-1; i++) {
             distance[i][i] = 0;
@@ -127,16 +127,8 @@ public class ACS {
         }
     }
 
-    private void print(){
-        System.out.println("Best Length: " + bestLength);
-        System.out.print("Best Path; ");
-        for (int i = 0; i < stationNum; i++) {
-            System.out.print(bestTour[i] + "-");
-        }
-        System.out.println();
-    }
 
-    public ArrayList<State> findPath(){
+    ArrayList<State> findPath(){
         ArrayList<State> station_order = new ArrayList<State>();
         for (int i = 0; i < bestTour.length; i++) {
             int index = bestTour[i];
@@ -146,11 +138,11 @@ public class ACS {
         return station_order;
     }
 
-    public double getBestLength() {
+    double getBestLength() {
         return bestLength;
     }
 
-    public int[] getBestTour() {
+    int[] getBestTour() {
         return bestTour;
     }
 }

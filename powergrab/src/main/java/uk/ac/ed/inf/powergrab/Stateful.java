@@ -1,88 +1,29 @@
 package uk.ac.ed.inf.powergrab;
 
 import java.util.ArrayList;
-import java.util.Random;
 
-public class Stateful {
-    private int seed;
-    private int step;
-    private double coins;
-    private double power;
-    private double cost = 1.25;
+class Stateful extends Drone{
 
-    private Position current_position;
     private State initial;
-    private ArrayList<State> states = new ArrayList<State>();
     private ArrayList<State> safe_states = new ArrayList<State>();
     private ArrayList<State> search_list = new ArrayList<State>();
     private ArrayList<State> danger_states = new ArrayList<State>();
-    private static Direction[] Values = Direction.values();
-    private Random rand = new Random(seed);
 
-    private ArrayList<Position> path = new ArrayList<Position>();
-    private ArrayList<Double> coins_list = new ArrayList<Double>();
-    private ArrayList<Double> power_list = new ArrayList<Double>();
-
-    public Stateful(double longitude, double latitude, int seed) {
-        this.current_position = new Position(latitude, longitude);
-        this.seed = seed;
-        this.step = 250;
-        this.coins = 0;
+    Stateful(double longitude, double latitude, int seed) {
+        super(longitude, latitude, seed);
         this.initial = new State(latitude, longitude);
-        //TODO check initial power
-        this.power = 250;
     }
 
-    public ArrayList<State> getSafe_states() {
+    ArrayList<State> getSafe_states() {
         return safe_states;
     }
 
-    public void setStates(ArrayList<State> states) {
-        this.states = states;
-    }
 
-    public ArrayList<Position> getPath() {
-        return path;
-    }
-
-    public double getCoins() {
-        return coins;
-    }
-
-    /**
-     *
-     * @return          a random direction
-     */
-    public Direction getRandomDirection() {
-        return Values[rand.nextInt(Values.length)];
-    }
-
-    public void update(Position p){
-        path.add(p);
-        coins_list.add(coins);
-        power_list.add(power);
-    }
-
-    /**
-     * Calculates distance between two positions
-     *
-     * @param longitude1    longitude of first position
-     * @param latitude1     latitude of first position
-     * @param longitude2    longitude of second position
-     * @param latitude2     latitude of second position
-     * @return              the distance between two positions
-     */
-    public double distance(double longitude1, double latitude1, double longitude2, double latitude2) {
-        double dist_sq = (longitude1 - longitude2)*(longitude1 - longitude2) +
-                (latitude1 - latitude2)*(latitude1 - latitude2);
-
-        return Math.sqrt(dist_sq);
-    }
 
     /**
      *  Divide stations into two groups (safe stations and danger stations)
      */
-    public void divide_safe_danger(){
+    void divide_safe_danger(){
         for (State s: states) {
             if (s.getLabel().equals("lighthouse")){
                 safe_states.add(s);
@@ -95,12 +36,12 @@ public class Stateful {
     }
 
     /**
-     * Find the next station that drone will fly
+     * Find the next station that Drone will fly
      *
      * @param current_state  the current state
      * @return               the target station
      */
-    public State findNext(State current_state){
+    private State findNext(State current_state){
         double min = Double.MAX_VALUE;
         int index = 0;
         for (int i = 0; i < search_list.size(); i++){
@@ -122,38 +63,38 @@ public class Stateful {
 
     /**
      * Moves to the next station, use {@link #move_one_step(State)} to move step by step,
-     * changed drone when it arrives the target station
+     * changed when it arrives the target station
      *
      * @param target   the target station that will be reached.
      */
-    public void move_to_next_state(State target){
+    private void move_to_next_state(State target){
         double lat_t = target.getLatitude();
         double lon_t = target.getLongitude();
         double dist;
         do {
             Position nextP = move_one_step(target);
-            power = power - cost;
-            update(nextP);
+
             current_position = nextP;
-            step -= 1;
             double lat_p = nextP.latitude;
             double lon_p = nextP.longitude;
             dist = distance(lon_t, lat_t, lon_p, lat_p);
-        }while (dist > 0.00025 && !gameover());
+        }while (dist > 0.00025 && !is_gameover());
 
         charged(target);
     }
 
     /**
+     * Move one step
      *
-     * @param target
-     * @return
+     * @param target   the station drone will go
+     * @return         the next position will move
      */
-    public Position move_one_step(State target){
+    private Position move_one_step(State target){
         double lat_t = target.getLatitude();
         double lon_t = target.getLongitude();
         double min = Double.MAX_VALUE;
         Position next_step = null;
+        Direction nextd = null;
         for (Direction d : Direction.values()){
             Position nextP = current_position.nextPosition(d);
             double lat = nextP.latitude;
@@ -162,12 +103,19 @@ public class Stateful {
             if (dist < min && noDangerAround(nextP) && nextP.inPlayArea() && !contain(nextP)) {
                 min = dist;
                 next_step = nextP;
+                nextd = d;
             }
         }
+        update(next_step, nextd);
         return next_step;
     }
 
-    public boolean noDangerAround(Position p){
+    /**
+     * Checks any danger station nearby
+     * @param p      the position will be checked
+     * @return       true if no danger station nearby, o/w false
+     */
+    private boolean noDangerAround(Position p){
         // if there is any danger state in this position area return false, else true
         boolean no_danger = true;
         double lat1 = p.latitude;
@@ -181,39 +129,29 @@ public class Stateful {
         return no_danger;
     }
 
-    public void charged(State power_state) {
-        double coins_s = power_state.getCoins();
-        double power_s = power_state.getPower();
-        // add coins/power into drone
-        coins = coins + coins_s;
-        power = power + power_s;
-        // subtract coins/power from state
-        power_state.setCoins(0);
-        power_state.setPower(0);
-        power_state.setEmpty(true);
-    }
 
-    public boolean gameover() {
-        if (step <= 0 || power <= 0) {
-            return true;
-        }
-        else return false;
-    }
-
-    public void randomMove(){
-        while(!gameover()){
-            Position nextP = current_position.nextPosition(getRandomDirection());
+    /**
+     * Moving randomly
+     * Starts moving randomly like stateless after collecting all coins
+     */
+    private void randomMove(){
+        while(!is_gameover()){
+            Direction nextd = getRandomDirection();
+            Position nextP = current_position.nextPosition(nextd);
             while (!nextP.inPlayArea() || !noDangerAround(nextP)) {
                 nextP = current_position.nextPosition(getRandomDirection());
             }
-            power = power - cost;
-            update(nextP);
+            update(nextP, nextd);
             current_position = nextP;
-            step -= 1;
         }
     }
 
-    public boolean contain(Position nextP){
+    /**
+     * Checks a position whether in the path
+     * @param nextP        the position to be checked
+     * @return             true if it's in the path
+     */
+    private boolean contain(Position nextP){
         for (Position p : path){
             if (nextP.equals(p)) {
                 return true;
@@ -223,9 +161,9 @@ public class Stateful {
     }
 
     // Baseline Algorithm: Greedy
-    public void greedy(){
-        update(current_position);
-        // First step
+    void greedy(){
+        path.add(current_position);
+        // Choose the first station
         double min = Double.MAX_VALUE;
         int init_index = 0;
         for (int i = 0; i < search_list.size(); i++){
@@ -245,16 +183,19 @@ public class Stateful {
         search_list.remove(init_index);
         move_to_next_state(first);
         State current_state = first;
-        while (!search_list.isEmpty() && !gameover()){
+        // Keep searching next station
+        while (!search_list.isEmpty() && !is_gameover()){
             State next_state = findNext(current_state);
             move_to_next_state(next_state);
             current_state = next_state;
         }
+
         randomMove();
 
     }
 
-    public void ACS(){
+    // Ant Colony System algorithm
+    void ACS(){
         ArrayList<State> search_list_ = new ArrayList<State>(search_list);
         search_list_.add(0, initial);
 
@@ -273,7 +214,7 @@ public class Stateful {
         int i = 1;
 
         //State current_state = ACS_station_order.get(0);
-        while (i < ACS_station_order.size() && !gameover()){
+        while (i < ACS_station_order.size() && !is_gameover()){
             State next_state = findNext(ACS_station_order.get(i));
             i++;
             move_to_next_state(next_state);
