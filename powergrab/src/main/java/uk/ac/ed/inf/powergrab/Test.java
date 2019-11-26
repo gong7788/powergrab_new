@@ -4,13 +4,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-
-import com.mapbox.geojson.Feature;
-import com.mapbox.geojson.FeatureCollection;
-import com.mapbox.geojson.Geometry;
-import com.mapbox.geojson.Point;
 
 public class Test {
 
@@ -35,10 +28,10 @@ public class Test {
 
 
         Geomap.transfer2States();
-		ArrayList<State> states = Geomap.getStates();
+		ArrayList<Station> stations = Geomap.getStations();
 		
 		Stateless stateless_drone = new Stateless(longitude, latitude, seed);
-		stateless_drone.setStates(states);
+		stateless_drone.setStations(stations);
 		stateless_drone.start();
 		ArrayList<Position> path = stateless_drone.getPath();
 

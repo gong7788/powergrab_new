@@ -65,7 +65,7 @@ Other Threads:
 =>0x00007f82d41a0800 VMThread [stack: 0x00007f82b7afc000,0x00007f82b7bfc000] [id=10112]
   0x00007f82d4392800 WatcherThread [stack: 0x00007f82b6dec000,0x00007f82b6eec000] [id=10130]
 
-VM state:at safepoint (normal execution)
+VM station:at safepoint (normal execution)
 
 VM Mutex/Monitor currently owned by a thread:  ([mutex/lock_event])
 [0x00007f82d404cb20] Threads_lock - owner thread: 0x00007f82d41a0800

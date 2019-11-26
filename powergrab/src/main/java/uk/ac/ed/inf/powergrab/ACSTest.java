@@ -20,12 +20,12 @@ public class ACSTest {
         }
 
         Geomap.transfer2States();
-        ArrayList<State> states = Geomap.getStates();
+        ArrayList<Station> stations = Geomap.getStations();
         Stateful drone_stateful = new Stateful(longitude, latitude, seed);
-        drone_stateful.setStates(states);
+        drone_stateful.setStations(stations);
         drone_stateful.divide_safe_danger();
-        ArrayList<State> search_list = drone_stateful.getSafe_states();
-        State init_station = new State(55.9426, -3.1870);
+        ArrayList<Station> search_list = drone_stateful.getSafe_stations();
+        Station init_station = new Station(55.9426, -3.1870);
         search_list.add(0, init_station);
         for (int i = 0; i < search_list.size(); i++) {
             search_list.get(i).code = i;

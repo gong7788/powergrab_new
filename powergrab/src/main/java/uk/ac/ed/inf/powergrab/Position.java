@@ -11,71 +11,68 @@ public class Position {
 	* constant variables
 	* Pre-calculation improves efficiency
 	*/
-	public static final double r = 0.0003;
-	public static final double pi = Math.PI;
+	private static final double r = 0.0003;
+	private static final double pi = Math.PI;
 	
 	// Pre-calculation improves efficiency 
 	// ENE - 1/8 pi
-	public static final double ENE_x = Math.cos(pi/8) * r;
-	public static final double ENE_y = Math.sin(pi/8) * r;
+	private static final double ENE_x = Math.cos(pi/8) * r;
+	private static final double ENE_y = Math.sin(pi/8) * r;
 	// NE - 2/8 = 1/4 pi
-	public static final double NE_x = Math.cos(pi/4) * r;
-	public static final double NE_y = Math.sin(pi/4) * r;
+	private static final double NE_x = Math.cos(pi/4) * r;
+	private static final double NE_y = Math.sin(pi/4) * r;
 	// NNE - 3/8 pi
-	public static final double NNE_x = Math.cos(3*pi/8) * r; 
-	public static final double NNE_y = Math.sin(3*pi/8) * r; 
+	private static final double NNE_x = Math.cos(3*pi/8) * r;
+	private static final double NNE_y = Math.sin(3*pi/8) * r;
 	
 	// NNW - 5/8 pi
-	public static final double NNW_x = Math.cos(5*pi/8) * r;
-	public static final double NNW_y = Math.sin(5*pi/8) * r;
+	private static final double NNW_x = Math.cos(5*pi/8) * r;
+	private static final double NNW_y = Math.sin(5*pi/8) * r;
 	// NW - 6/8 = 3/4 pi
-	public static final double NW_x = Math.cos(3*pi/4) * r;
-	public static final double NW_y = Math.sin(3*pi/4) * r;
+	private static final double NW_x = Math.cos(3*pi/4) * r;
+	private static final double NW_y = Math.sin(3*pi/4) * r;
 	// WNW - 7/8 pi
-	public static final double WNW_x = Math.cos(7*pi/8) * r;
-	public static final double WNW_y = Math.sin(7*pi/8) * r;
+	private static final double WNW_x = Math.cos(7*pi/8) * r;
+	private static final double WNW_y = Math.sin(7*pi/8) * r;
 	
 	// WSW - 9/8 pi
-	public static final double WSW_x = Math.cos(9*pi/8) * r;
-	public static final double WSW_y = Math.sin(9*pi/8) * r;
+	private static final double WSW_x = Math.cos(9*pi/8) * r;
+	private static final double WSW_y = Math.sin(9*pi/8) * r;
 	// SW - 10/8 = 5/4 pi
-	public static final double SW_x = Math.cos(5*pi/4) * r;
-	public static final double SW_y = Math.sin(5*pi/4) * r;
+	private static final double SW_x = Math.cos(5*pi/4) * r;
+	private static final double SW_y = Math.sin(5*pi/4) * r;
 	// SSW - 11/8 pi
-	public static final double SSW_x = Math.cos(11*pi/8) * r;
-	public static final double SSW_y = Math.sin(11*pi/8) * r;
+	private static final double SSW_x = Math.cos(11*pi/8) * r;
+	private static final double SSW_y = Math.sin(11*pi/8) * r;
 	
 	// SSE - 13/8 pi
-	public static final double SSE_x = Math.cos(13*pi/8) * r;
-	public static final double SSE_y = Math.sin(13*pi/8) * r;
+	private static final double SSE_x = Math.cos(13*pi/8) * r;
+	private static final double SSE_y = Math.sin(13*pi/8) * r;
 	// SE - 14/8 7/4 pi
-	public static final double SE_x = Math.cos(7*pi/4) * r;
-	public static final double SE_y = Math.sin(7*pi/4) * r;
+	private static final double SE_x = Math.cos(7*pi/4) * r;
+	private static final double SE_y = Math.sin(7*pi/4) * r;
 	// ESE - 15/8 pi
-	public static final double ESE_x = Math.cos(15*pi/8) * r;
-	public static final double ESE_y = Math.sin(15*pi/8) * r;
-	
-	
-	public Position(double latitude, double longitude) {
-		/** Constructor */
+	private static final double ESE_x = Math.cos(15*pi/8) * r;
+	private static final double ESE_y = Math.sin(15*pi/8) * r;
+
+	/** Constructor */
+	Position(double latitude, double longitude) {
 		this.latitude = latitude;
 		this.longitude = longitude;
 	}
-	
+	/** Default constructor */
 	public Position() {
-		/** Default constructor */
-			this.latitude = 0;
-			this.longitude = 0;
+		this.latitude = 0;
+		this.longitude = 0;
 	}
-	
-	public Position nextPosition(Direction direction) {
-		/**
-		* Calulates next position after the movement
-		*
-		* @param direction   the direction of the movement
-		* @return            the position after movement
-		*/
-		
+
+	/**
+	 * Calculates next position after the movement
+	 *
+	 * @param direction   the direction of the movement
+	 * @return            the position after movement
+	 */
+	Position nextPosition(Direction direction) {
 		double x = 0; double y = 0;
 		
 		switch(direction) {
@@ -150,23 +147,17 @@ public class Position {
 		Position nextP = new Position(y,x);
 		return nextP;
 	}
-	
-	public boolean inPlayArea() {
-		/**
-		* Checks the current position
-		* @return      whether current position in the valid area
-		*/
-		
+
+	/**
+	 * Checks the current position
+	 * @return      whether current position in the valid area
+	 */
+	boolean inPlayArea() {
 		if (latitude <= 55.942617 || latitude >= 55.946233 || longitude <= -3.192473 || longitude >= -3.184319) {
 			return false;
 		}
 		else 
 			return true;
-	}
-
-
-	public boolean equals(Position p) {
-		return this.latitude == p.latitude && this.longitude == p.longitude;
 	}
 
 	@Override

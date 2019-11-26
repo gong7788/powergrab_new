@@ -10,7 +10,7 @@ class Drone {
     private double power;
 
     Position current_position;
-    ArrayList<State> states = new ArrayList<State>();
+    ArrayList<Station> stations = new ArrayList<Station>();
     ArrayList<Position> path = new ArrayList<Position>();
     ArrayList<Double> coins_list = new ArrayList<Double>();
     ArrayList<Double> power_list = new ArrayList<Double>();
@@ -27,8 +27,8 @@ class Drone {
     }
 
     //-------------------------Setters and getters--------------------
-    void setStates(ArrayList<State> states) {
-        this.states = states;
+    void setStations(ArrayList<Station> stations) {
+        this.stations = stations;
     }
 
     ArrayList<Position> getPath() {
@@ -59,7 +59,7 @@ class Drone {
      * @return              the distance between two positions
      */
     double distance(double longitude1, double latitude1, double longitude2, double latitude2) {
-        double dist_sq = 0;
+        double dist_sq;
         dist_sq = (longitude1 - longitude2)*(longitude1 - longitude2) +
                 (latitude1 - latitude2)*(latitude1 - latitude2);
 
@@ -76,18 +76,18 @@ class Drone {
 
     /**
      * Charges drone when arrive a station, and clear station power/coins
-     * @param power_state   the station arrived
+     * @param power_station   the station arrived
      */
-    void charged(State power_state) {
-        double coins_s = power_state.getCoins();
-        double power_s = power_state.getPower();
+    void charged(Station power_station) {
+        double coins_s = power_station.getCoins();
+        double power_s = power_station.getPower();
         // add coins/power into Drone
         coins = coins + coins_s;
         power = power + power_s;
         // subtract coins/power from state
-        power_state.setCoins(0);
-        power_state.setPower(0);
-        power_state.setEmpty(true);
+        power_station.setCoins(0);
+        power_station.setPower(0);
+        power_station.setEmpty(true);
     }
 
     /**

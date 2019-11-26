@@ -3,7 +3,6 @@ package uk.ac.ed.inf.powergrab;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +17,7 @@ class MyMap {
 	private String mapSource = "";
 	private double total_coins = 0;
 
-	private ArrayList<State> states = new ArrayList<State>();
+	private ArrayList<Station> stations = new ArrayList<Station>();
 
 	MyMap(int day, int month, int year) {
 		mapString = String.format("http://homepages.inf.ed.ac.uk/stg/powergrab/%02d/%02d/%02d/powergrabmap.geojson",
@@ -26,8 +25,8 @@ class MyMap {
 	}
 
 	//-----------------------Setters and Getters-------------------------------------
-	ArrayList<State> getStates() {
-		return states;
+	ArrayList<Station> getStations() {
+		return stations;
 	}
 	
 	String getmapSource() {
@@ -65,9 +64,9 @@ class MyMap {
 	}
 
 	/**
-	 * Transfer all features into State, and add to a list
+	 * Transfer all features into Station, then add them into a list
 	 */
-	void transfer2States() {
+	void transfer2States(){
 		FeatureCollection fc = FeatureCollection.fromJson(mapSource);
         List<Feature> feature_list = fc.features();
 		for(Feature f : feature_list) {
@@ -80,8 +79,8 @@ class MyMap {
 			if (label.equals("lighthouse")){
 				total_coins = total_coins + coins;
 			}
-			State state = new State(latitude, longitude, coins, power, label);
-			states.add(state);
+			Station station = new Station(latitude, longitude, coins, power, label);
+			stations.add(station);
 		}
 	}
 

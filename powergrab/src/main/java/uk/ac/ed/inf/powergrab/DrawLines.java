@@ -1,10 +1,8 @@
 package uk.ac.ed.inf.powergrab;
 
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.ArrayList;
 
-public class DrawLines {
+class DrawLines {
     private ArrayList<Position> path;
     private String head;
 
@@ -16,7 +14,7 @@ public class DrawLines {
             "}";
     private String path_line = "";
 
-    public DrawLines(ArrayList<Position> path, String head) {
+    DrawLines(ArrayList<Position> path, String head) {
         this.path = path;
         this.head = head + " {\n" +
                 "      \"type\": \"Feature\",\n" +
@@ -26,7 +24,8 @@ public class DrawLines {
                 "      \"coordinates\": [";
     }
 
-    public String output(){
+    //Draw lines on the map
+    String output(){
         path_line = path_line + head;
         int x = path.size();
         for (int i= 0; i<path.size()-1; i++){

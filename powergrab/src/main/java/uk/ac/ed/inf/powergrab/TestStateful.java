@@ -1,6 +1,5 @@
 package uk.ac.ed.inf.powergrab;
 
-import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -26,9 +25,9 @@ public class TestStateful {
             }
 
             Geomap.transfer2States();
-            ArrayList<State> states = Geomap.getStates();
+            ArrayList<Station> stations = Geomap.getStations();
             Stateful drone_stateful = new Stateful(longitude, latitude, seed);
-            drone_stateful.setStates(states);
+            drone_stateful.setStations(stations);
             drone_stateful.divide_safe_danger();
             // Greedy
 //        drone_stateful.greedy();

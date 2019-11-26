@@ -4,33 +4,33 @@ import java.util.ArrayList;
 
 class Stateful extends Drone{
 
-    private State initial;
-    private ArrayList<State> safe_states = new ArrayList<State>();
-    private ArrayList<State> search_list = new ArrayList<State>();
-    private ArrayList<State> danger_states = new ArrayList<State>();
+    private Station initial;
+    private ArrayList<Station> safe_stations = new ArrayList<Station>();
+    private ArrayList<Station> search_list = new ArrayList<Station>();
+    private ArrayList<Station> danger_stations = new ArrayList<Station>();
 
     Stateful(double longitude, double latitude, int seed) {
         super(longitude, latitude, seed);
-        this.initial = new State(latitude, longitude);
+        this.initial = new Station(latitude, longitude);
+    }
+    //-------------------Setter and Getters-------------------------------
+    ArrayList<Station> getSafe_stations() {
+        return safe_stations;
     }
 
-    ArrayList<State> getSafe_states() {
-        return safe_states;
-    }
-
-
+    //-------------------Help Functions-------------------------------------
 
     /**
      *  Divide stations into two groups (safe stations and danger stations)
      */
     void divide_safe_danger(){
-        for (State s: states) {
+        for (Station s: stations) {
             if (s.getLabel().equals("lighthouse")){
-                safe_states.add(s);
+                safe_stations.add(s);
                 search_list.add(s);
             }
             else {
-                danger_states.add(s);
+                danger_stations.add(s);
             }
         }
     }
@@ -38,36 +38,36 @@ class Stateful extends Drone{
     /**
      * Find the next station that Drone will fly
      *
-     * @param current_state  the current state
+     * @param current_station  the current state
      * @return               the target station
      */
-    private State findNext(State current_state){
+    private Station findNext(Station current_station){
         double min = Double.MAX_VALUE;
         int index = 0;
         for (int i = 0; i < search_list.size(); i++){
-            State s = search_list.get(i);
+            Station s = search_list.get(i);
             double lat1 = s.getLatitude();
             double lon1 = s.getLongitude();
-            double lat_c = current_state.getLatitude();
-            double lon_c = current_state.getLongitude();
+            double lat_c = current_station.getLatitude();
+            double lon_c = current_station.getLongitude();
             double dist_c = distance(lon1, lat1, lon_c, lat_c);
             if (dist_c < min) {
                 min = dist_c;
                 index = i;
             }
         }
-        State s = search_list.get(index);
+        Station s = search_list.get(index);
         search_list.remove(index);
         return s;
     }
 
     /**
-     * Moves to the next station, use {@link #move_one_step(State)} to move step by step,
+     * Moves to the next station, use {@link #move_one_step(Station)} to move step by step,
      * changed when it arrives the target station
      *
      * @param target   the target station that will be reached.
      */
-    private void move_to_next_state(State target){
+    private void move_to_next_state(Station target){
         double lat_t = target.getLatitude();
         double lon_t = target.getLongitude();
         double dist;
@@ -89,7 +89,7 @@ class Stateful extends Drone{
      * @param target   the station drone will go
      * @return         the next position will move
      */
-    private Position move_one_step(State target){
+    private Position move_one_step(Station target){
         double lat_t = target.getLatitude();
         double lon_t = target.getLongitude();
         double min = Double.MAX_VALUE;
@@ -126,7 +126,7 @@ class Stateful extends Drone{
     }
 
     /**
-     * Checks any danger station nearby
+     * Checks whether any danger station nearby
      * @param p      the position will be checked
      * @return       true if no danger station nearby, o/w false
      */
@@ -135,7 +135,7 @@ class Stateful extends Drone{
         boolean no_danger = true;
         double lat1 = p.latitude;
         double lon1 = p.longitude;
-        for (State s : danger_states){
+        for (Station s : danger_stations){
             double lat2 = s.getLatitude();
             double lon2 = s.getLongitude();
             double dist = distance(lon1, lat1, lon2, lat2);
@@ -143,7 +143,6 @@ class Stateful extends Drone{
         }
         return no_danger;
     }
-
 
     /**
      * Moving randomly
@@ -164,7 +163,7 @@ class Stateful extends Drone{
     /**
      * Checks a position whether in the path
      * @param nextP        the position to be checked
-     * @return             true if it's in the path
+     * @return             true if next position is in the path, o/w false
      */
     private boolean contain(Position nextP){
         for (Position p : path){
@@ -175,6 +174,7 @@ class Stateful extends Drone{
         return false;
     }
 
+    //---------------------Running Stateful----------------------------------
     // Baseline Algorithm: Greedy
     void greedy(){
         path.add(current_position);
@@ -182,7 +182,7 @@ class Stateful extends Drone{
         double min = Double.MAX_VALUE;
         int init_index = 0;
         for (int i = 0; i < search_list.size(); i++){
-            State first = search_list.get(i);
+            Station first = search_list.get(i);
             double lat1 = first.getLatitude();
             double lon1 = first.getLongitude();
             double lat_init = current_position.latitude;
@@ -194,15 +194,15 @@ class Stateful extends Drone{
             }
         }
 
-        State first = search_list.get(init_index);
+        Station first = search_list.get(init_index);
         search_list.remove(init_index);
         move_to_next_state(first);
-        State current_state = first;
+        Station current_station = first;
         // Keep searching next station
         while (!search_list.isEmpty() && !is_gameover()){
-            State next_state = findNext(current_state);
-            move_to_next_state(next_state);
-            current_state = next_state;
+            Station next_station = findNext(current_station);
+            move_to_next_state(next_station);
+            current_station = next_station;
         }
 
         randomMove();
@@ -212,7 +212,7 @@ class Stateful extends Drone{
     // Ant Colony System algorithm
     void ACS(){
         path.add(current_position);
-        ArrayList<State> search_list_ = new ArrayList<State>(search_list);
+        ArrayList<Station> search_list_ = new ArrayList<Station>(search_list);
         search_list_.add(0, initial);
 
         for (int i = 0; i < search_list_.size(); i++) {
@@ -226,15 +226,15 @@ class Stateful extends Drone{
         acs.init();
         acs.solve();
 
-        ArrayList<State> ACS_station_order = acs.findPath();
+        ArrayList<Station> ACS_station_order = acs.findPath();
         int i = 1;
 
-        //State current_state = ACS_station_order.get(0);
+        //Station current_state = ACS_station_order.get(0);
         while (i < ACS_station_order.size() && !is_gameover()){
-            State next_state = findNext(ACS_station_order.get(i));
+            Station next_station = findNext(ACS_station_order.get(i));
             i++;
-            move_to_next_state(next_state);
-            //current_state = next_state;
+            move_to_next_state(next_station);
+            //current_state = next_station;
         }
         // Starting random moving
         randomMove();

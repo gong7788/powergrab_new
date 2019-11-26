@@ -2,7 +2,6 @@ package uk.ac.ed.inf.powergrab;
 
 import java.io.FileWriter;
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.util.ArrayList;
 
 /**
@@ -20,37 +19,40 @@ public class App {
         String type = args[6];
         
         MyMap Geomap = new MyMap(day, month, year);
+
         try {
-			Geomap.downloadMap();
-		} catch (MalformedURLException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+            Geomap.downloadMap();
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.err.println("###########################################################");
+            System.err.println("Can't get map, checking date");
+            System.err.println("###########################################################");
+        }
 
         Geomap.transfer2States();
-        ArrayList<State> states = Geomap.getStates();
+        ArrayList<Station> stations = Geomap.getStations();
         String head = Geomap.getHead();
         String output;
 
         if (type.equals("stateless")){
             Stateless stateless_drone = new Stateless(longitude, latitude, seed);
-            stateless_drone.setStates(states);
+            stateless_drone.setStations(stations);
             stateless_drone.start();
             ArrayList<Position> path = stateless_drone.getPath();
 
             DrawLines drawer = new DrawLines(path, head);
             output = drawer.output();
 //            System.out.println(output);
-//
-//            System.out.println("Collected: " + stateless_drone.getCoins());
-//            System.out.println("Total: " + Geomap.getTotal_coins());
+
+            System.out.println("Collected: " + stateless_drone.getCoins());
+            System.out.println("Total: " + Geomap.getTotal_coins());
+
             writefile(path, stateless_drone.coins_list, stateless_drone.power_list, stateless_drone.direction_list,
                     day, month, year, output, type);
         }
         else if (type.equals("stateful")){
             Stateful drone_stateful = new Stateful(longitude, latitude, seed);
-            drone_stateful.setStates(states);
+            drone_stateful.setStations(stations);
             drone_stateful.divide_safe_danger();
 
             drone_stateful.ACS();
@@ -58,32 +60,15 @@ public class App {
 
             DrawLines drawer = new DrawLines(path, head);
             output = drawer.output();
-//            System.out.println(output);
+            System.out.println(output);
 
-//            System.out.printf("Collected: %.4f\n",drone_stateful.getCoins());
-//            System.out.printf("Total: %.4f\n", Geomap.getTotal_coins());
-//
-//            int coin_list = drone_stateful.coins_list.size();
-//            int power_list = drone_stateful.power_list.size();
-//            int dir_list = drone_stateful.direction_list.size();
-//            int path_len = path.size();
-//            System.out.printf("Coin size: %d, power: %d, dir: %d, path_len: %d",
-//                    coin_list, power_list, dir_list, path_len);
+            System.out.printf("Collected: %.4f\n",drone_stateful.getCoins());
+            System.out.printf("Total: %.4f\n", Geomap.getTotal_coins());
 
-            writefile(path, drone_stateful.coins_list, drone_stateful.power_list, drone_stateful.direction_list,
-                    day, month, year, output, type);
+//            writefile(path, drone_stateful.coins_list, drone_stateful.power_list, drone_stateful.direction_list,
+//                    day, month, year, output, type);
         }
 
-        // File Writer
-//        String name = String.format("D:\\output\\stateful-%02d-%02d-%d.geojson", day, month, year);
-//        try {
-//            FileWriter fw = new FileWriter(name);
-//            fw.write(output);
-//            fw.close();
-//        }
-//        catch (Exception e) {
-//            e.printStackTrace();
-//        }
         
     }
 

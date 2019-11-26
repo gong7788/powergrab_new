@@ -12,17 +12,17 @@ class Stateless extends Drone {
 	 * Searches all stations around the drone (0.00025)
 	 * This methods searches all stations that can be charged in one step(0.00055), then finds
 	 * stations around the next steps (0.00025)
-	 * @param states   an ArrayList stores 50 states
+	 * @param stations   an ArrayList stores 50 stations
 	 * @return         stations that in the search area
 	 */
-	 private ArrayList<State> search_state(ArrayList<State> states) {
-		ArrayList<State> in_big_circle = new ArrayList<State>();
-		ArrayList<State> state_list = new ArrayList<State>();
+	 private ArrayList<Station> search_state(ArrayList<Station> stations) {
+		ArrayList<Station> in_big_circle = new ArrayList<Station>();
+		ArrayList<Station> station_list = new ArrayList<Station>();
 
 		double lat1 = current_position.latitude;
 		double lon1 = current_position.longitude;
 		for(int i = 0; i < 50; i++) {
-			State s = states.get(i);
+			Station s = stations.get(i);
 			double longitude_state = s.getLongitude();
 			double latitude_state = s.getLatitude();
 			double dist = distance(longitude_state, latitude_state, lon1, lat1);
@@ -31,7 +31,7 @@ class Stateless extends Drone {
 			}
 		}
 
-		for (State s : in_big_circle){
+		for (Station s : in_big_circle){
 			double lat_s = s.getLatitude();
 			double lon_s = s.getLongitude();
 			for (Direction d : Direction.values()){
@@ -39,23 +39,23 @@ class Stateless extends Drone {
 				double lat_p = nextP.latitude;
 				double lon_p = nextP.longitude;
 				double dist = distance(lon_s, lat_s, lon_p, lat_p);
-				if (dist <= 0.00025 && !state_list.contains(s)){
-					state_list.add(s);
+				if (dist <= 0.00025 && !station_list.contains(s)){
+					station_list.add(s);
 				}
 			}
 		}
-		return state_list;
+		return station_list;
 	}
 
 	/**
-	 * Finds all direction that can reach the target state in one step
-	 * @param state    the target state
+	 * Finds all direction that can reach the target station in one step
+	 * @param station    the target station
 	 * @return         list of directions
 	 */
-	private ArrayList<Direction> findAllDirection(State state) {
+	private ArrayList<Direction> findAllDirection(Station station) {
 		ArrayList<Direction> allDirection = new ArrayList<Direction>();
-		double lat_s = state.getLatitude();
-		double long_s = state.getLongitude();
+		double lat_s = station.getLatitude();
+		double long_s = station.getLongitude();
 
 		for (Direction direction : Direction.values()) {
 			Position nextP = current_position.nextPosition(direction);
@@ -73,27 +73,27 @@ class Stateless extends Drone {
 	 * Moves one step
 	 */
 	private void move_one_step() {
-		ArrayList<State> state_list = search_state(states); // states in search area
-		ArrayList<State> safe_state = new ArrayList<State>();
-		ArrayList<State> danger_state = new ArrayList<State>();
+		ArrayList<Station> station_list = search_state(stations); // stations in search area
+		ArrayList<Station> safe_station = new ArrayList<Station>();
+		ArrayList<Station> danger_station = new ArrayList<Station>();
 		ArrayList<Direction> danger_direction = new ArrayList<Direction>();
-		// divide state_list into safe and danger state
-		for(int i = 0; i < state_list.size(); i++){
-			State s = state_list.get(i);
+		// divide station_list into safe and danger state
+		for(int i = 0; i < station_list.size(); i++){
+			Station s = station_list.get(i);
 			String label = s.getLabel();
 			if (label.equals("danger")) {
-				danger_state.add(s);
+				danger_station.add(s);
 			}
 			else if (s.isEmpty()) {
-				state_list.remove(s);
+				station_list.remove(s);
 			}
 			else {
-				safe_state.add(s);
+				safe_station.add(s);
 			}
 		}
 		
 		// Case 1: Doesn't find any station in checking area, moves in a random direction
-		if (state_list.isEmpty()) {
+		if (station_list.isEmpty()) {
 			Direction nextd = getRandomDirection();
 			Position nextP = current_position.nextPosition(nextd);
 			while (!nextP.inPlayArea()) {
@@ -104,10 +104,10 @@ class Stateless extends Drone {
 			current_position = nextP;
 			update(nextP, nextd);
 		}
-		//Case 2: all nearby states are danger station
-		else if(safe_state.isEmpty()) {
+		//Case 2: all nearby stations are danger station
+		else if(safe_station.isEmpty()) {
 			// find all direction that will goes into a danger station
-			for (State s: danger_state) {
+			for (Station s: danger_station) {
 				for (Direction d : findAllDirection(s)){
 					if (!danger_direction.contains(d)){
 						danger_direction.add(d);
@@ -131,16 +131,16 @@ class Stateless extends Drone {
 		else {
 			// choose the state have max power
 			double max = 0;
-			State power_state = safe_state.get(0);// default: first one
-			for(State s : safe_state) {
+			Station power_station = safe_station.get(0);// default: first one
+			for(Station s : safe_station) {
 				double state_power = s.getPower();
 				if (state_power > max) {
 					max = state_power;
-					power_state = s;
+					power_station = s;
 				}
 			}
 			// adds all danger direction into list
-			for (State s: danger_state) {
+			for (Station s: danger_station) {
 				for (Direction d : findAllDirection(s)){
 					if (!danger_direction.contains(d)){
 						danger_direction.add(d);
@@ -150,15 +150,15 @@ class Stateless extends Drone {
 			// move to the state has most power
 			Direction dirc = null;
 			label:
-			for (Direction d : findAllDirection(power_state)){
+			for (Direction d : findAllDirection(power_station)){
 				Position nextP = current_position.nextPosition(d);
 				double lat = nextP.latitude;
 				double lon = nextP.longitude;
-				double lat_power = power_state.getLatitude();
-				double lon_power = power_state.getLongitude();
+				double lat_power = power_station.getLatitude();
+				double lon_power = power_station.getLongitude();
 				double dist2safe = distance(lon, lat, lon_power, lat_power);
-				if (!danger_state.isEmpty()) {
-					for (State danger_s : danger_state) {
+				if (!danger_station.isEmpty()) {
+					for (Station danger_s : danger_station) {
 						double lat_danger = danger_s.getLatitude();
 						double lon_danger = danger_s.getLongitude();
 						double dist2danger = distance(lon, lat, lon_danger, lat_danger);
@@ -170,7 +170,7 @@ class Stateless extends Drone {
 					dirc = d;
 					break;
 				}
-				// case wo only have safe states
+				// case wo only have safe stations
 				dirc = d;
 				break;
 			}
@@ -183,13 +183,14 @@ class Stateless extends Drone {
 						!current_position.nextPosition(dirc).inPlayArea());
 			}
 			Position nextP = current_position.nextPosition(dirc);
-			charged(power_state);
+			charged(power_station);
 
 			current_position = nextP;
 			update(nextP, dirc);
 		}
 	}
 
+	//Running stateless
 	void start() {
 		path.add(current_position);
 		while (!is_gameover()) {

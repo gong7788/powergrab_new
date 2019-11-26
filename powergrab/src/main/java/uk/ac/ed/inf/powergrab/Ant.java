@@ -3,33 +3,39 @@ package uk.ac.ed.inf.powergrab;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class Ant {
-    private ArrayList<State> passedStation;
-    private ArrayList<State> allowedStation;
-    private ArrayList<State> search_list;
+class Ant {
+    private ArrayList<Station> passedStation;  // store station the ant already passed
+    private ArrayList<Station> allowedStation; // stations that not passed
+    private ArrayList<Station> search_list;  // all safe stations
     private double[][] delta; //
-    private double[][] distance;
-    private double alpha;
+    private double[][] distance; // distance matrix
+    private double alpha; // heuristic factor
     private double beta; // coefficient of distance between stations
 
     private double tourLength;
     private int stationNum;
-    //private State init_station = new State(55.9426, -3.1870);
-    private State current_station;
+    private Station current_station;
 
-    public Ant(int stationNum){
+    Ant(int stationNum){
         this.stationNum = stationNum;
         tourLength = 0;
     }
 
-    public void init(double[][] distance, double alpha, double beta, ArrayList<State> search_list){
+    /**
+     * Initialize Ant
+     * @param distance         distance matrix
+     * @param alpha            heuristic factor
+     * @param beta             coefficient of distance between stations
+     * @param search_list      all safe stations
+     */
+    void init(double[][] distance, double alpha, double beta, ArrayList<Station> search_list){
         this.distance = distance;
         this.alpha = alpha;
         this.beta = beta;
         this.search_list = search_list;
-        this.allowedStation = new ArrayList<State>(search_list);
+        this.allowedStation = new ArrayList<Station>(search_list);
 
-        passedStation = new ArrayList<State>();
+        passedStation = new ArrayList<Station>();
 
         delta = new double[stationNum][stationNum];
         for (int i = 0; i < stationNum; i++) {
@@ -38,14 +44,14 @@ public class Ant {
             }
         }
 
-        State init_station = search_list.get(0);
+        Station init_station = search_list.get(0);
         passedStation.add(init_station);
         current_station = init_station;
         allowedStation.remove(init_station);
     }
-
+    //--------------------------Methods----------------------------------------------
     //choose next station
-    public void selectNextStation(double[][] pheromone){
+    void selectNextStation(double[][] pheromone){
         double[] probability = new double[stationNum];
         double sum = 0;
         int current = current_station.code;
@@ -64,9 +70,10 @@ public class Ant {
             else probability[i] = 0;
         }
 
-        Random rnd = new Random();
+        Random rnd = new Random(5678); //pseudo random
         double rand = rnd.nextDouble();
 
+        //Random pick the next station
         double sumselect = 0;
         int nextStation_index = 0;
         for (int i = 0; i < stationNum; i++) {
@@ -78,15 +85,15 @@ public class Ant {
         }
 
         if (nextStation_index != 0){
-            State nextState = search_list.get(nextStation_index);
-            passedStation.add(nextState);
-            allowedStation.remove(nextState);
-            current_station = nextState;
+            Station nextStation = search_list.get(nextStation_index);
+            passedStation.add(nextStation);
+            allowedStation.remove(nextStation);
+            current_station = nextStation;
         }
 
     }
 
-    // calculate distance
+    // calculate path distance
     private double calculateTourLength(){
         double length = 0;
         for (int i = 0; i < passedStation.size()-1; i++) {
@@ -97,23 +104,21 @@ public class Ant {
         return length;
     }
 
-    public double getTourLength() {
+    //-----------------------Setters and Getters-------------------------
+    double getTourLength() {
         tourLength = calculateTourLength();
         return tourLength;
     }
 
-
-    public ArrayList<State> getPassedStation() {
+    ArrayList<Station> getPassedStation() {
         return passedStation;
     }
 
-
-
-    public double[][] getDelta() {
+    double[][] getDelta() {
         return delta;
     }
 
-    public void setDelta(double[][] delta) {
+    void setDelta(double[][] delta) {
         this.delta = delta;
     }
 
