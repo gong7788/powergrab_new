@@ -13,9 +13,9 @@ public class TestStateful {
         int seed = Integer.parseInt(args[5]);
         int count = 0;
 
-        for (int i = 28; i < 29; i++) {
+        for (int i =1; i < 32; i++) {
             day = i;
-            month = 10;
+            month = 12;
 
             MyMap Geomap = new MyMap(day, month, year);
             try {
@@ -47,10 +47,10 @@ public class TestStateful {
             String head = Geomap.getHead();
 		    DrawLines drawer = new DrawLines(path, head);
 		    String output = drawer.output();
-		    System.out.println(output);
-
-            System.out.printf("Collected: %.4f\n",drone_stateful.getCoins());
-            System.out.printf("Total: %.4f\n", Geomap.getTotal_coins());
+//		    System.out.println(output);
+//
+//            System.out.printf("Collected: %.4f\n",drone_stateful.getCoins());
+//            System.out.printf("Total: %.4f\n", Geomap.getTotal_coins());
 
 
 
@@ -74,11 +74,11 @@ public class TestStateful {
 //        }
 //
 //
-//            int diff = (int) Math.abs(drone_stateful.getCoins()-Geomap.getTotal_coins());
-//            if (diff != 0){
-//                count++;
-//                System.out.printf("Day: %d, Month: %d, diff: %d \r\n", day, month, diff);
-//
+            int diff = (int) Math.abs(drone_stateful.getCoins()-Geomap.getTotal_coins());
+            if (diff != 0){
+                count++;
+                System.out.printf("Day: %d, Month: %d, diff: %d \r\n", day, month, diff);
+
 //                String name = "D:\\output\\test.txt";
 //                String msg = String.format("Day: %d, Month: %d, Diff: %d \r\n", day, month, diff);
 //                try {
@@ -90,13 +90,13 @@ public class TestStateful {
 //                    System.out.print(e);
 //                    System.err.print("Success...");
 //                }
-//            }
-//            else System.out.printf("Day: %d, Month: %d  Pass \r\n", day, month);
+            }
+            else System.out.printf("Day: %d, Month: %d  Pass \r\n", day, month);
 
             }
 
-//            if (count == 0){
-//                System.out.println("All month passed");
-//            }
+            if (count == 0){
+                System.out.println("All month passed");
+            }
     }
 }

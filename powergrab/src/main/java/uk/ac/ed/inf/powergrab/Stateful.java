@@ -100,13 +100,20 @@ class Stateful extends Drone{
             double lat = nextP.latitude;
             double lon = nextP.longitude;
             double dist = distance(lon, lat, lon_t, lat_t);
-            if (dist < min && noDangerAround(nextP) && nextP.inPlayArea() && !contain(nextP)) {
+            double small_dist2Danger = dangerDist(nextP);
+//            if (dist < min && noDangerAround(nextP) && nextP.inPlayArea() && !contain(nextP)) {
+//                min = dist;
+//                next_step = nextP;
+//                nextd = d;
+//            }
+            if (dist < min && dist < small_dist2Danger && nextP.inPlayArea() && !contain(nextP)) {
                 min = dist;
                 next_step = nextP;
                 nextd = d;
             }
+
         }
-        //if all 16 direction are not valid, choose
+        //if all 16 direction are not valid, go back
         if (nextd == null){
             for (Direction d : Direction.values()){
                 Position nextP = current_position.nextPosition(d);
@@ -120,7 +127,6 @@ class Stateful extends Drone{
                 }
             }
         }
-
         update(next_step, nextd);
         return next_step;
     }
@@ -142,6 +148,22 @@ class Stateful extends Drone{
             if (dist < 0.00025) no_danger = false;
         }
         return no_danger;
+    }
+
+    private double dangerDist(Position p){
+        double lat1 = p.latitude;
+        double lon1 = p.longitude;
+        double min = Double.MAX_VALUE;
+        double dist;
+        for (Station s : danger_stations){
+            double lat2 = s.getLatitude();
+            double lon2 = s.getLongitude();
+            dist = distance(lon1, lat1, lon2, lat2);
+            if (dist < min){
+                min = dist;
+            }
+        }
+        return min;
     }
 
     /**
@@ -221,6 +243,7 @@ class Stateful extends Drone{
 
         int stationNum = search_list_.size();
 
+        //Adjusts parameters will effect the ACS algorithm
         ACS acs = new ACS(stationNum, 40, 100, 5.0, 5.0,
                 0.8, 10, 0, search_list_);
         acs.init();

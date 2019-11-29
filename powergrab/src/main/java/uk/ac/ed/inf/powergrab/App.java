@@ -47,8 +47,8 @@ public class App {
             System.out.println("Collected: " + stateless_drone.getCoins());
             System.out.println("Total: " + Geomap.getTotal_coins());
 
-            writefile(path, stateless_drone.coins_list, stateless_drone.power_list, stateless_drone.direction_list,
-                    day, month, year, output, type);
+//            writefile(path, stateless_drone.coins_list, stateless_drone.power_list, stateless_drone.direction_list,
+//                    day, month, year, output, type);
         }
         else if (type.equals("stateful")){
             Stateful drone_stateful = new Stateful(longitude, latitude, seed);
@@ -60,7 +60,7 @@ public class App {
 
             DrawLines drawer = new DrawLines(path, head);
             output = drawer.output();
-            System.out.println(output);
+//            System.out.println(output);
 
             System.out.printf("Collected: %.4f\n",drone_stateful.getCoins());
             System.out.printf("Total: %.4f\n", Geomap.getTotal_coins());

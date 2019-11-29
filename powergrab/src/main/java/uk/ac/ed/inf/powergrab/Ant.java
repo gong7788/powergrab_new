@@ -7,7 +7,7 @@ class Ant {
     private ArrayList<Station> passedStation;  // store station the ant already passed
     private ArrayList<Station> allowedStation; // stations that not passed
     private ArrayList<Station> search_list;  // all safe stations
-    private double[][] delta; //
+    private double[][] delta;
     private double[][] distance; // distance matrix
     private double alpha; // heuristic factor
     private double beta; // coefficient of distance between stations
