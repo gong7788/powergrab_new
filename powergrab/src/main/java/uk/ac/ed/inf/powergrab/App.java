@@ -78,7 +78,7 @@ public class App {
                    ArrayList<Direction> direction_list,
                    int day, int month, int year, String output, String type) {
 
-        String name = String.format("D:\\output\\%s-%02d-%02d-%d.geojson", type, day, month, year);
+        String name = String.format("%s-%02d-%02d-%d.geojson", type, day, month, year);
         try {
             FileWriter fw = new FileWriter(name);
             fw.write(output);
@@ -98,7 +98,7 @@ public class App {
             double coin = coins_list.get(i);
             String msg = pre_lat + "," + pre_long + "," + d + "," + lat + "," + lon + "," + coin + "," + power + "\r\n";
 
-            name = String.format("D:\\output\\%s-%02d-%02d-%d.txt", type, day, month, year);
+            name = String.format("%s-%02d-%02d-%d.txt", type, day, month, year);
             try {
                 FileWriter fw = new FileWriter(name, true);
                 fw.write(msg);

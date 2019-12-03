@@ -15,6 +15,7 @@ class Ant {
     private double tourLength;
     private int stationNum;
     private Station current_station;
+    private static Random rnd = new Random();
 
     Ant(int stationNum){
         this.stationNum = stationNum;
@@ -70,7 +71,7 @@ class Ant {
             else probability[i] = 0;
         }
 
-        Random rnd = new Random(5678); //pseudo random
+
         double rand = rnd.nextDouble();
 
         //Random pick the next station

@@ -13,7 +13,7 @@ class Stateful extends Drone{
         super(longitude, latitude, seed);
         this.initial = new Station(latitude, longitude);
     }
-    //-------------------Setter and Getters-------------------------------
+    //-------------------Setter and Getters--------------------------------
     ArrayList<Station> getSafe_stations() {
         return safe_stations;
     }
@@ -73,7 +73,6 @@ class Stateful extends Drone{
         double dist;
         do {
             Position nextP = move_one_step(target);
-
             current_position = nextP;
             double lat_p = nextP.latitude;
             double lon_p = nextP.longitude;
@@ -101,11 +100,6 @@ class Stateful extends Drone{
             double lon = nextP.longitude;
             double dist = distance(lon, lat, lon_t, lat_t);
             double small_dist2Danger = dangerDist(nextP);
-//            if (dist < min && noDangerAround(nextP) && nextP.inPlayArea() && !contain(nextP)) {
-//                min = dist;
-//                next_step = nextP;
-//                nextd = d;
-//            }
             if (dist < min && dist < small_dist2Danger && nextP.inPlayArea() && !contain(nextP)) {
                 min = dist;
                 next_step = nextP;
@@ -120,7 +114,7 @@ class Stateful extends Drone{
                 double lat = nextP.latitude;
                 double lon = nextP.longitude;
                 double dist = distance(lon, lat, lon_t, lat_t);
-                if (dist < min && noDangerAround(nextP) && nextP.inPlayArea()) {
+                if (dist < min && noDangerAround(nextP) && nextP.inPlayArea()&& !contain(nextP)) {
                     min = dist;
                     next_step = nextP;
                     nextd = d;
